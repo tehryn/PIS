@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html><head>
+    <meta http-equiv="content-type" content="text/html; charset=ISO-8859-2">
+    <title>PIS - projekty</title>
+    <style type="text/css">
+    	body { font-family: Arial, sans-serif; }
+    	th { padding-right: 1em; text-align: left; }
+    	em { font-weight: bold; }
+    </style>
+</head>
+<body>
+
+<h1>PIS 2018/19 &#8211; Zadání projektu</h1>
+
+<p>Ing. Radek Burget, Ph.D. (<a href="http://www.fit.vutbr.cz/~burgetr/">kontakt</a>)</p>
+
+<p>Předmětem projektu je implementace informačního systému navrženého v rámci přemdětu <a href="http://www.fit.vutbr.cz/study/courses/AIS/">AIS</a>
+ (seznam témat je také k dispozici na wiki v IS FIT) ve stejném složení 
+týmů. Studenti, kteří neabsolvovali předmět AIS nebo kterým se tým z 
+nějakého důvodu rozpadl vytvoří pro řešení 2-5 členné týmy, zvolí si 
+téma projektu AIS (viz WIKI předmětu) a složení týmu nahlásí do 
+31.3.2019 na <a href="mailto:burgetr@fit.vutbr.cz">burgetr@fit.vutbr.cz</a> (na tento oznamovací e-mail neočekávejte odpověď).</p>
+
+<p>Cílem projektu je implementace informačního systému s třívrstvou 
+architekturou pomocí existujících technologií, které tuto architekturu 
+podporují. V úvahu připadají následující platformy:</p>
+<ul>
+<li>Java Enterprise Edition (Jakarta EE) s O-R frameworkem pro 
+persistenci dat (Java Persistence API), business vrstvou (Enterprise 
+Java Beans) a webovým frameworkem (Java Server Faces) nebo alternativně s
+ REST rozhraním na serveru a klientskou aplikací v JavaScriptu (např. s 
+využitím <a href="https://angular.io/">Angular</a>, <a href="https://reactjs.org/">React.js</a>, <a href="https://vuejs.org/">Vue.js</a> apod.) Lze využít i jiné Enterprise Java řešení, např. <a href="https://spring.io/">Spring</a>.</li>
+<li>Jiná platforma, která podporuje vytvoření všech vrstev IS:
+    <ul>
+    <li>Datová vrstva &#8211; objektová reprezentace aplikačních dat a jejich 
+mapování do persistentního úložiště (databáze). Typicky O-R framework 
+nebo jiné mapování.
+    </li><li>Business vrstva &#8211; implementace operací (vycházejících z 
+případů použití) nad daty, modulární návrh (services, dependency 
+injection, apod.)
+    </li><li>Prezentační vrstva &#8211; webový framework s možností 
+efektivního propojení s business vrstvou (ideálně komponentově 
+orientovaný MVC, MVP nebo MVVM framework), nebo REST rozhraní + klient v
+ JavaScriptu.
+    </li></ul>
+    Tyto požadavky mohou splnit např. plafromy .NET, PHP s komplexním frameworkem (zřejmě vyhoví <a href="https://laravel.com/">Laravel</a>, populární <a href="https://nette.org/cs/">Nette</a> je třeba doplnit o datovou vrstvu, např. <a href="https://github.com/Kdyby/Doctrine">Doctrine</a>), Node.js s frameworkem (zřejmě vyhoví <a href="https://hapijs.com/">hapi.js</a>, snad <a href="https://expressjs.com/">express.js</a> s datovou vrstvou typu <a href="http://docs.sequelizejs.com/">Sequelize</a>).
+ Další jazyky/platformy mohou vyhovět také. V každém případě ale 
+očekávejte delší učící fázi, protože jde typicky o kombinaci 
+netriviálních technologií.
+</li>
+</ul>
+
+<p>Varianta Java EE je preferovaná a bude do značné míry řešena na 
+přednáškách. Důvodem je, že se jedná o zavedenou platformu, která je 
+komplexní (řeší výše uvedené částí aplikace a mnohé další) a představuje
+ de-facto standard v oblasti enterprise technologií. Znalost této 
+platformy lze proto považovat za základ, který pak umožní kvalifikovaně 
+posoudit výhody a nevýhody ostatních řešení.</p>
+
+<p>Ostatní platformy jsou možné, pokud splní výše uvedené podmínky. 
+Typicky (kromě .NET) nejsou tak rozsáhlé (což může být výhoda i 
+nevýhoda), mohou v mnoha aspektech zaostávat a mohou využívat různé 
+kombinace knihoven od různých poskytovatelů, jejichž integrace nemusí 
+být jednoduchá. Na druhou stranu může jít o perspektivní budoucí směr, 
+proto je tato možnost v projektu ponechána.</p>
+
+<p>Alternativní platforma podléhá schválení cvičícím &#8211; napište mail na <a href="mailto:burgetr@fit.vutbr.cz">burgetr@fit.vutbr.cz</a> shrnující zvolené technologie a způsob jejich použití.</p>
+
+<p><em>Na jednu z variant (Java vs. ostatní platformy) je možno se 
+přihlásit prostřednictvím IS do 31.3.2019. Přihlašují se všichni členové
+ týmů (na stejnou variantu). Varianty nejsou kapacitně omezeny.</em> 
+Volba technologie, řešení datové vrstvy (na různých platformách) i 
+realizace business a prezentační vrstvy bude řešena na přednáškách v 
+první polovině semestru.</p>
+
+<h2>Rozsah implementace</h2>
+<p>Implementovaný systém by měl být prakticky použitelný pro účel daný zadáním. Měl implementovat nejen <strong>zadávání dat</strong>, ale zejména <strong>operace</strong> vyplývající s navržených případů použití a v neposlední řadě <strong>výstupy</strong>, které jsou v daném tématu očekávatelné. Kromě vlastní funkcionality musí být implementovány následující funkce:</p>
+<ul>
+<li>Správa uživatelů a jejich rolí (podle povahy aplikace, např. obchodník, zákazník, administrátor).</li>
+<li>Přihlašování a odhlašování uživatelů přes uživatelské jméno a heslo. Automatické odhlášení po určité době nečinnosti.</li> 
+<li>Uživatelské rozhraní umožňující snadno realizovat běžné operace pro 
+každou roli. Je-li cílem např. prodej zboží, musí systém implementovat 
+odpovídající operaci, aby uživatel nemusel při každém prodeji ručně 
+upravovat počty zboží na skladě a podobně.</li>
+<li>Ošetření všech uživatelských vstupů tak, aby nebylo možno zadat nesmyslná nebo nekonzistentní data.
+	<ul>
+	<li>Povinná pole formulářů musí být odlišena od nepovinných.</li>
+	<li>Hodnoty ve formulářích, které nejsou pro fungování aplikace 
+nezbytné, neoznačujte jako povinné (např. adresy, telefonní čísla apod.)
+ Nenuťte uživatele (opravujícího) vyplňovat desítky zbytečných řádků.</li>
+	<li>Při odeslání formuláře s chybou by správně vyplněná pole měla 
+zůstat zachována (uživatel by neměl být nucen vyplňovat vše znovu).</li>
+	<li>Pokud je vyžadován konkrétní formát vstupu (např. datum, rodné 
+číslo), měl by být u daného pole naznačen. Pro výběr data použijte 
+odpovídající komponentu uživatelského rozhraní. Můžete využít libovolnou
+ volně dostupnou implementaci takové komponenty.</li>
+	<li>Pokud to v daném případě dává smysl, pole obsahující datum by měla být předvyplněna aktuálním datem.</li>
+	<li>Nemělo by být vyžadováno zapamatování a zadávání generovaných 
+identifikátorů (klíčů), jako např. ID položky na skladě. To je lépe 
+nahradit výběrem ze seznamu. Výjimku tvoří případy, kdy se zadáním ID 
+simuluje např. čtečka čipových karet v knihovně. V takovém případě 
+prosím ušetřete opravujícímu práci nápovědou několika ID, která lze 
+použít pro testování.</li>
+	<li>Žádné zadání nesmí způsobit nekonzistentní stav databáze (např. přiřazení objednávky neexistujícímu uživateli).</li>
+	</ul>
+</li>
+</ul>
+<p>Implementace musí zahrnovat jasně odlišitelné vrstvy vyjmenované výše
+ implementované pomocí odpovídajících technologií. Prezentační vrstva 
+musí poskytovat webové uživatelské rozhraní.</p>
+
+<h2>Dokumentace</h2>
+<p>Součástí projektu je soubor <code>doc.html</code> obsahující základní informace. Stáhněte si prosím následující <a href="https://www.fit.vutbr.cz/study/courses/PIS/private/cviceni/doc.html">šablonu</a>,
+ přečtěte si komentáře v kódu a doplňte požadované informace. Výsledný 
+soubor umístěte do kořenového adresáře odevzdaného projektu.</p>
+
+<h2>Odevzdání</h2>
+<p>Odevzdání probíhá přes IS FIT. Po odevzdání bude následovat 
+předvedení projektu cvičícímu. Termíny prezentací budou oznámeny 
+prostřednictvím IS FIT. Pokud projekt nebude řádně odevzdán v IS, nelze 
+jej prezentovat a bude hodnocen jako nevypracovaný.</p> 
+<p>Přes IS se odevzdává jeden archiv pojmenovaný <code>vas_login.zip</code> obsahující:</p>
+<ul>
+	<li>Pro Java EE:
+		<ul>
+		<li>Balíček JAR nebo ZIP obsahující zdrojové kódy a všechny konfigurační a datové soubory (<strong>žádné knihovny</strong>). V Eclipse: File-&gt;Export-&gt;Java-&gt;JAR file, zaškrtnout požadované možnosti, neexportovat přeložené třídy.</li>
+		<li>Soubor <code>doc.html</code> s dokumentací, viz výše.</li>
+		</ul>
+	</li>
+	<li>Ostatní platformy:
+		<ul>
+		<li>Balíček ZIP obsahující zdrojové kódy a všechny konfigurační a datové soubory (<strong>žádné knihovny</strong>).</li>
+		<li>Soubor <code>doc.html</code> s dokumentací, viz výše.</li>
+		</ul>
+	</li>
+</ul>
+<p><strong>Všichni</strong> členové řešitelského týmu odevzdávají do IS <strong>identický</strong> ZIP soubor lišící se pouze jménem.</p>
+		
+<p>Termín pro odevzdání je <strong>22.4.2019</strong>.</p>
+
+<h2>Body</h2>
+<p>Za projekt je možno získat až 30 bodů.</p>
+
+
+
+
+
+</body></html>
