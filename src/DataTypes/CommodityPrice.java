@@ -3,6 +3,9 @@ package datatypes;
 import datatypes.Currency;
 import datatypes.CommodityPriceCounter;
 
+/**
+ *  @brief Part of commodity price
+ */
 public class CommodityPrice {
 	public float value;
 	public Currency currency;
