@@ -13,7 +13,7 @@ import datatypes.*; // Include whole datatypes package
 */
 
 public class DataTypesExample {
-	public static void main(String []args) {
+/*	public static void main(String []args) {
 		// Every enum has .toString() method that will convert enum name to strings
 		System.out.printf("UserRole MANAGER: %s\n", UserRole.MANAGER.toString());
 		
@@ -24,5 +24,5 @@ public class DataTypesExample {
 		System.out.printf("Commodity value: %f\n", c.value);
 		System.out.printf("Commodity currency: %s\n", c.currency.toString());
 		System.out.printf("Commodity pcounter: %s\n", c.valuePer.toString());
-	}
+	}*/
 }
