@@ -12,14 +12,15 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-@Entity
-@Table
+
 /**
  * 
  * @author xmatej52
  *
  */
-public class Rezervation extends Object {
+@Entity
+@Table
+public class Reservation extends Object {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
@@ -29,23 +30,23 @@ public class Rezervation extends Object {
 	private User user;
 	
 	@OneToMany(mappedBy = "commodity")
-	private List<RezervatedCommodity> items;
+	private List<ReservedCommodity> items;
 
-	public Rezervation(User user, List<RezervatedCommodity> items) {
+	public Reservation(User user, List<ReservedCommodity> items) {
 		super();
 		this.user = user;
 		this.items = items;
 	}
 	
-	public Rezervation() {
+	public Reservation() {
 		super();
 	}
 
-	public List<RezervatedCommodity> getItems() {
+	public List<ReservedCommodity> getItems() {
 		return items;
 	}
 
-	public void setItems(List<RezervatedCommodity> items) {
+	public void setItems(List<ReservedCommodity> items) {
 		this.items = items;
 	}
 

@@ -13,31 +13,31 @@ import javax.persistence.Table;
 
 @Entity
 @Table
-public class RezervatedCommodity extends Object {
+public class ReservedCommodity extends Object {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 	
 	@ManyToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="rezervation")
-	private Rezervation rezervation;
+	@JoinColumn(name="reservation")
+	private Reservation reservation;
 	
 	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="commodity")
-	private Rezervation commodity;
+	private Reservation commodity;
 	
 	private LocalDateTime from;
 	private LocalDateTime until;
 	
-	public RezervatedCommodity(Rezervation rezervation, Rezervation commodity, LocalDateTime from, LocalDateTime until) {
+	public ReservedCommodity(Reservation reservation, Reservation commodity, LocalDateTime from, LocalDateTime until) {
 		super();
-		this.rezervation = rezervation;
+		this.reservation = reservation;
 		this.commodity = commodity;
 		this.from = from;
 		this.until = until;
 	}
 	
-	public RezervatedCommodity() {
+	public ReservedCommodity() {
 		super();
 	}
 
@@ -57,11 +57,11 @@ public class RezervatedCommodity extends Object {
 		this.until = until;
 	}
 
-	public Rezervation getRezervation() {
-		return rezervation;
+	public Reservation getRezervation() {
+		return reservation;
 	}
 
-	public Rezervation getCommodity() {
+	public Reservation getCommodity() {
 		return commodity;
 	}
 	
