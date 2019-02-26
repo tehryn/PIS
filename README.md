@@ -61,4 +61,11 @@ Make sure java.exe and javac.exe are in %PATH%.
 18. Finish
 
 
+Troubleshooting:
+Configuration error.  Class [com.mysql.jdbc.Driver] not found:
+https://javabeat.net/eclipselink-mysql-driver-persistence-exception/
 
+MySQL has problem with timezones:
+https://stackoverflow.com/questions/19023978/should-mysql-have-its-timezone-set-to-utc
+
+Querries Example is trying to connect under completely different user you've setup Connection with? Edit src/META-INF/persistence.xml ;)

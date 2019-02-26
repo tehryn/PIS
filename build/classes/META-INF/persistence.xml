@@ -7,9 +7,9 @@
 		<class>queries.db.Reservation</class>
 		<class>queries.db.CommodityPrice</class>
 		<properties>
-			<property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/pis"/>
-			<property name="javax.persistence.jdbc.user" value="root"/>
-			<property name="javax.persistence.jdbc.password" value="heslo123456789"/>
+			<property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/pis?serverTimezone=UTC"/>
+			<property name="javax.persistence.jdbc.user" value="doomista"/>
+			<property name="javax.persistence.jdbc.password" value="pis"/>
 			<property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver"/>
 		</properties>
 	</persistence-unit>
