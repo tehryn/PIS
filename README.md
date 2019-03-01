@@ -21,6 +21,13 @@ lower_case_table_names = 1
 
 Start apache, mysql and tomcat. When these are running, click on Admin button of mysql. It will open browser with phpMyAdmin. Create new database called pis, then click import, browse for sql/init.sql and execute. Some tables should be created.
 
+#### Accounts
+
+Create following user with proper privileges on pis database:
+
+ * *USER:* pis
+ * *PSWD:* p1sh3sl0
+
 ### Java
 
 Make sure java.exe and javac.exe are in %PATH%.
@@ -56,9 +63,14 @@ Make sure java.exe and javac.exe are in %PATH%.
     5. Go to Properties and set
         1. URL: jdbc:mysql://localhost:3306/pis
         2. Database: pis
-        3. Username and Password
+        3. Username and Password (pis/p1sh3sl0)
     6. Finish
 18. Finish
 
 
+Troubleshooting:
+Configuration error.  Class [com.mysql.jdbc.Driver] not found:
+https://javabeat.net/eclipselink-mysql-driver-persistence-exception/
 
+MySQL has problem with timezones:
+https://stackoverflow.com/questions/19023978/should-mysql-have-its-timezone-set-to-utc
