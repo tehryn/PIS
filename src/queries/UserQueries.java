@@ -51,12 +51,16 @@ public class UserQueries extends Queries<User> {
 		return select( "SELECT u FROM User u", new ArrayList<Object>() );
 	}
 
-	
 	@Override
 	public User getItem(int id) {
 		return entitymanager.find( User.class, id );
 	}
 
+	/**
+	 * Retrieve specific user from database
+	 * @param email email of user
+	 * @return object representing user or null if no user was found
+	 */
 	public User getUserByEmail( String email ) {
 		List<Object> params = new ArrayList<Object>();
 		params.add(email);
@@ -73,6 +77,18 @@ public class UserQueries extends Queries<User> {
 	}
 
 	/**
+	 * Change name of user
+	 * @param user user that shall be updated
+	 * @param firstName new first name
+	 * @param lastName new last name
+	 */
+	public void changeName( User user, String firstName, String lastName ) {
+		user.setFirstName(firstName);
+		user.setLastName(lastName);
+		flush2Db();
+	}
+
+	/**
 	 * Creates new user in database
 	 * @param firstName Name of the user
 	 * @param lastName Surname of the user
@@ -85,7 +101,7 @@ public class UserQueries extends Queries<User> {
 		flush2Db();
 		return u;
 	}
-
+	
 	/**
 	 * Creates new user in database
 	 * @param firstName Name of the user
@@ -108,5 +124,27 @@ public class UserQueries extends Queries<User> {
 			q.setParameter(i+1, params.get(i) );
 		}
 		return q.getResultList();
+	}
+	
+	/**
+	 * Change login info of user
+	 * @param user user that shall be updated
+	 * @param email new email of user
+	 * @param password new password of user
+	 */
+	public void setLogin( User user, String email, String password ) {
+		user.setEmail(email);
+		user.setPassword(password);
+		flush2Db();
+	}
+	
+	/**
+	 * Updates role of user
+	 * @param user user that shall be updated
+	 * @param newRole new role
+	 */
+	public void setRole( User user, datatypes.UserRole newRole ) {
+		user.setRole(newRole);
+		flush2Db();
 	}
 }
