@@ -1,6 +1,7 @@
 package queries;
 
 import java.util.List;
+
 import javax.persistence.EntityManager;
 import javax.persistence.Persistence;
 
@@ -10,27 +11,66 @@ import javax.persistence.Persistence;
  * 
  */
 public abstract class Queries<Type> {
-	/**
-	 * Serialize string, so it will be safe to put it directly to web
-	 * @param str 
-	 * @return
-	 */
-	public String serializate( String str ) {
-		return str;
-	}
-	
-	protected Boolean inTransaction;
-	protected EntityManager entitymanager;
-	public Queries() {
-		this.entitymanager = Persistence.createEntityManagerFactory( "PIS" ).createEntityManager();
-	}
+	protected static EntityManager entitymanager = Persistence.createEntityManagerFactory( "PIS" ).createEntityManager();
 	
 	/**
-	 * Loads item from database
-	 * @param id id of item in database table
-	 * @return object that represents item (objects from queries.db package)
+	 * Starts transaction
 	 */
-	public abstract Type getItem( int id );
+	protected static void beginTransaction() {
+		if ( !entitymanager.getTransaction().isActive() ) {
+			entitymanager.getTransaction().begin();
+		}
+	}
+	/**
+	 * Commit the current resource transaction, writing any unflushed changes to the database.
+	 */
+	protected static void flush2Db() {
+		entitymanager.flush();
+	}
+	
+	/**
+	 * Rollback all the changes in database and begins new transaction.
+	 */
+	public static void rollback() {
+		if ( entitymanager.getTransaction().isActive() ) {
+			entitymanager.getTransaction().rollback();
+			beginTransaction();
+		}
+	}
+	
+	/**
+	 * Rollback all the changes in database.
+	 * @param startNew Starts new transaction after rollback
+	 */
+	public static void rollback( boolean startNew ) {
+		if ( entitymanager.getTransaction().isActive() ) {
+			entitymanager.getTransaction().rollback();
+			if ( startNew ) {
+				beginTransaction();
+			}
+		}
+	}
+	
+	/**
+	 * Commit the current resource transaction, writing any unflushed changes to the database.
+	 */
+	public static void update() {
+		entitymanager.getTransaction().commit();
+		beginTransaction();
+	}
+	
+	/**
+	 * Commit the current resource transaction, writing any unflushed changes to the database and starts new transaction of startNew is false, no new transaction will be started
+	 * @param startNew starts new transaction after commit
+	 */
+	public static void update( boolean startNew ) {
+		entitymanager.getTransaction().commit();
+		if ( startNew ) {
+			beginTransaction();
+		}
+	}
+
+	public Queries() {}
 	
 	/**
 	 * Deletes item from database
@@ -45,39 +85,26 @@ public abstract class Queries<Type> {
 	public abstract List<Type> getAllItems();
 	
 	/**
+	 * Loads item from database
+	 * @param id id of item in database table
+	 * @return object that represents item (objects from queries.db package)
+	 */
+	public abstract Type getItem( int id );
+	
+	/**
 	 * Process query (ONLY select statement) in database and returns list of selected items
 	 * @param query query that will be proceed
 	 * @param params parameters of query
 	 * @return list of items representing database objects with getters and setters.
 	 */
 	protected abstract List<Type> select( String query, List<Object> params );
-
-	/**
-	 * Starts transaction
-	 */
-	protected void beginTransaction() {
-		entitymanager.getTransaction().begin();
-		inTransaction = true;
-	}
 	
 	/**
-	 * Commit the current resource transaction, writing any unflushed changes to the database.
+	 * Serialize string, so it will be safe to put it directly to web
+	 * @param str 
+	 * @return
 	 */
-	protected void commit() {
-		entitymanager.flush();
-	}
-	
-	/**
-	 * Rollback all the changes in database.
-	 */
-	protected void rollback() {
-		 entitymanager.getTransaction().rollback();
-	}
-	
-	/**
-	 * Commit the current resource transaction, writing any unflushed changes to the database.
-	 */
-	public void update() {
-		entitymanager.getTransaction().commit();
+	public String serializate( String str ) {
+		return str;
 	}
 }

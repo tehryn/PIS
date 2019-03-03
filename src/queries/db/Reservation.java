@@ -1,8 +1,12 @@
 package queries.db;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -25,36 +29,48 @@ public class Reservation extends Object {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 	
-	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="user")
 	private User user;
 	
-	@OneToMany(mappedBy = "commodity")
+	@OneToMany(mappedBy = "reservation", orphanRemoval=true, cascade = CascadeType.ALL)
 	private List<ReservedCommodity> items;
 
-	public Reservation(User user, List<ReservedCommodity> items) {
-		super();
-		this.user = user;
-		this.items = items;
-	}
-	
+	@Enumerated(EnumType.ORDINAL)
+	private datatypes.ReservationStatus status;
+
 	public Reservation() {
 		super();
 	}
-
-	public List<ReservedCommodity> getItems() {
-		return items;
-	}
-
-	public void setItems(List<ReservedCommodity> items) {
-		this.items = items;
+	
+	public Reservation(User user) {
+		super();
+		this.user = user;
+		this.status = datatypes.ReservationStatus.REQUESTED;
+		this.items = new ArrayList<ReservedCommodity>();
 	}
 
 	public int getId() {
 		return id;
 	}
 
+	public List<ReservedCommodity> getItems() {
+		return items;
+	}
+	
+	public datatypes.ReservationStatus getStatus() {
+		return status;
+	}
+	
 	public User getUser() {
 		return user;
+	}
+
+	public void setStatus(datatypes.ReservationStatus status  ) {
+		this.status = status;
+	}
+	
+	@Override
+	public String toString() {
+		return "Reservation [id=" + id + ", user=" + user + ", items=" + items + ", status=" + status + "]";
 	}
 }

@@ -1,7 +1,5 @@
 package queries.db;
 
-import datatypes.Currency;
-
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -14,6 +12,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import datatypes.CommodityPriceCounter;
+import datatypes.Currency;
 
 /**
  *  @brief Part of commodity price
@@ -54,6 +53,10 @@ public class CommodityPrice extends Object {
 		return commodity;
 	}
 	
+	public Currency getCurrency() {
+		return currency;
+	}
+
 	public int getId() {
 		return id;
 	}
@@ -62,20 +65,16 @@ public class CommodityPrice extends Object {
 		return value;
 	}
 
-	public void setValue(float value) {
-		this.value = value;
-	}
-
-	public Currency getCurrency() {
-		return currency;
+	public CommodityPriceCounter getValuePer() {
+		return valuePer;
 	}
 
 	public void setCurrency(Currency currency) {
 		this.currency = currency;
 	}
 
-	public CommodityPriceCounter getValuePer() {
-		return valuePer;
+	public void setValue(float value) {
+		this.value = value;
 	}
 
 	public void setValuePer(CommodityPriceCounter valuePer) {

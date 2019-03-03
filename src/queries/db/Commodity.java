@@ -1,5 +1,6 @@
 package queries.db;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -31,42 +32,26 @@ public class Commodity {
 	
 	private String sysid;
 	
-	@OneToMany(mappedBy = "commodity", cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "commodity", cascade = CascadeType.ALL, orphanRemoval=true)
 	private List<CommodityPrice> commodityPrices;
 
-	public Commodity() {
+	protected Commodity() {
 		super();
 	}
 	
-	public Commodity( CommodityType type, CommodityState state, List<CommodityPrice> commodityPrices, String sysid ) {
+	public Commodity( CommodityType type, CommodityState state, String sysid ) {
 		this.type = type;
 		this.availability = state;
-		this.commodityPrices = commodityPrices;
+		this.commodityPrices = new ArrayList<CommodityPrice>();
 		this.sysid = sysid;
 	}
 	
-	public CommodityType getType() {
-		return type;
-	}
-
-	public void setType(CommodityType type) {
-		this.type = type;
-	}
-
 	public CommodityState getAvailability() {
 		return availability;
 	}
 
-	public void setAvailability(CommodityState availability) {
-		this.availability = availability;
-	}
-
 	public List<CommodityPrice> getCommodityPrices() {
 		return commodityPrices;
-	}
-
-	public void setCommodityPrices(List<CommodityPrice> commodityPrices) {
-		this.commodityPrices = commodityPrices;
 	}
 
 	public int getId() {
@@ -77,13 +62,17 @@ public class Commodity {
 		return sysid;
 	}
 
-	public void setSysid(String sysid) {
-		this.sysid = sysid;
+	public CommodityType getType() {
+		return type;
+	}
+
+	public void setAvailability(CommodityState availability) {
+		this.availability = availability;
 	}
 
 	@Override
 	public String toString() {
-		return "Commodity [id=" + id + ", type=" + type + ", availability=" + availability + ", sysid=" + sysid
-				+ ", commodityPrices=" + commodityPrices + "]";
+		return "Commodity [id=" + id + ", type=" + type + ", availability=" + availability + ", sysid='" + sysid
+				+ "', commodityPrices=" + commodityPrices + "]";
 	}
 }

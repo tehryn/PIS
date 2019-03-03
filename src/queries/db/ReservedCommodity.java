@@ -1,15 +1,17 @@
 package queries.db;
 
-import java.time.LocalDateTime;
+import java.util.Date;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 @Entity
 @Table
@@ -18,51 +20,65 @@ public class ReservedCommodity extends Object {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 	
-	@ManyToOne(fetch=FetchType.LAZY)
+	@ManyToOne
 	@JoinColumn(name="reservation")
 	private Reservation reservation;
 	
-	@ManyToOne(fetch=FetchType.LAZY)
+	@ManyToOne
 	@JoinColumn(name="commodity")
-	private Reservation commodity;
+	private Commodity commodity;
 	
-	private LocalDateTime from;
-	private LocalDateTime until;
+	@Temporal(TemporalType.TIMESTAMP)
+	@Column(name="frm")
+	private Date from;
 	
-	public ReservedCommodity(Reservation reservation, Reservation commodity, LocalDateTime from, LocalDateTime until) {
+	@Temporal(TemporalType.TIMESTAMP)
+	private Date until;
+	
+	public ReservedCommodity() {
+		super();
+	}
+	
+	public ReservedCommodity(Reservation reservation, Commodity commodity, Date from, Date until) {
 		super();
 		this.reservation = reservation;
 		this.commodity = commodity;
 		this.from = from;
 		this.until = until;
 	}
-	
-	public ReservedCommodity() {
-		super();
+
+	public Commodity getCommodity() {
+		return commodity;
 	}
 
-	public LocalDateTime getFrom() {
+	public Date getFrom() {
 		return from;
 	}
 
-	public void setFrom(LocalDateTime from) {
-		this.from = from;
-	}
-
-	public LocalDateTime getUntil() {
-		return until;
-	}
-
-	public void setUntil(LocalDateTime until) {
-		this.until = until;
+	public int getId() {
+		return id;
 	}
 
 	public Reservation getRezervation() {
 		return reservation;
 	}
 
-	public Reservation getCommodity() {
-		return commodity;
+	public Date getUntil() {
+		return until;
+	}
+
+	public void setFrom(Date from) {
+		this.from = from;
+	}
+	
+	public void setUntil(Date until) {
+		this.until = until;
+	}
+
+	@Override
+	public String toString() {
+		return "ReservedCommodity [id=" + id + ", reservation=" + reservation.getId() + ", commodity=" + commodity + ", from="
+				+ from + ", until=" + until + "]";
 	}
 	
 }

@@ -23,11 +23,6 @@ public class CommodityQueries extends Queries<Commodity> {
 
 	private static CommodityQueries self;
 	
-	private CommodityQueries() {
-		super();
-		beginTransaction();
-	}
-	
 	public static synchronized CommodityQueries getQuery() {
 		if ( self == null ) {
 			self = new CommodityQueries();
@@ -35,16 +30,16 @@ public class CommodityQueries extends Queries<Commodity> {
 		return self;
 	}
 	
-	@Override
-	public Commodity getItem(int id) {
-		return this.entitymanager.find( Commodity.class, id );
+	private CommodityQueries() {
+		super();
+		beginTransaction();
 	}
-
+	
 	@Override
 	public void deleteItem(int id) {
 		Commodity c = getItem(id);
 		entitymanager.remove( c );
-		commit();
+		flush2Db();
 	}
 
 	@Override
@@ -52,6 +47,62 @@ public class CommodityQueries extends Queries<Commodity> {
 		return select( "SELECT c FROM Commodity c", new ArrayList<Object>() );
 	}
 
+	/**
+	 * Finds commodity by sysid
+	 * @param sysid sysid of commodity
+	 * @return commodity with specific sysid
+	 */
+	public Commodity getCommodityBySysid(String sysid) {
+		List<Object> params = new ArrayList<Object>();
+		params.add(sysid);
+		List<Commodity> commodities = select( "SELECT c FROM Commodity c WHERE c.sysid = ?1", params );
+		if ( commodities.size() > 1 ) {
+			throw new RuntimeException( "queries.CommodityQueries::getCommodityBySysid: There are more than one commodity with same email sysid." );
+		}
+		else if ( commodities.size() == 1 ) {
+			return commodities.get(0);
+		}
+		else {
+			return null;
+		}
+	}
+
+	@Override
+	public Commodity getItem(int id) {
+		return entitymanager.find( Commodity.class, id );
+	}
+	
+	/**
+	 * Creates new commodity.
+	 * @param type commodity type
+	 * @param state commodity state
+	 * @param sysid commodity sysid
+	 * @return Instance representing new commodity.
+	 */
+	public Commodity newCommodity(CommodityType type, CommodityState state, String sysid) {
+		Commodity c = new Commodity( type, state, sysid );
+		entitymanager.persist(c);
+		flush2Db();
+		return c;
+	}
+
+	/**
+	 * Removes support of currency for specific commodity
+	 * @param commodity commodity, that will be changed
+	 * @param currency currency, that will not be longer supported in commodity
+	 */
+	public void removeSupportedCurrency( Commodity commodity, Currency currency ) {
+		List <CommodityPrice> prices = commodity.getCommodityPrices();
+		int i = 0;
+		for(i = 0; i < prices.size(); i++) {
+			if (prices.get(i).getCurrency() == currency) {
+				prices.remove(i);
+				flush2Db();
+				break;
+			}
+		}
+	}
+	
 	@Override
 	protected List<Commodity> select(String query, List<Object> params) {
 		TypedQuery<Commodity> q = entitymanager.createQuery(query, Commodity.class);
@@ -61,32 +112,35 @@ public class CommodityQueries extends Queries<Commodity> {
 		return q.getResultList();
 	}
 	
-	public Commodity newCommodity(CommodityType type, CommodityState state, List<CommodityPrice> commodityPrices, String sysid ) {
-		return new Commodity( type, state, commodityPrices, sysid );
+	/**
+	 * Sets new state of commodity availability
+	 * @param commodity commodity that we be changed
+	 * @param newState new state
+	 */
+	public void setAvailability( Commodity commodity, CommodityState newState ) {
+		commodity.setAvailability(newState);
+		flush2Db();
 	}
-	
-	public Commodity newCommodity(CommodityType type, CommodityState state, String sysid) {
-		return new Commodity( type, state, new ArrayList<CommodityPrice>(), sysid);
-	}
-	
-	public void setPrice(int id, float value, CommodityPriceCounter counter, Currency currency) {
-		Commodity c = getItem( id );
-		setPrice(c, value, counter, currency);
-	}
-	
+
+	/**
+	 * Updates or sets new price for specific currency and commodity
+	 * @param commodity commodity itself
+	 * @param value Price of commodity
+	 * @param counter Type, how is final price counted
+	 * @param currency Currency of value.
+	 */
 	public void setPrice(Commodity commodity, float value, CommodityPriceCounter counter, Currency currency) {
 		List <CommodityPrice> prices = commodity.getCommodityPrices();
 		int i = 0;
 		for(i = 0; i < prices.size(); i++) {
 			if (prices.get(i).getCurrency() == currency) {
-				//prices.remove(i);
-				entitymanager.remove( prices.get(i) );
+				prices.remove(i);
+				flush2Db();
+				break;
 			}
 		}
-		prices.add(new CommodityPrice(value, currency, counter, commodity));
-		commodity.setCommodityPrices(prices);
-		commit();
+		CommodityPrice price = new CommodityPrice(value, currency, counter, commodity);
+		prices.add( price );
+		flush2Db();
 	}
-	
-	
 }
