@@ -49,7 +49,15 @@ public class User {
 	 * his old reservations.
 	 */
 	public User(String firstName, String lastName, String email) {
-		userHandle = query.newUser(firstName, lastName, email);
+		try {
+			userHandle = query.newUser(firstName, lastName, email);
+		}
+		catch (Exception e) {
+			UserQueries.rollback();
+			throw e;
+		}
+		
+		UserQueries.update();
 	}
 	
 	/**
@@ -85,7 +93,15 @@ public class User {
 	 * @param password  Password for login
 	 */
 	public User(String firstName, String lastName, String email, String password) {
-		userHandle = query.newUser(firstName, lastName, email, password);
+		try {
+			userHandle = query.newUser(firstName, lastName, email, password);
+		}
+		catch (Exception e) {
+			UserQueries.rollback();
+			throw e;
+		}
+		
+		UserQueries.update();
 	}
 	
 	/**
@@ -138,23 +154,55 @@ public class User {
 	}
 	
 	public void setRole(UserRole role) {
-		userHandle.setRole(role);
+		try {
+			userHandle.setRole(role);
+		}
+		catch (Exception e) {
+			UserQueries.rollback();
+			throw e;
+		}
+		
+		UserQueries.update();
 	}
 	
 	public void setName(String firstName, String lastName) {
-		userHandle.setFirstName(firstName);
-		userHandle.setLastName(lastName);
+		try {
+			userHandle.setFirstName(firstName);
+			userHandle.setLastName(lastName);
+		}
+		catch (Exception e) {
+			UserQueries.rollback();
+			throw e;
+		}
+		
+		UserQueries.update();
 	}
 	
 	public void setEmail(String email) {
-		userHandle.setEmail(email);
+		try {
+			userHandle.setEmail(email);
+		}
+		catch (Exception e) {
+			UserQueries.rollback();
+			throw e;
+		}
+		
+		UserQueries.update();
 	}
 	
 	/**
 	 * @brief
 	 */
 	public void remove() {
-		query.deleteItem(userHandle.getId());
-		userHandle = null;
+		try {
+			query.deleteItem(userHandle.getId());
+			userHandle = null;
+		}
+		catch (Exception e) {
+			UserQueries.rollback();
+			throw e;
+		}
+		
+		UserQueries.update();
 	}
 }
