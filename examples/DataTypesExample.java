@@ -1,5 +1,5 @@
-import java.io.*;
-import datatypes.*; // Include whole datatypes package
+//import java.io.*;
+//import datatypes.*; // Include whole datatypes package
 
 /* Importing datatypes inclues following:
 	enumerator Currency
