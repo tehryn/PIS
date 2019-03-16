@@ -6,7 +6,7 @@ package core;
 
 import java.util.List;
 import java.util.ArrayList;
-import java.sql.Timestamp;
+import java.util.Date;
 
 import queries.CommodityQueries;
 import queries.UserQueries;
@@ -115,7 +115,7 @@ public class Commodity {
 		UserQueries.update();
 	}
 	
-	public boolean isReserved(Timestamp from, Timestamp until) {
+	public boolean isReserved(Date from, Date until) {
 		// TODO:
 		return false;
 	}
