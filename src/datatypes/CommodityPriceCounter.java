@@ -1,7 +1,7 @@
 package datatypes;
 
 /**
- *  @brief How commodity is prices
+ *  @brief How commodity is priced (by some amount of time or per item)
  */
 public enum CommodityPriceCounter {
 	SECOND,
