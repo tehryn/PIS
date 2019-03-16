@@ -1,7 +1,7 @@
 /**
- * \file User.java
- * \author Jakub Neruda
- * \brief Class representing single user
+ * @file User.java
+ * @author Jakub Neruda
+ * @brief Class representing single user
  */
 package core;
 
@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.ArrayList;
 
 /**
- * @author Jakub Neruda
+ *  @brief Class representing user of the system
  */
 public class User {
 	private UserQueries query = UserQueries.getQuery();
@@ -21,6 +21,11 @@ public class User {
 		userHandle = handle;
 	}
 	
+	/**
+	 * @brief Find all users with given name
+	 * @param firstName First name to search for
+	 * @param lastName  Last name to search for
+	 */
 	public static List<User> findUsers(String firstName, String lastName) {
 		UserQueries query = UserQueries.getQuery();
 		List<User> result = new ArrayList<User>();
@@ -191,7 +196,7 @@ public class User {
 	}
 	
 	/**
-	 * @brief
+	 * @brief Remove user from database
 	 */
 	public void remove() {
 		try {
