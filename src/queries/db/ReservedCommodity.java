@@ -14,7 +14,7 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 @Entity
-@Table
+@Table(name="reservedcommodity")
 public class ReservedCommodity extends Object {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
