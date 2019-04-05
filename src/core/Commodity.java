@@ -89,7 +89,9 @@ public class Commodity {
 		return resHandle;
 	}
 	
-	// TODO: public getInfo() {}
+	public String getDescription() {
+		return resHandle.getDescription();
+	}
 	
 	public void setAvailability(CommodityState state) {
 		try {
@@ -113,6 +115,10 @@ public class Commodity {
 		}
 		
 		UserQueries.update();
+	}
+	
+	public void setDescription(String description) {
+		resHandle.setDescription(description);
 	}
 	
 	public boolean isReserved(Date from, Date until) {

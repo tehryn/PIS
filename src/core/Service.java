@@ -21,8 +21,8 @@ public class Service extends Commodity {
 		super(com);
 	}
 	
-	public Service(String sysid, List<CommodityPrice> prices) {
-		resHandle = query.newCommodity(CommodityType.SERVICE, CommodityState.AVAILABLE, sysid);
+	public Service(String sysid, String description, List<CommodityPrice> prices) {
+		resHandle = query.newCommodity(CommodityType.SERVICE, CommodityState.AVAILABLE, sysid, description);
 		
 		for (CommodityPrice price : prices) {
 			setPrice(price);
