@@ -116,7 +116,7 @@ public class Commodity {
 	}
 	
 	public boolean isReserved(Date from, Date until) {
-		// TODO:
-		return false;
+		queries.ReservationQueries resq = queries.ReservationQueries.getQuery();
+		return resq.isCommodityReserved(resHandle, from, until);
 	}
 }
