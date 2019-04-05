@@ -7,7 +7,7 @@
 		<class>queries.db.Reservation</class>
 		<class>queries.db.CommodityPrice</class>
 		<properties>
-			<property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/pis?user=pis&amp;password=p1sh3sl0"/>
+			<property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/pis?user=pis&amp;password=p1sh3sl0&amp;serverTimezone=UTC"/>
 			<property name="javax.persistence.jdbc.user" value="pis"/>
 			<property name="javax.persistence.jdbc.password" value="p1sh3sl0"/>
 			<property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver"/>

@@ -32,6 +32,8 @@ public class Commodity {
 	
 	private String sysid;
 	
+	private String description;
+
 	@OneToMany(mappedBy = "commodity", cascade = CascadeType.ALL, orphanRemoval=true)
 	private List<CommodityPrice> commodityPrices;
 
@@ -44,6 +46,14 @@ public class Commodity {
 		this.availability = state;
 		this.commodityPrices = new ArrayList<CommodityPrice>();
 		this.sysid = sysid;
+	}
+
+	public Commodity( CommodityType type, CommodityState state, String sysid, String desc ) {
+		this.type = type;
+		this.availability = state;
+		this.commodityPrices = new ArrayList<CommodityPrice>();
+		this.sysid = sysid;
+		this.description = desc;
 	}
 	
 	public CommodityState getAvailability() {
@@ -68,6 +78,14 @@ public class Commodity {
 
 	public void setAvailability(CommodityState availability) {
 		this.availability = availability;
+	}
+
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
 	}
 
 	@Override

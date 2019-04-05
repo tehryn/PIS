@@ -158,14 +158,35 @@ public class ReservationQueries extends Queries<Reservation> {
 	}
 	
 	/**
-	 * Object representing user
+	 * Retrieve all reservations of specific user from database
 	 * @param user object representing User
 	 * @return List of objects that represents reservations
 	 */
 	public List<Reservation> userRezervations( User user ) {
 		List<Object> params = new ArrayList<Object>();
 		params.add(user);
-		return select("SELECT r FROM Reservation r, User u WHERE r.user = ?1 ", params);
+		return select("SELECT r FROM Reservation r WHERE r.user = ?1 ", params);
 	}
 	
+	/**
+	 * Determines if commodity is reserved between 2 dates
+	 * @param commodity object representing commodity
+	 * @param from first date
+	 * @param to second date
+	 * @return true if commodity is reserved, otherwise false
+	 */
+	public boolean isCommodityReserved( Commodity commodity, Date from, Date to ) {
+		List<Object> params = new ArrayList<Object>();
+		params.add(commodity);
+		params.add(from);
+		params.add(to);
+		String query = "SELECT rc FROM ReservedCommodity rc WHERE "
+				+ "rc.commodity = ?1 "
+				+ "AND ( "
+					+ "( ?2 BETWEEN rc.from AND rc.until ) "
+					+ "OR ( ?3 BETWEEN rc.from AND rc.until ) "
+				+ ")";
+		return select(query, params).size() != 0;
+	}
+
 }
