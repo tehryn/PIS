@@ -22,6 +22,7 @@ CREATE TABLE COMMODITY (
     type SMALLINT NOT NULL,
     availability SMALLINT NOT NULL,
     sysid VARCHAR(100) UNIQUE NOT NULL,
+    description VARCHAR(4000),
     PRIMARY KEY( id )
 );
 

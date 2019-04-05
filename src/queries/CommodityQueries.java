@@ -86,6 +86,13 @@ public class CommodityQueries extends Queries<Commodity> {
 		return c;
 	}
 
+	public Commodity newCommodity(CommodityType type, CommodityState state, String sysid, String desc) {
+		Commodity c = new Commodity( type, state, sysid, desc );
+		entitymanager.persist(c);
+		flush2Db();
+		return c;
+	}
+	
 	/**
 	 * Removes support of currency for specific commodity
 	 * @param commodity commodity, that will be changed
