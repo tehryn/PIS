@@ -43,6 +43,7 @@ public class User {
 	 * @param firstName First name of the user
 	 * @param lastName  Second name of the user
 	 * @param email     Email of the user
+	 * @throws Exception 
 	 * 
 	 * @details Unregistered user is created when user wants to
 	 * reserve a commodity without an account. He *must* enter
@@ -53,8 +54,13 @@ public class User {
 	 * previous "unregistered". This will give the user access to
 	 * his old reservations.
 	 */
-	public User(String firstName, String lastName, String email) {
+	public User(String firstName, String lastName, String email) throws Exception {
 		try {
+			queries.db.User user = query.getUserByEmail(email);
+			if (user != null) {
+				throw new Exception("User with this email already exists!");
+			}
+			
 			userHandle = query.newUser(firstName, lastName, email);
 		}
 		catch (Exception e) {
@@ -96,9 +102,16 @@ public class User {
 	 * @param lastName  Second name of the user
 	 * @param email     Email of the user
 	 * @param password  Password for login
+	 * @throws Exception 
 	 */
-	public User(String firstName, String lastName, String email, String password) {
+	public User(String firstName, String lastName, String email, String password) throws Exception {
 		try {
+			queries.db.User user = query.getUserByEmail(email);
+			if (user != null) {
+				if (user.getRole() != datatypes.UserRole.VISITOR) {
+					throw new Exception("Registered user with this email already exists!");
+				}
+			}
 			userHandle = query.newUser(firstName, lastName, email, password);
 		}
 		catch (Exception e) {

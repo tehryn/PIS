@@ -16,14 +16,14 @@ public class CoreExample {
 		Hotel hotel = Hotel.getHotel();
 		
 		// Create a room in our hotel
-		Room room = (Room)hotel.newCommodity("pokoj1408", CommodityType.ROOM, new ArrayList<CommodityPrice>(){{
+		Room room = (Room)hotel.newCommodity("pokoj1408", "Strasidelny pokoj", CommodityType.ROOM, new ArrayList<CommodityPrice>(){{
 			add(new CommodityPrice(69, CommodityPriceCounter.NIGHT, Currency.CZK));
 			add(new CommodityPrice(42.f, CommodityPriceCounter.NIGHT, Currency.EUR));
 			add(new CommodityPrice(0.01f, CommodityPriceCounter.NIGHT, Currency.USD));
 		}});
 		
 		// Create a service in our hotel
-		Service service = (Service)hotel.newCommodity("tantrickaMasaz69", CommodityType.SERVICE, new ArrayList<CommodityPrice>(){{
+		Service service = (Service)hotel.newCommodity("tantrickaMasaz69", "Dostane vas az k vyvrcholeni", CommodityType.SERVICE, new ArrayList<CommodityPrice>(){{
 			add(new CommodityPrice(2000.f, CommodityPriceCounter.HOUR, Currency.CZK));
 			add(new CommodityPrice(60.f, CommodityPriceCounter.HOUR, Currency.EUR));
 			add(new CommodityPrice(69.f, CommodityPriceCounter.HOUR, Currency.USD));

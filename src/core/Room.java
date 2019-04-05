@@ -21,8 +21,8 @@ public class Room extends Commodity {
 		super(com);
 	}
 	
-	public Room(String sysid, List<CommodityPrice> prices) {
-		resHandle = query.newCommodity(CommodityType.ROOM, CommodityState.AVAILABLE, sysid);
+	public Room(String sysid, String description, List<CommodityPrice> prices) {
+		resHandle = query.newCommodity(CommodityType.ROOM, CommodityState.AVAILABLE, sysid, description);
 		
 		for (CommodityPrice price : prices) {
 			setPrice(price);

@@ -52,13 +52,13 @@ public class Hotel {
 		return result;
 	}
 	
-	public Commodity newCommodity(String sysid, CommodityType type, List<CommodityPrice> prices) throws Exception {
+	public Commodity newCommodity(String sysid, String description, CommodityType type, List<CommodityPrice> prices) throws Exception {
 		 switch (type) {
 		 case SERVICE:
-			 return new Service(sysid, prices);
+			 return new Service(sysid, description, prices);
 			 
 		 case ROOM:
-			 return new Room(sysid, prices);
+			 return new Room(sysid, description, prices);
 		 }
 		 
 		 throw new Exception("Invalid commodity type!");
