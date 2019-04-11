@@ -39,6 +39,11 @@ public class RoomBean implements Serializable {
 		return "new";
 	}
 
+	public String actionInsertNew() {
+		roomMgr.save(room);
+		return "insert";
+	}
+
 	public String actionUpdate() {
 		roomMgr.save(room);
 		return "update";

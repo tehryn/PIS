@@ -33,27 +33,17 @@ public class Room extends Commodity {
 	}
 	
 	public List<queries.db.Commodity> getAll() {
+		// TODO: return only rooms
 		CommodityQueries query = CommodityQueries.getQuery();
-		List<queries.db.Commodity> allCommodities = query.getAllItems();
-		List<queries.db.Commodity> result = new ArrayList<queries.db.Commodity>();
-		
-		for (queries.db.Commodity com : allCommodities) {
-			Commodity mycom = new Commodity(com);
-			
-			if (mycom.getType() == CommodityType.ROOM) {
-				result.add(com);
-			}
-		}
-		
-		return result;
+		return query.getAllItems();
 	}
 	
 	public void save(queries.db.Commodity room) {
-		// TODO
+		// TODO implement
 	}
 	
 	public void remove(queries.db.Commodity room) {
-		// TODO
+		// TODO implement
 	}
 	
 	/**
