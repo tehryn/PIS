@@ -31,12 +31,14 @@
 					<h:outputText value="#{room.type}"></h:outputText>
 				</h:column>
 				<h:column>
-					<h:commandLink action="#{roomBean.actionEdit(room)}">
+					<h:commandLink action="#{roomBean.actionEdit}">
 						<h:outputText value="Edit"></h:outputText>
+						<f:setPropertyActionListener target="#{roomBean.room}" value="#{room}"/>
 					</h:commandLink>
 					&nbsp;
-					<h:commandLink action="#{roomBean.actionDelete(room)}">
+					<h:commandLink action="#{roomBean.actionDelete}">
 						<h:outputText value="Delete"></h:outputText>
+						<f:setPropertyActionListener target="#{roomBean.room}" value="#{room}"/>
 					</h:commandLink>
 				</h:column>
 			</h:dataTable>

@@ -7,6 +7,7 @@ package core;
 import java.util.List;
 import java.util.ArrayList;
 import java.sql.Timestamp;
+import javax.ejb.Stateless;
 
 import datatypes.CommodityPrice;
 import datatypes.CommodityState;
@@ -16,6 +17,7 @@ import queries.CommodityQueries;
 /**
  * @brief Commodity of type Room
  */
+@Stateless
 public class Room extends Commodity {
 	private Room(queries.db.Commodity com) {
 		super(com);
