@@ -8,9 +8,22 @@
 
 <ui:composition template="../template.xhtml">
 	<ui:define name="content">
-	    <h2>New room</h2>
+		<h2>New room</h2>
 
-        TODO: form
+		<h:form>
+			<h:messages layout="table"></h:messages>
+			<h:panelGrid columns="2">
+				<h:outputLabel rendered="true" value="ID"></h:outputLabel>
+				<h:inputText value="#{roomBean.room.sysid}" required="true"></h:inputText>
+				<h:outputLabel rendered="true" value="Description"></h:outputLabel>
+				<h:inputText value="#{roomBean.room.description}"></h:inputText>
+				<h:outputLabel rendered="true" value="Type"></h:outputLabel>
+				<h:inputText value="#{roomBean.room.type}" required="true"></h:inputText>
+				<h:commandButton action="#{roomBean.actionInsertNew}"
+					value="Add room"></h:commandButton>
+				<h:commandButton action="cancel" value="Cancel"></h:commandButton>
+			</h:panelGrid>
+		</h:form>
 	</ui:define>
 </ui:composition>
 

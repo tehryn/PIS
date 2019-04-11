@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<faces-config
-    xmlns="http://xmlns.jcp.org/xml/ns/javaee"
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-facesconfig_2_3.xsd"
-    version="2.3">
+<faces-config xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-facesconfig_2_3.xsd"
+	version="2.3">
 	<navigation-rule>
 		<display-name>admin/room_list.xhtml</display-name>
 		<from-view-id>/admin/room_list.xhtml</from-view-id>
@@ -42,6 +41,14 @@
 		<from-view-id>/admin/room_edit.xhtml</from-view-id>
 		<navigation-case>
 			<from-outcome>update</from-outcome>
+			<to-view-id>/admin/room_list.xhtml</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+		<display-name>admin/room_edit.xhtml</display-name>
+		<from-view-id>/admin/room_edit.xhtml</from-view-id>
+		<navigation-case>
+			<from-outcome>cancel</from-outcome>
 			<to-view-id>/admin/room_list.xhtml</to-view-id>
 		</navigation-case>
 	</navigation-rule>
