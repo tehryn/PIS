@@ -8,9 +8,34 @@
 
 <ui:composition template="../template.xhtml">
 	<ui:define name="content">
-	    <h2>Rooms</h2>
+		<h2>Rooms</h2>
 
-        TODO
+		<p>
+			<a href="room_add.xhtml">Add room</a>
+		</p>
+
+		<h:form>
+			<h:dataTable value="#{hotelBean.rooms}" var="room">
+				<h:column>
+					<f:facet name="header">
+						<h:outputText value="ID" />
+					</f:facet>
+					<h:outputText value="#{room.sysid}"></h:outputText>
+				</h:column>
+				<h:column>
+					<f:facet name="header">
+						<h:outputText value="Description" />
+					</f:facet>
+					<h:outputText value="#{room.description}"></h:outputText>
+				</h:column>
+				<h:column>
+					<f:facet name="header">
+						<h:outputText value="Type" />
+					</f:facet>
+					<h:outputText value="#{room.type}"></h:outputText>
+				</h:column>
+			</h:dataTable>
+		</h:form>
 	</ui:define>
 </ui:composition>
 
