@@ -21,12 +21,39 @@ public class Room extends Commodity {
 		super(com);
 	}
 	
+	public Room() {
+	}
+	
 	public Room(String sysid, String description, List<CommodityPrice> prices) {
 		resHandle = query.newCommodity(CommodityType.ROOM, CommodityState.AVAILABLE, sysid, description);
 		
 		for (CommodityPrice price : prices) {
 			setPrice(price);
 		}
+	}
+	
+	public List<queries.db.Commodity> getAll() {
+		CommodityQueries query = CommodityQueries.getQuery();
+		List<queries.db.Commodity> allCommodities = query.getAllItems();
+		List<queries.db.Commodity> result = new ArrayList<queries.db.Commodity>();
+		
+		for (queries.db.Commodity com : allCommodities) {
+			Commodity mycom = new Commodity(com);
+			
+			if (mycom.getType() == CommodityType.ROOM) {
+				result.add(com);
+			}
+		}
+		
+		return result;
+	}
+	
+	public void save(queries.db.Commodity room) {
+		// TODO
+	}
+	
+	public void remove(queries.db.Commodity room) {
+		// TODO
 	}
 	
 	/**

@@ -10,12 +10,8 @@
 	<ui:define name="content">
 		<h2>Rooms</h2>
 
-		<p>
-			<a href="room_add.xhtml">Add room</a>
-		</p>
-
 		<h:form>
-			<h:dataTable value="#{hotelBean.rooms}" var="room">
+			<h:dataTable value="#{roomBean.rooms}" var="room">
 				<h:column>
 					<f:facet name="header">
 						<h:outputText value="ID" />
@@ -34,7 +30,19 @@
 					</f:facet>
 					<h:outputText value="#{room.type}"></h:outputText>
 				</h:column>
+				<h:column>
+					<h:commandLink action="#{roomBean.actionEdit(room)}">
+						<h:outputText value="Edit"></h:outputText>
+					</h:commandLink>
+					&nbsp;
+					<h:commandLink action="#{roomBean.actionDelete(room)}">
+						<h:outputText value="Delete"></h:outputText>
+					</h:commandLink>
+				</h:column>
 			</h:dataTable>
+			<h:commandLink action="#{roomBean.actionNew}">
+				<h:outputText value="Insert new"></h:outputText>
+			</h:commandLink>
 		</h:form>
 	</ui:define>
 </ui:composition>

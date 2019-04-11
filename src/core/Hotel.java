@@ -26,10 +26,6 @@ public class Hotel {
 	
 	private Hotel() {}
 	
-	public List<Commodity> getRooms() {
-		return Commodity.getCommodities(CommodityType.ROOM);
-	}
-	
 	public List<Room> getRooms(Date from, Date until) {
 		List<Commodity> rooms = Commodity.getCommodities(CommodityType.ROOM);
 		List<Room> result = new ArrayList<Room>();
