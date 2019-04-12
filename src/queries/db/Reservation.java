@@ -21,7 +21,7 @@ import javax.persistence.Table;
  *
  */
 @Entity
-@Table
+@Table(name="reservation")
 public class Reservation extends Object {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)

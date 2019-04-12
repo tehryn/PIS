@@ -18,7 +18,7 @@ import datatypes.CommodityType;
 
 
 @Entity
-@Table
+@Table(name="commodity")
 public class Commodity {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)

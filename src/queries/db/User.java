@@ -16,7 +16,7 @@ import datatypes.UserRole;
  *
  */
 @Entity
-@Table
+@Table(name="user")
 public class User extends Object {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY) 

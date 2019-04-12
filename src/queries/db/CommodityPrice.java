@@ -18,7 +18,7 @@ import datatypes.Currency;
  *  @brief Part of commodity price
  */
 @Entity
-@Table
+@Table(name="commodityprice")
 public class CommodityPrice extends Object {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
