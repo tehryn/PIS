@@ -25,6 +25,10 @@
 			<from-outcome>insert</from-outcome>
 			<to-view-id>/admin/room_list.xhtml</to-view-id>
 		</navigation-case>
+		<navigation-case>
+			<from-outcome>cancel</from-outcome>
+			<to-view-id>/admin/room_list.xhtml</to-view-id>
+		</navigation-case>
 	</navigation-rule>
 	<navigation-rule>
 		<display-name>admin/room_edit.xhtml</display-name>
