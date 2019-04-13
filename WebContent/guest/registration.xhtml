@@ -1,0 +1,35 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core">
+
+<ui:composition template="../template.xhtml">
+	<ui:define name="content">
+	    <h2>Registrace</h2>
+
+	    <h:form>
+			<h:messages layout="table"></h:messages>
+			<h:panelGrid columns="2">
+				<h:outputLabel rendered="true" value="firstName"></h:outputLabel>
+				<h:inputText value="#{userBean.firstName}" required="true"></h:inputText>
+				<h:outputLabel rendered="true" value="lastName"></h:outputLabel>
+				<h:inputText value="#{userBean.lastName}" required="true"></h:inputText>
+				<h:outputLabel rendered="true" value="email"></h:outputLabel>
+				<h:inputText value="#{userBean.email}" required="true"></h:inputText>
+				<h:outputLabel rendered="true" value="password"></h:outputLabel>
+				<h:inputText value="#{userBean.password}" required="true"></h:inputText>
+				<h:commandButton action="#{userBean.actionRegister}"
+					value="Register"></h:commandButton>
+				<h:commandButton action="cancel" value="Cancel"></h:commandButton>
+			</h:panelGrid>
+		</h:form>
+	    
+        <a href="login.xhtml">Přihlásit?</a><br/>
+        <a href="../index.xhtml">Zpět na úvodní stránku</a>
+	</ui:define>
+</ui:composition>
+
+</html>
