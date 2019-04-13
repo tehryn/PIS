@@ -11,7 +11,9 @@
 		<h2>Rooms</h2>
 
 		<h:form>
-			<h:dataTable value="#{roomBean.rooms}" var="room">
+			<h:commandButton action="#{roomBean.actionNew}" value="New room" styleClass="btn btn-primary mb-3"></h:commandButton>
+
+			<h:dataTable value="#{roomBean.rooms}" var="room" styleClass="table table-striped table-hover">
 				<h:column>
 					<f:facet name="header">
 						<h:outputText value="ID" />
@@ -25,26 +27,15 @@
 					<h:outputText value="#{room.description}"></h:outputText>
 				</h:column>
 				<h:column>
-					<f:facet name="header">
-						<h:outputText value="Type" />
-					</f:facet>
-					<h:outputText value="#{room.type}"></h:outputText>
-				</h:column>
-				<h:column>
-					<h:commandLink action="#{roomBean.actionEdit}">
-						<h:outputText value="Edit"></h:outputText>
+					<h:commandButton action="#{roomBean.actionEdit}" value="Edit" styleClass="btn btn-outline-primary">
 						<f:setPropertyActionListener target="#{roomBean.room}" value="#{room}"/>
-					</h:commandLink>
+					</h:commandButton>
 					&nbsp;
-					<h:commandLink action="#{roomBean.actionDelete}">
-						<h:outputText value="Delete"></h:outputText>
+					<h:commandButton action="#{roomBean.actionDelete}" value="Delete" styleClass="btn btn-outline-danger">
 						<f:setPropertyActionListener target="#{roomBean.room}" value="#{room}"/>
-					</h:commandLink>
+					</h:commandButton>
 				</h:column>
 			</h:dataTable>
-			<h:commandLink action="#{roomBean.actionNew}">
-				<h:outputText value="Insert new"></h:outputText>
-			</h:commandLink>
 		</h:form>
 	</ui:define>
 </ui:composition>
