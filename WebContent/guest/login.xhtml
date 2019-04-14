@@ -26,7 +26,21 @@
         <h:form>
 			<h:button value="Zaregistrovat" outcome="registration" />
 			<h:button value="Zpět na úvodní stránku" outcome="index" />
+			<br/>
+			<h:commandButton action="#{userBean.actionLogout}"
+					value="Logout"></h:commandButton>
 		</h:form>
+		
+		
+		<h:form rendered="#{userBean.isManager}" >
+			<br/>
+			<h:outputLabel rendered="true" value="Uživatel je manažer"></h:outputLabel>
+		</h:form>
+		<h:form rendered="#{userBean.isManager eq false}" >
+			<br/>
+			<h:outputLabel rendered="true" value="Uživatel není manažer"></h:outputLabel>
+		</h:form>
+	
 	</ui:define>
 </ui:composition>
 

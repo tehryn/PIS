@@ -26,5 +26,16 @@
 		    <to-view-id>/index.xhtml</to-view-id>
 	    </navigation-case>
     </navigation-rule>
+    <navigation-rule>
+	    <from-view-id>/user/reservations.xhtml</from-view-id>
+	    <navigation-case>
+		    <from-outcome>index</from-outcome>
+		    <to-view-id>/index.xhtml</to-view-id>
+	    </navigation-case>
+	    <navigation-case>
+		    <from-outcome>login</from-outcome>
+		    <to-view-id>/guest/login.xhtml</to-view-id>
+	    </navigation-case>
+    </navigation-rule>
 
 </faces-config>

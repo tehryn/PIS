@@ -91,7 +91,8 @@ public class User {
 			userHandle = query.getUserByEmail(email);
 			String pass = userHandle.getPassword();
 			
-			if (pass != password) throw new RuntimeException("Bad password");
+			if (!pass.equals(password)) throw new RuntimeException("Bad password");
+			//if (pass != password) throw new RuntimeException("Bad password");
 		}
 		catch (Exception e) {
 			throw new RuntimeException("Email or password is incorrect!");
