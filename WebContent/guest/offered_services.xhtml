@@ -9,8 +9,11 @@
 <ui:composition template="../template.xhtml">
 	<ui:define name="content">
 	    <h2>Nabídka služeb</h2>
-        <a href="offered_rooms.xhtml">Nabídka pokojů a kapacit</a><br/>
-        <a href="hotel_info.xhtml">Zpět na informace o hotelu</a>
+	    
+        <h:form>
+	        <h:button value="Nabídka pokojů a kapacit" outcome="offered_rooms" />
+			<h:button value="Zpět na informace o hotelu" outcome="hotel_info" />
+		</h:form>
 	</ui:define>
 </ui:composition>
 

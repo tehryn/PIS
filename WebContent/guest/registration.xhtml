@@ -20,15 +20,18 @@
 				<h:outputLabel rendered="true" value="email"></h:outputLabel>
 				<h:inputText value="#{userBean.email}" required="true"></h:inputText>
 				<h:outputLabel rendered="true" value="password"></h:outputLabel>
-				<h:inputText value="#{userBean.password}" required="true"></h:inputText>
+				<h:inputSecret value="#{userBean.password}" required="true"></h:inputSecret>
 				<h:commandButton action="#{userBean.actionRegister}"
 					value="Register"></h:commandButton>
 				<h:commandButton action="cancel" value="Cancel"></h:commandButton>
 			</h:panelGrid>
 		</h:form>
 	    
-        <a href="login.xhtml">Přihlásit?</a><br/>
-        <a href="../index.xhtml">Zpět na úvodní stránku</a>
+        <h:form>
+			<h:button value="Přihlášení" outcome="login" />
+			<h:button value="Zpět na úvodní stránku" outcome="index" />
+		</h:form>
+        
 	</ui:define>
 </ui:composition>
 
