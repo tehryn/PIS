@@ -1,0 +1,55 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core">
+
+<ui:composition template="../template.xhtml">
+	<ui:define name="content">
+		<h2>Users</h2>
+
+		<h:form>
+			<h:commandButton action="#{userBean.actionNew}" value="New user" styleClass="btn btn-primary mb-3"></h:commandButton>
+
+			<h:dataTable value="#{userBean.users}" var="user" styleClass="table table-striped table-hover">
+				<h:column>
+					<f:facet name="header">
+						<h:outputText value="Role" />
+					</f:facet>
+					<h:outputText value="#{user.role}"></h:outputText>
+				</h:column>
+				<h:column>
+					<f:facet name="header">
+						<h:outputText value="First name" />
+					</f:facet>
+					<h:outputText value="#{user.firstName}"></h:outputText>
+				</h:column>
+				<h:column>
+					<f:facet name="header">
+						<h:outputText value="Last name" />
+					</f:facet>
+					<h:outputText value="#{user.lastName}"></h:outputText>
+				</h:column>
+				<h:column>
+					<f:facet name="header">
+						<h:outputText value="Email" />
+					</f:facet>
+					<h:outputText value="#{user.email}"></h:outputText>
+				</h:column>
+				<h:column>
+					<h:commandButton action="#{userBean.actionEdit}" value="Edit" styleClass="btn btn-outline-primary">
+						<f:setPropertyActionListener target="#{userBean.user}" value="#{user}"/>
+					</h:commandButton>
+					&nbsp;
+					<h:commandButton action="#{userBean.actionDelete}" value="Delete" styleClass="btn btn-outline-danger">
+						<f:setPropertyActionListener target="#{userBean.user}" value="#{user}"/>
+					</h:commandButton>
+				</h:column>
+			</h:dataTable>
+		</h:form>
+	</ui:define>
+</ui:composition>
+
+</html>

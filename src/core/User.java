@@ -17,10 +17,26 @@ public class User {
 	private UserQueries query = UserQueries.getQuery();
 	private queries.db.User userHandle = null;
 	
+	public User() {
+		// TODO
+	}
+	
 	private User(queries.db.User handle) {
 		userHandle = handle;
 	}
 	
+	public static List<User> getUsers() {
+		UserQueries query = UserQueries.getQuery();
+		List<queries.db.User> users = query.getAllItems();
+		List<User> result = new ArrayList<User>();
+		
+		for (queries.db.User user : users) {
+			result.add(new User(user));
+		}
+		
+		return result;
+	}
+
 	/**
 	 * @brief Find all users with given name
 	 * @param firstName First name to search for
@@ -174,6 +190,30 @@ public class User {
 	public void setRole(UserRole role) {
 		try {
 			userHandle.setRole(role);
+		}
+		catch (Exception e) {
+			UserQueries.rollback();
+			throw e;
+		}
+		
+		UserQueries.update();
+	}
+	
+	public void setFirstName(String firstName) {
+		try {
+			userHandle.setFirstName(firstName);
+		}
+		catch (Exception e) {
+			UserQueries.rollback();
+			throw e;
+		}
+		
+		UserQueries.update();
+	}
+
+	public void setLastName(String lastName) {
+		try {
+			userHandle.setLastName(lastName);
 		}
 		catch (Exception e) {
 			UserQueries.rollback();

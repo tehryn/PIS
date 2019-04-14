@@ -1,0 +1,40 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core">
+
+<ui:composition template="../template.xhtml">
+	<ui:define name="content">
+		<h2>New user</h2>
+
+		<h:form>
+			<h:messages layout="table"></h:messages>
+			<div class="form-group">
+				<h:outputLabel rendered="true" value="Role"></h:outputLabel>
+				<h:inputText value="#{userBean.user.role}" required="true" styleClass="form-control"></h:inputText>
+			</div>
+			<div class="form-group">
+				<h:outputLabel rendered="true" value="First name"></h:outputLabel>
+				<h:inputText value="#{userBean.user.firstName}" required="true" styleClass="form-control"></h:inputText>
+			</div>
+			<div class="form-group">
+				<h:outputLabel rendered="true" value="Last name"></h:outputLabel>
+				<h:inputText value="#{userBean.user.lastName}" required="true" styleClass="form-control"></h:inputText>
+			</div>
+			<div class="form-group">
+				<h:outputLabel rendered="true" value="Email"></h:outputLabel>
+				<h:inputText value="#{userBean.user.email}" required="true" styleClass="form-control"></h:inputText>
+			</div>
+			<div class="form-group">
+				<h:commandButton action="cancel" value="Cancel" styleClass="btn btn-outline-secondary"></h:commandButton>
+				&nbsp;
+				<h:commandButton action="#{userBean.actionInsertNew}" value="Add user" styleClass="btn btn-primary"></h:commandButton>
+			</div>
+		</h:form>
+	</ui:define>
+</ui:composition>
+
+</html>
