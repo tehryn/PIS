@@ -8,22 +8,25 @@
 
 <ui:composition template="../template.xhtml">
 	<ui:define name="content">
-	    <h2>Login</h2>
-        <!-- comment 
-        <f:loadBundle basename="org.fit.pis.messages" var="msg"/>
-		
-		<h:form>
+	    <h2>Přihlášení</h2>
+	    
+        <h:form>
 			<h:messages layout="table"></h:messages>
 			<h:panelGrid columns="2">
-				<h:outputLabel rendered="true" value="#{msg.name}"></h:outputLabel>
-				<h:inputText value="#{authenticationBean.login}" tabindex="0"></h:inputText>
-				<h:outputLabel rendered="true" value="#{msg.password}"></h:outputLabel>
-				<h:inputSecret value="#{authenticationBean.password}">
-				</h:inputSecret>
-				<h:commandButton action="#{authenticationBean.actionLogin}" value="#{msg.login}"></h:commandButton>
+				<h:outputLabel rendered="true" value="email"></h:outputLabel>
+				<h:inputText value="#{userBean.email}" required="true"></h:inputText>
+				<h:outputLabel rendered="true" value="password"></h:outputLabel>
+				<h:inputSecret value="#{userBean.password}" required="true"></h:inputSecret>
+				<h:commandButton action="#{userBean.actionLogin}"
+					value="Login"></h:commandButton>
+				<h:commandButton action="cancel" value="Cancel"></h:commandButton>
 			</h:panelGrid>
 		</h:form>
-		-->
+	    
+        <h:form>
+			<h:button value="Zaregistrovat" outcome="registration" />
+			<h:button value="Zpět na úvodní stránku" outcome="index" />
+		</h:form>
 	</ui:define>
 </ui:composition>
 
