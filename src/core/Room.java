@@ -27,8 +27,7 @@ public class Room extends Commodity {
 	}
 	
 	public Room(Commodity com) {
-		this.query = com.query;
-		this.resHandle = com.resHandle;
+		super(com);
 	}
 	
 	public Room(String sysid, String description, List<CommodityPrice> prices) {

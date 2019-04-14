@@ -50,6 +50,16 @@ public class Hotel {
 		return result;
 	}
 	
+	public List<Service> getServices() {
+		List<Commodity> services = Commodity.getCommodities(CommodityType.SERVICE);
+		List<Service> result = new ArrayList<Service>();
+		
+		for (Commodity service : services) {
+			result.add(new Service(service));
+		}
+		
+		return result;
+	}
 	public List<Service> getServices(Date from, Date until) {
 		List<Commodity> services = Commodity.getCommodities(CommodityType.SERVICE);
 		List<Service> result = new ArrayList<Service>();
