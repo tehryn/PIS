@@ -7,7 +7,6 @@ package core;
 import java.util.List;
 import java.util.ArrayList;
 import java.sql.Timestamp;
-import javax.ejb.Stateless;
 
 import datatypes.CommodityPrice;
 import datatypes.CommodityState;
@@ -17,13 +16,19 @@ import queries.CommodityQueries;
 /**
  * @brief Commodity of type Room
  */
-@Stateless
 public class Room extends Commodity {
 	private Room(queries.db.Commodity com) {
 		super(com);
 	}
 	
 	public Room() {
+		// TODO
+		resHandle = query.newCommodity(CommodityType.ROOM, CommodityState.AVAILABLE, "", "");
+	}
+	
+	public Room(Commodity com) {
+		this.query = com.query;
+		this.resHandle = com.resHandle;
 	}
 	
 	public Room(String sysid, String description, List<CommodityPrice> prices) {
@@ -32,20 +37,6 @@ public class Room extends Commodity {
 		for (CommodityPrice price : prices) {
 			setPrice(price);
 		}
-	}
-	
-	public List<queries.db.Commodity> getAll() {
-		// TODO: return only rooms
-		CommodityQueries query = CommodityQueries.getQuery();
-		return query.getAllItems();
-	}
-	
-	public void save(queries.db.Commodity room) {
-		// TODO implement
-	}
-	
-	public void remove(queries.db.Commodity room) {
-		// TODO implement
 	}
 	
 	/**

@@ -6,8 +6,8 @@ import java.util.List;
 
 import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
-import javax.ejb.EJB;
 
+import core.Hotel;
 import core.Room;
 
 @Named
@@ -15,39 +15,37 @@ import core.Room;
 public class RoomBean implements Serializable {
 	private static final long serialVersionUID = 1L;
 
-	private queries.db.Commodity room;
-
-	@EJB
-	private Room roomMgr;
+	private Room room;
+	private Hotel hotelMgr;
 
 	public RoomBean() {
-		room = new queries.db.Commodity();
+		hotelMgr = Hotel.getHotel();
 	}
 
-	public queries.db.Commodity getRoom() {
+	public Room getRoom() {
 		return room;
 	}
 
-	public void setRoom(queries.db.Commodity room) {
+	public void setRoom(Room room) {
 		this.room = room;
 	}
 
-	public List<queries.db.Commodity> getRooms() {
-		return roomMgr.getAll();
+	public List<Room> getRooms() {
+		return hotelMgr.getRooms();
 	}
 
 	public String actionNew() {
-		room = new queries.db.Commodity();
+		room = new Room();
 		return "new";
 	}
 
 	public String actionInsertNew() {
-		roomMgr.save(room);
+		// TODO
 		return "insert";
 	}
 
 	public String actionUpdate() {
-		roomMgr.save(room);
+		// TODO
 		return "update";
 	}
 
