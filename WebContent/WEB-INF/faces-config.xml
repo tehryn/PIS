@@ -25,6 +25,11 @@
 		    <to-view-id>/admin/index.xhtml</to-view-id>
 		    <redirect />
 	    </navigation-case>
+	    <navigation-case>
+		    <from-outcome>reservations</from-outcome>
+		    <to-view-id>/user/reservation_list.xhtml</to-view-id>
+		    <redirect />
+	    </navigation-case>
     </navigation-rule>
     <navigation-rule>
 	    <from-view-id>/guest/offered_rooms.xhtml</from-view-id>
@@ -67,7 +72,17 @@
 	    </navigation-case>
     </navigation-rule>
     <navigation-rule>
-	    <from-view-id>/user/reservations.xhtml</from-view-id>
+	    <from-view-id>/user/reservation_list.xhtml</from-view-id>
+	    <navigation-case>
+			<from-outcome>new</from-outcome>
+			<to-view-id>/user/reservation_new.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>edit</from-outcome>
+			<to-view-id>/user/reservation_edit.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
 	    <navigation-case>
 		    <from-outcome>index</from-outcome>
 		    <to-view-id>/index.xhtml</to-view-id>
