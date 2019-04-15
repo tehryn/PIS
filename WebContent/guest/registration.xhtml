@@ -33,10 +33,6 @@
 				<h:commandButton action="#{userBean.actionRegister}" value="Zaregistrovat se" styleClass="btn btn-primary"></h:commandButton>
 			</div>
 		</h:form>
-
-        <h:form rendered="#{userBean.role == 'VISITOR'}">
-			<h:commandButton value="Přihlášení" action="login" styleClass="btn btn-outline-primary"/><br/>
-		</h:form>
 		
 		<h:form rendered="#{userBean.role != 'VISITOR'}">
 			<h:commandButton action="#{userBean.actionLogout}" value="Odhlásit se" styleClass="btn btn-primary"></h:commandButton><br/>
