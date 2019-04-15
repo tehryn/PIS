@@ -28,11 +28,12 @@
 				</h:column>
 				<h:column>
 					<h:commandButton action="#{roomBean.actionEdit}" value="Edit" styleClass="btn btn-outline-primary">
-						<f:setPropertyActionListener target="#{roomBean.room}" value="#{room}"/>
+						<f:setPropertyActionListener target="#{roomBean.sysid}" value="#{room.sysid}"/>
+						<f:setPropertyActionListener target="#{roomBean.description}" value="#{room.description}"/>
 					</h:commandButton>
 					&nbsp;
 					<h:commandButton action="#{roomBean.actionDelete}" value="Delete" styleClass="btn btn-outline-danger">
-						<f:setPropertyActionListener target="#{roomBean.room}" value="#{room}"/>
+						<f:setPropertyActionListener target="#{roomBean.editedRoom}" value="#{room}"/>
 					</h:commandButton>
 				</h:column>
 			</h:dataTable>

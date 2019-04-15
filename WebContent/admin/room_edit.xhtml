@@ -14,11 +14,11 @@
 			<h:messages layout="table"></h:messages>
 			<div class="form-group">
 				<h:outputLabel rendered="true" value="ID"></h:outputLabel>
-				<h:inputText value="#{roomBean.room.sysid}" required="true" styleClass="form-control"></h:inputText>
+				<h:inputText value="#{roomBean.sysid}" required="true" styleClass="form-control"></h:inputText>
 			</div>
 			<div class="form-group">
 				<h:outputLabel rendered="true" value="Description"></h:outputLabel>
-				<h:inputText value="#{roomBean.room.description}" required="true" styleClass="form-control"></h:inputText>
+				<h:inputText value="#{roomBean.description}" required="true" styleClass="form-control"></h:inputText>
 			</div>
 			<div class="form-group">
 				<h:commandButton action="cancel" value="Cancel" styleClass="btn btn-outline-secondary"></h:commandButton>
