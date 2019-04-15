@@ -7,14 +7,39 @@
     xmlns:f="http://java.sun.com/jsf/core">
 
 <ui:composition template="../template.xhtml">
+	<ui:param name="title" value="Administrace" />
     <ui:define name="content">
-        <h2>Admin</h2>
-
-        <nav class="nav">
-            <a class="nav-link" href="room_list.xhtml">Rooms</a>
-            <a class="nav-link" href="service_list.xhtml">Services</a>
-            <a class="nav-link" href="user_list.xhtml">Users</a>
-        </nav>
+		<h:form>
+			<div class="row">
+				<div class="col">
+					<div class="card">
+						<h5 class="card-header">Správa pokojů</h5>
+						<div class="card-body">
+							<p class="card-text">Lorem ipsum...</p>
+							<h:commandButton value="Spravovat pokoje" action="rooms" styleClass="btn btn-primary" />
+						</div>
+					</div>
+				</div>
+				<div class="col">
+					<div class="card">
+						<h5 class="card-header">Správa služeb</h5>
+						<div class="card-body">
+							<p class="card-text">Lorem ipsum...</p>
+							<h:commandButton value="Spravovat služby" action="services" styleClass="btn btn-primary" />
+						</div>
+					</div>
+				</div>
+				<div class="col">
+					<div class="card">
+						<h5 class="card-header">Správa uživatelů</h5>
+						<div class="card-body">
+							<p class="card-text">Lorem ipsum...</p>
+							<h:commandButton value="Spravovat uživatele" action="users" styleClass="btn btn-primary" />
+						</div>
+					</div>
+				</div>
+			</div>
+		</h:form>
     </ui:define>
 </ui:composition>
 
