@@ -40,11 +40,11 @@
 				</h:column>
 				<h:column>
 					<h:commandButton action="#{userBean.actionEdit}" value="Edit" styleClass="btn btn-outline-primary">
-						<f:setPropertyActionListener target="#{userBean.user}" value="#{user}"/>
+						<f:setPropertyActionListener target="#{userBean.editedUser}" value="#{user}"/>
 					</h:commandButton>
 					&nbsp;
 					<h:commandButton action="#{userBean.actionDelete}" value="Delete" styleClass="btn btn-outline-danger">
-						<f:setPropertyActionListener target="#{userBean.user}" value="#{user}"/>
+						<f:setPropertyActionListener target="#{userBean.editedUser}" value="#{user}"/>
 					</h:commandButton>
 				</h:column>
 			</h:dataTable>

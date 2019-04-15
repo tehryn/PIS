@@ -16,18 +16,11 @@ import datatypes.UserRole;
 @SessionScoped
 public class UserBean implements Serializable {
 	private static final long serialVersionUID = 1L;
-
-	private User user;
+	
+	// For editing or removing user
+	User editedUser;
 
 	public UserBean() {
-	}
-
-	public User getUser() {
-		return user;
-	}
-
-	public void setUser(User user) {
-		this.user = user;
 	}
 
 	public List<User> getUsers() {
@@ -35,12 +28,16 @@ public class UserBean implements Serializable {
 	}
 
 	public String actionNew() {
-		user = new User();
 		return "new";
 	}
 
 	public String actionInsertNew() {
-		// TODO
+		try {
+			new core.User(firstName, lastName, email, password).setRole(newUserRole);
+		} catch (Exception e) {
+			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(e.getMessage()));
+		}
+		
 		return "insert";
 	}
 
@@ -54,24 +51,27 @@ public class UserBean implements Serializable {
 	}
 
 	public String actionDelete() {
-		// TODO
+		editedUser.remove();
 		return "delete";
     }
 
-	//private queries.db.User user;
+	// Used for user creating/registration
     String firstName;
 	String lastName;
     String email;
     String password;
-           
+    UserRole newUserRole;	// not for registration -> REGISTRATED
+    
+    // Current logged in user
     UserRole role = UserRole.VISITOR;
+    private User loggedUser;
         
     // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     // Public functions
     
     // logout
     public void actionLogout() {
-    	user = null;
+    	loggedUser = null;
     	role = UserRole.VISITOR;
     }
     
@@ -80,12 +80,12 @@ public class UserBean implements Serializable {
 		try {
 			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("[DEBUG] email: " + email + " password: " + password));
 			
-			user = new core.User(email, password);
+			loggedUser = new core.User(email, password);
 			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Login successful"));
-			this.role = user.getRole();
+			this.role = loggedUser.getRole();
 			
 			//FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("[DEBUG] UserRole.MANAGER: " + UserRole.MANAGER));
-			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("[DEBUG] user.getRole(): " + user.getRole()));
+			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("[DEBUG] loggedUser.getRole(): " + loggedUser.getRole()));
 		} catch (Exception e) {
 			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(e.getMessage()));
 			return "loginFailed";
@@ -97,7 +97,7 @@ public class UserBean implements Serializable {
 	// register
 	public String actionRegister() {
 		try {
-			user = new core.User(firstName, lastName, email, password);
+			loggedUser = new core.User(firstName, lastName, email, password);
 		} catch (Exception e) {
 			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(e.getMessage()));
 		}
@@ -119,7 +119,25 @@ public class UserBean implements Serializable {
 	
 	
 	
-    public String getFirstName() {
+	
+	
+	
+	
+    public User getEditedUser() {
+		return editedUser;
+	}
+
+	public void setEditedUser(User editedUser) {
+		this.editedUser = editedUser;
+	}
+
+	public UserRole getNewUserRole() {
+		return newUserRole;
+	}
+	public void setNewUserRole(UserRole newUserRole) {
+		this.newUserRole = newUserRole;
+	}
+	public String getFirstName() {
 		return firstName;
 	}
 
