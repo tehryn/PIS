@@ -10,7 +10,7 @@
 	<ui:define name="content">
 	    <h2>Registrace</h2>
 
-	    <h:form>
+	    <h:form rendered="#{userBean.role == 'VISITOR'}">
 			<h:messages layout="table"></h:messages>
 			<h:panelGrid columns="2">
 				<h:outputLabel rendered="true" value="firstName"></h:outputLabel>
@@ -21,15 +21,18 @@
 				<h:inputText value="#{userBean.email}" required="true"></h:inputText>
 				<h:outputLabel rendered="true" value="password"></h:outputLabel>
 				<h:inputSecret value="#{userBean.password}" required="true"></h:inputSecret>
-				<h:commandButton action="#{userBean.actionRegister}"
-					value="Register"></h:commandButton>
+				<h:commandButton action="#{userBean.actionRegister}" value="Register"></h:commandButton>
 				<h:commandButton action="cancel" value="Cancel"></h:commandButton>
 			</h:panelGrid>
 		</h:form>
-	    
-        <h:form>
-			<h:button value="Přihlášení" outcome="login" />
-			<h:button value="Zpět na úvodní stránku" outcome="index" />
+        <h:form rendered="#{userBean.role == 'VISITOR'}">
+			<h:button value="Přihlášení" outcome="login" /><br/>
+			<br/><br/><h:button value="Zpět na úvodní stránku" outcome="index" />
+		</h:form>
+		
+		<h:form rendered="#{userBean.role != 'VISITOR'}">
+			<h:commandButton action="#{userBean.actionLogout}" value="Odhlásit"></h:commandButton><br/>
+			<br/><br/><h:button value="Zpět na úvodní stránku" outcome="index" />
 		</h:form>
         
 	</ui:define>

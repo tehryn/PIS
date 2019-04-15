@@ -10,35 +10,28 @@
 	<ui:define name="content">
 	    <h2>Přihlášení</h2>
 	    
-        <h:form>
+        <h:form rendered="#{userBean.role == 'VISITOR'}">
 			<h:messages layout="table"></h:messages>
 			<h:panelGrid columns="2">
 				<h:outputLabel rendered="true" value="email"></h:outputLabel>
 				<h:inputText value="#{userBean.email}" required="true"></h:inputText>
 				<h:outputLabel rendered="true" value="password"></h:outputLabel>
 				<h:inputSecret value="#{userBean.password}" required="true"></h:inputSecret>
-				<h:commandButton action="#{userBean.actionLogin}"
-					value="Login"></h:commandButton>
-				<h:commandButton action="cancel" value="Cancel"></h:commandButton>
+				<h:commandButton action="#{userBean.actionLogin}" value="Přihlásit"></h:commandButton>
+				<h:commandButton action="cancel" value="Storno"></h:commandButton>
 			</h:panelGrid>
 		</h:form>
-	    
-        <h:form>
+		<h:form rendered="#{userBean.role == 'VISITOR'}">
+			<h:outputLabel rendered="true" value="Nemáte účet?"></h:outputLabel><br/>
 			<h:button value="Zaregistrovat" outcome="registration" />
-			<h:button value="Zpět na úvodní stránku" outcome="index" />
-			<br/>
-			<h:commandButton action="#{userBean.actionLogout}"
-					value="Logout"></h:commandButton>
+		</h:form>
+	    
+        <h:form rendered="#{userBean.role != 'VISITOR'}">
+			<h:commandButton action="#{userBean.actionLogout}" value="Odhlásit"></h:commandButton>
 		</h:form>
 		
-		
-		<h:form rendered="#{userBean.isManager}" >
-			<br/>
-			<h:outputLabel rendered="true" value="Uživatel je manažer"></h:outputLabel>
-		</h:form>
-		<h:form rendered="#{userBean.isManager eq false}" >
-			<br/>
-			<h:outputLabel rendered="true" value="Uživatel není manažer"></h:outputLabel>
+		<h:form>
+			<br/><br/><h:button value="Zpět na úvodní stránku" outcome="index" />
 		</h:form>
 	
 	</ui:define>

@@ -20,13 +20,8 @@ public class UserBean implements Serializable {
 	String lastName;
     String email;
     String password;
-    
-    Boolean isVisitor = true;
-    Boolean isRegistrated = false;
-    Boolean isReceptionist = false;
-    Boolean isManager = false;
-    Boolean isAdmin = false;
-        
+           
+    UserRole role = UserRole.VISITOR;
     core.User user;
         
     // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -38,7 +33,7 @@ public class UserBean implements Serializable {
     // logout
     public void actionLogout() {
     	user = null;
-    	updateRoleIndicators(UserRole.VISITOR);
+    	role = UserRole.VISITOR;
     }
     
 	// login
@@ -48,15 +43,10 @@ public class UserBean implements Serializable {
 			
 			user = new core.User(email, password);
 			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Login successful"));
-			updateRoleIndicators(user.getRole());
+			this.role = user.getRole();
 			
 			//FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("[DEBUG] UserRole.MANAGER: " + UserRole.MANAGER));
 			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("[DEBUG] user.getRole(): " + user.getRole()));
-			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("[DEBUG] isVisitor: " + isVisitor));
-			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("[DEBUG] isRegistrated: " + isRegistrated));
-			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("[DEBUG] isReceptionist: " + isReceptionist));
-			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("[DEBUG] isManager: " + isManager));
-			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("[DEBUG] isAdmin: " + isAdmin));
 		} catch (Exception e) {
 			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(e.getMessage()));
 			return "loginFailed";
@@ -73,63 +63,26 @@ public class UserBean implements Serializable {
 			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(e.getMessage()));
 		}
 		
+		this.actionLogin();
 		return "register";
 	}
 	
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	// Private functions
-	
-	private void updateRoleIndicators(UserRole role) {
-    	isVisitor = isRegistrated = isReceptionist = isManager = isAdmin = false;
-    	switch (role) {
-    	case REGISTRATED:
-    		isRegistrated = true;
-    		break;
-    	case RECEPTIONIST:
-    		isReceptionist = true;
-    		break;
-    	case MANAGER:
-    		isManager = true;
-    		break;
-    	case ADMIN:
-    		isAdmin = true;
-    		break;
-    	default:
-    		isVisitor = true;
-    	}
-    }
-    
-	
+
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	// Getters and Setters
-
-	public Boolean getIsVisitor() {
-		return isVisitor;
+	
+	
+	public UserRole getRole() {
+		return role;
 	}
-
-	public Boolean getIsRegistrated() {
-		return isRegistrated;
-	}
-
-	public Boolean getIsReceptionist() {
-		return isReceptionist;
-	}
-
-	public Boolean getIsManager() {
-		return isManager;
-	}
-
-	public Boolean getIsAdmin() {
-		return isAdmin;
-	}
+	
+	
 	
     public String getFirstName() {
 		return firstName;
 	}
-
-    
-    
-    
 
 	public void setFirstName(String firstName) {
 		this.firstName = firstName;

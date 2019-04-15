@@ -16,14 +16,6 @@
 			<h:button value="Zpět na úvodní stránku" outcome="index" />
 		</h:form>
 		
-		<h:form rendered="#{userBean.isManager}" >
-			<br/>
-			<h:outputLabel rendered="true" value="Uživatel je manažer"></h:outputLabel>
-		</h:form>
-		<h:form rendered="#{userBean.isManager eq false}" >
-			<br/>
-			<h:outputLabel rendered="true" value="Uživatel není manažer"></h:outputLabel>
-		</h:form>
 	</ui:define>
 </ui:composition>
 
