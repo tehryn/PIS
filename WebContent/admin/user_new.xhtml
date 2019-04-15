@@ -14,19 +14,28 @@
 			<h:messages layout="table"></h:messages>
 			<div class="form-group">
 				<h:outputLabel rendered="true" value="Role"></h:outputLabel>
-				<h:inputText value="#{userBean.user.role}" required="true" styleClass="form-control"></h:inputText>
+				<h:selectOneMenu value = "#{userBean.newUserRole}" required="true" styleClass="form-control"> 
+		            <f:selectItem itemValue = "REGISTRATED" itemLabel = "REGISTRATED" /> 
+		            <f:selectItem itemValue = "RECEPTIONIST" itemLabel = "RECEPTIONIST" /> 
+		            <f:selectItem itemValue = "MANAGER" itemLabel = "MANAGER" /> 
+		            <f:selectItem itemValue = "ADMIN" itemLabel = "ADMIN" /> 
+				</h:selectOneMenu>
 			</div>
 			<div class="form-group">
 				<h:outputLabel rendered="true" value="First name"></h:outputLabel>
-				<h:inputText value="#{userBean.user.firstName}" required="true" styleClass="form-control"></h:inputText>
+				<h:inputText value="#{userBean.firstName}" required="true" styleClass="form-control"></h:inputText>
 			</div>
 			<div class="form-group">
 				<h:outputLabel rendered="true" value="Last name"></h:outputLabel>
-				<h:inputText value="#{userBean.user.lastName}" required="true" styleClass="form-control"></h:inputText>
+				<h:inputText value="#{userBean.lastName}" required="true" styleClass="form-control"></h:inputText>
 			</div>
 			<div class="form-group">
 				<h:outputLabel rendered="true" value="Email"></h:outputLabel>
-				<h:inputText value="#{userBean.user.email}" required="true" styleClass="form-control"></h:inputText>
+				<h:inputText value="#{userBean.email}" required="true" styleClass="form-control"></h:inputText>
+			</div>
+			<div class="form-group">
+				<h:outputLabel rendered="true" value="Password"></h:outputLabel>
+				<h:inputText value="#{userBean.password}" required="true" styleClass="form-control"></h:inputText>
 			</div>
 			<div class="form-group">
 				<h:commandButton action="cancel" value="Cancel" styleClass="btn btn-outline-secondary"></h:commandButton>
