@@ -8,7 +8,7 @@
 
 <ui:composition template="../template.xhtml">
 	<ui:define name="content">
-		<h2>Edit user</h2>
+		<h2>Upravit uživatele</h2>
 
 		<h:form>
 			<h:messages layout="table"></h:messages>
@@ -22,21 +22,21 @@
 				</h:selectOneMenu>
 			</div>
 			<div class="form-group">
-				<h:outputLabel rendered="true" value="First name"></h:outputLabel>
+				<h:outputLabel rendered="true" value="Jméno"></h:outputLabel>
 				<h:inputText value="#{userBean.editedUser.firstName}" required="true" styleClass="form-control"></h:inputText>
 			</div>
 			<div class="form-group">
-				<h:outputLabel rendered="true" value="Last name"></h:outputLabel>
+				<h:outputLabel rendered="true" value="Příjmení"></h:outputLabel>
 				<h:inputText value="#{userBean.editedUser.lastName}" required="true" styleClass="form-control"></h:inputText>
 			</div>
 			<div class="form-group">
-				<h:outputLabel rendered="true" value="Email"></h:outputLabel>
+				<h:outputLabel rendered="true" value="E-mail"></h:outputLabel>
 				<h:inputText value="#{userBean.editedUser.email}" required="true" styleClass="form-control"></h:inputText>
 			</div>
 			<div class="form-group">
-				<h:commandButton action="cancel" value="Cancel" styleClass="btn btn-outline-secondary"></h:commandButton>
+				<h:commandButton action="cancel" value="Storno" styleClass="btn btn-outline-secondary"></h:commandButton>
 				&nbsp;
-				<h:commandButton action="#{userBean.actionUpdate}" value="Update" styleClass="btn btn-primary"></h:commandButton>
+				<h:commandButton action="#{userBean.actionUpdate}" value="Uložit" styleClass="btn btn-primary"></h:commandButton>
 			</div>
 		</h:form>
 	</ui:define>

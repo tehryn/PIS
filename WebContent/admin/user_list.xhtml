@@ -8,10 +8,10 @@
 
 <ui:composition template="../template.xhtml">
 	<ui:define name="content">
-		<h2>Users</h2>
+		<h2>Uživatelé</h2>
 
 		<h:form>
-			<h:commandButton action="#{userBean.actionNew}" value="New user" styleClass="btn btn-primary mb-3"></h:commandButton>
+			<h:commandButton action="#{userBean.actionNew}" value="Nový uživatel" styleClass="btn btn-primary mb-3"></h:commandButton>
 
 			<h:dataTable value="#{userBean.users}" var="user" styleClass="table table-striped table-hover">
 				<h:column>
@@ -22,28 +22,28 @@
 				</h:column>
 				<h:column>
 					<f:facet name="header">
-						<h:outputText value="First name" />
+						<h:outputText value="Jméno" />
 					</f:facet>
 					<h:outputText value="#{user.firstName}"></h:outputText>
 				</h:column>
 				<h:column>
 					<f:facet name="header">
-						<h:outputText value="Last name" />
+						<h:outputText value="Příjmení" />
 					</f:facet>
 					<h:outputText value="#{user.lastName}"></h:outputText>
 				</h:column>
 				<h:column>
 					<f:facet name="header">
-						<h:outputText value="Email" />
+						<h:outputText value="E-mail" />
 					</f:facet>
 					<h:outputText value="#{user.email}"></h:outputText>
 				</h:column>
 				<h:column>
-					<h:commandButton action="#{userBean.actionEdit}" value="Edit" styleClass="btn btn-outline-primary">
+					<h:commandButton action="#{userBean.actionEdit}" value="Upravit" styleClass="btn btn-outline-primary">
 						<f:setPropertyActionListener target="#{userBean.editedUser}" value="#{user}"/>
 					</h:commandButton>
 					&nbsp;
-					<h:commandButton action="#{userBean.actionDelete}" value="Delete" styleClass="btn btn-outline-danger">
+					<h:commandButton action="#{userBean.actionDelete}" value="Odstranit" styleClass="btn btn-outline-danger">
 						<f:setPropertyActionListener target="#{userBean.editedUser}" value="#{user}"/>
 					</h:commandButton>
 				</h:column>

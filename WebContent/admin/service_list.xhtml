@@ -8,10 +8,10 @@
 
 <ui:composition template="../template.xhtml">
 	<ui:define name="content">
-	    <h2>Services</h2>
+	    <h2>Služby</h2>
 
 	    <h:form>
-			<h:commandButton action="#{serviceBean.actionNew}" value="New service" styleClass="btn btn-primary mb-3"></h:commandButton>
+			<h:commandButton action="#{serviceBean.actionNew}" value="Nová služba" styleClass="btn btn-primary mb-3"></h:commandButton>
 
 			<h:dataTable value="#{serviceBean.services}" var="service" styleClass="table table-striped table-hover">
 				<h:column>
@@ -22,16 +22,16 @@
 				</h:column>
 				<h:column>
 					<f:facet name="header">
-						<h:outputText value="Description" />
+						<h:outputText value="Popis" />
 					</f:facet>
 					<h:outputText value="#{service.description}"></h:outputText>
 				</h:column>
 				<h:column>
-					<h:commandButton action="#{serviceBean.actionEdit}" value="Edit" styleClass="btn btn-outline-primary">
+					<h:commandButton action="#{serviceBean.actionEdit}" value="Upravit" styleClass="btn btn-outline-primary">
 						<f:setPropertyActionListener target="#{serviceBean.service}" value="#{service}"/>
 					</h:commandButton>
 					&nbsp;
-					<h:commandButton action="#{serviceBean.actionDelete}" value="Delete" styleClass="btn btn-outline-danger">
+					<h:commandButton action="#{serviceBean.actionDelete}" value="Odstranit" styleClass="btn btn-outline-danger">
 						<f:setPropertyActionListener target="#{serviceBean.service}" value="#{service}"/>
 					</h:commandButton>
 				</h:column>

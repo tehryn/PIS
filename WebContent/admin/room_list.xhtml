@@ -8,10 +8,10 @@
 
 <ui:composition template="../template.xhtml">
 	<ui:define name="content">
-		<h2>Rooms</h2>
+		<h2>Pokoje</h2>
 
 		<h:form>
-			<h:commandButton action="#{roomBean.actionNew}" value="New room" styleClass="btn btn-primary mb-3"></h:commandButton>
+			<h:commandButton action="#{roomBean.actionNew}" value="Nový pokoj" styleClass="btn btn-primary mb-3"></h:commandButton>
 
 			<h:dataTable value="#{roomBean.rooms}" var="room" styleClass="table table-striped table-hover">
 				<h:column>
@@ -22,17 +22,17 @@
 				</h:column>
 				<h:column>
 					<f:facet name="header">
-						<h:outputText value="Description" />
+						<h:outputText value="Popis" />
 					</f:facet>
 					<h:outputText value="#{room.description}"></h:outputText>
 				</h:column>
 				<h:column>
-					<h:commandButton action="#{roomBean.actionEdit}" value="Edit" styleClass="btn btn-outline-primary">
+					<h:commandButton action="#{roomBean.actionEdit}" value="Upravit" styleClass="btn btn-outline-primary">
 						<f:setPropertyActionListener target="#{roomBean.sysid}" value="#{room.sysid}"/>
 						<f:setPropertyActionListener target="#{roomBean.description}" value="#{room.description}"/>
 					</h:commandButton>
 					&nbsp;
-					<h:commandButton action="#{roomBean.actionDelete}" value="Delete" styleClass="btn btn-outline-danger">
+					<h:commandButton action="#{roomBean.actionDelete}" value="Odstranit" styleClass="btn btn-outline-danger">
 						<f:setPropertyActionListener target="#{roomBean.editedRoom}" value="#{room}"/>
 					</h:commandButton>
 				</h:column>

@@ -8,7 +8,7 @@
 
 <ui:composition template="../template.xhtml">
 	<ui:define name="content">
-		<h2>Edit room</h2>
+		<h2>Upravit pokoj</h2>
 
 		<h:form>
 			<h:messages layout="table"></h:messages>
@@ -17,13 +17,13 @@
 				<h:inputText value="#{roomBean.sysid}" required="true" styleClass="form-control"></h:inputText>
 			</div>
 			<div class="form-group">
-				<h:outputLabel rendered="true" value="Description"></h:outputLabel>
+				<h:outputLabel rendered="true" value="Popis"></h:outputLabel>
 				<h:inputText value="#{roomBean.description}" required="true" styleClass="form-control"></h:inputText>
 			</div>
 			<div class="form-group">
-				<h:commandButton action="cancel" value="Cancel" styleClass="btn btn-outline-secondary"></h:commandButton>
+				<h:commandButton action="cancel" value="Storno" styleClass="btn btn-outline-secondary"></h:commandButton>
 				&nbsp;
-				<h:commandButton action="#{roomBean.actionUpdate}" value="Update" styleClass="btn btn-primary"></h:commandButton>
+				<h:commandButton action="#{roomBean.actionUpdate}" value="Uložit" styleClass="btn btn-primary"></h:commandButton>
 			</div>
 		</h:form>
 	</ui:define>
