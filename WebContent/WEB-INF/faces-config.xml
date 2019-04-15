@@ -3,77 +3,80 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-facesconfig_2_3.xsd"
 	version="2.3">
+	<!-- / -->
 	<navigation-rule>
-	    <from-view-id>/index.xhtml</from-view-id>
-	    <navigation-case>
-		    <from-outcome>hotel_info</from-outcome>
-		    <to-view-id>/guest/hotel_info.xhtml</to-view-id>
-		    <redirect />
-	    </navigation-case>
-	    <navigation-case>
-		    <from-outcome>login</from-outcome>
-		    <to-view-id>/guest/login.xhtml</to-view-id>
-		    <redirect />
-	    </navigation-case>
-	    <navigation-case>
-		    <from-outcome>register</from-outcome>
-		    <to-view-id>/guest/registration.xhtml</to-view-id>
-		    <redirect />
-	    </navigation-case>
-	    <navigation-case>
-		    <from-outcome>admin</from-outcome>
-		    <to-view-id>/admin/index.xhtml</to-view-id>
-		    <redirect />
-	    </navigation-case>
-	    <navigation-case>
-		    <from-outcome>reservations</from-outcome>
-		    <to-view-id>/user/reservation_list.xhtml</to-view-id>
-		    <redirect />
-	    </navigation-case>
-    </navigation-rule>
-    <navigation-rule>
-	    <from-view-id>/guest/offered_rooms.xhtml</from-view-id>
-	    <navigation-case>
-		    <from-outcome>index</from-outcome>
-		    <to-view-id>/index.xhtml</to-view-id>
-		    <redirect />
-	    </navigation-case>
-    </navigation-rule>
-    <navigation-rule>
-	    <from-view-id>/guest/offered_services.xhtml</from-view-id>
-	    <navigation-case>
-		    <from-outcome>index</from-outcome>
-		    <to-view-id>/index.xhtml</to-view-id>
-		    <redirect />
-	    </navigation-case>
-    </navigation-rule>
-    <navigation-rule>
-	    <from-view-id>/guest/registration.xhtml</from-view-id>
-	    <navigation-case>
-		    <from-outcome>index</from-outcome>
-		    <to-view-id>/index.xhtml</to-view-id>
-		    <redirect />
-	    </navigation-case>
-    </navigation-rule>
-    <navigation-rule>
-	    <from-view-id>/guest/login.xhtml</from-view-id>
-	    <navigation-case>
-		    <from-outcome>index</from-outcome>
-		    <to-view-id>/index.xhtml</to-view-id>
-		    <redirect />
-	    </navigation-case>
-    </navigation-rule>
-    <navigation-rule>
-	    <from-view-id>/guest/hotel_info.xhtml</from-view-id>
-	    <navigation-case>
-		    <from-outcome>index</from-outcome>
-		    <to-view-id>/index.xhtml</to-view-id>
-		    <redirect />
-	    </navigation-case>
-    </navigation-rule>
-    <navigation-rule>
-	    <from-view-id>/user/reservation_list.xhtml</from-view-id>
-	    <navigation-case>
+		<from-view-id>/index.xhtml</from-view-id>
+		<navigation-case>
+			<from-outcome>hotel_info</from-outcome>
+			<to-view-id>/guest/hotel_info.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>login</from-outcome>
+			<to-view-id>/guest/login.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>register</from-outcome>
+			<to-view-id>/guest/registration.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>admin</from-outcome>
+			<to-view-id>/admin/index.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>reservations</from-outcome>
+			<to-view-id>/user/reservation_list.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+	<!-- /guest -->
+	<navigation-rule>
+		<from-view-id>/guest/offered_rooms.xhtml</from-view-id>
+		<navigation-case>
+			<from-outcome>index</from-outcome>
+			<to-view-id>/index.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+		<from-view-id>/guest/offered_services.xhtml</from-view-id>
+		<navigation-case>
+			<from-outcome>index</from-outcome>
+			<to-view-id>/index.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+		<from-view-id>/guest/registration.xhtml</from-view-id>
+		<navigation-case>
+			<from-outcome>index</from-outcome>
+			<to-view-id>/index.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+		<from-view-id>/guest/login.xhtml</from-view-id>
+		<navigation-case>
+			<from-outcome>index</from-outcome>
+			<to-view-id>/index.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+		<from-view-id>/guest/hotel_info.xhtml</from-view-id>
+		<navigation-case>
+			<from-outcome>index</from-outcome>
+			<to-view-id>/index.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+	<!-- /user -->
+	<navigation-rule>
+		<from-view-id>/user/reservation_list.xhtml</from-view-id>
+		<navigation-case>
 			<from-outcome>new</from-outcome>
 			<to-view-id>/user/reservation_new.xhtml</to-view-id>
 			<redirect />
@@ -83,41 +86,42 @@
 			<to-view-id>/user/reservation_edit.xhtml</to-view-id>
 			<redirect />
 		</navigation-case>
-	    <navigation-case>
-		    <from-outcome>index</from-outcome>
-		    <to-view-id>/index.xhtml</to-view-id>
+		<navigation-case>
+			<from-outcome>index</from-outcome>
+			<to-view-id>/index.xhtml</to-view-id>
 			<redirect />
-	    </navigation-case>
-	    <navigation-case>
-		    <from-outcome>login</from-outcome>
-		    <to-view-id>/guest/login.xhtml</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>login</from-outcome>
+			<to-view-id>/guest/login.xhtml</to-view-id>
 			<redirect />
-	    </navigation-case>
-    </navigation-rule>
-
+		</navigation-case>
+	</navigation-rule>
+	<!-- /admin -->
 	<navigation-rule>
-	    <from-view-id>/admin/index.xhtml</from-view-id>
-	    <navigation-case>
-		    <from-outcome>rooms</from-outcome>
-		    <to-view-id>/admin/room_list.xhtml</to-view-id>
-		    <redirect />
-	    </navigation-case>
-	    <navigation-case>
-		    <from-outcome>services</from-outcome>
-		    <to-view-id>/admin/service_list.xhtml</to-view-id>
-		    <redirect />
-	    </navigation-case>
-	    <navigation-case>
-		    <from-outcome>users</from-outcome>
-		    <to-view-id>/admin/user_list.xhtml</to-view-id>
-		    <redirect />
-	    </navigation-case>
-	    <navigation-case>
-		    <from-outcome>index</from-outcome>
-		    <to-view-id>/index.xhtml</to-view-id>
-		    <redirect />
-	    </navigation-case>
-    </navigation-rule>
+		<from-view-id>/admin/index.xhtml</from-view-id>
+		<navigation-case>
+			<from-outcome>rooms</from-outcome>
+			<to-view-id>/admin/room_list.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>services</from-outcome>
+			<to-view-id>/admin/service_list.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>users</from-outcome>
+			<to-view-id>/admin/user_list.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>index</from-outcome>
+			<to-view-id>/index.xhtml</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+	<!-- /admin/room_* -->
 	<navigation-rule>
 		<from-view-id>/admin/room_list.xhtml</from-view-id>
 		<navigation-case>
@@ -163,7 +167,7 @@
 			<redirect />
 		</navigation-case>
 	</navigation-rule>
-
+	<!-- /admin/user_* -->
 	<navigation-rule>
 		<from-view-id>/admin/user_list.xhtml</from-view-id>
 		<navigation-case>
@@ -209,7 +213,7 @@
 			<redirect />
 		</navigation-case>
 	</navigation-rule>
-
+	<!-- /admin/service_* -->
 	<navigation-rule>
 		<from-view-id>/admin/service_list.xhtml</from-view-id>
 		<navigation-case>
@@ -238,20 +242,6 @@
 		<navigation-case>
 			<from-outcome>cancel</from-outcome>
 			<to-view-id>/admin/service_list.xhtml</to-view-id>
-			<redirect />
-		</navigation-case>
-	</navigation-rule>
-	<navigation-rule>
-		<display-name>admin/user_edit.xhtml</display-name>
-		<from-view-id>/admin/user_edit.xhtml</from-view-id>
-		<navigation-case>
-			<from-outcome>update</from-outcome>
-			<to-view-id>/admin/user_list.xhtml</to-view-id>
-			<redirect />
-		</navigation-case>
-		<navigation-case>
-			<from-outcome>cancel</from-outcome>
-			<to-view-id>/admin/user_list.xhtml</to-view-id>
 			<redirect />
 		</navigation-case>
 	</navigation-rule>
