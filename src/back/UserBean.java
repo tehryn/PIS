@@ -12,8 +12,6 @@ import javax.enterprise.context.SessionScoped;
 import core.User;
 import datatypes.UserRole;
 
-import datatypes.UserRole;
-
 @Named
 @SessionScoped
 public class UserBean implements Serializable {
@@ -67,13 +65,9 @@ public class UserBean implements Serializable {
     String password;
            
     UserRole role = UserRole.VISITOR;
-    core.User user;
         
     // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     // Public functions
-        
-    public UserBean() {
-	}
     
     // logout
     public void actionLogout() {
