@@ -7,33 +7,33 @@
 	xmlns:f="http://java.sun.com/jsf/core">
 
 <ui:composition template="../template.xhtml">
+	<ui:param name="title" value="Přihlášení" />
 	<ui:define name="content">
-	    <h2>Přihlášení</h2>
-	    
         <h:form rendered="#{userBean.role == 'VISITOR'}">
 			<h:messages layout="table"></h:messages>
-			<h:panelGrid columns="2">
-				<h:outputLabel rendered="true" value="email"></h:outputLabel>
-				<h:inputText value="#{userBean.email}" required="true"></h:inputText>
-				<h:outputLabel rendered="true" value="password"></h:outputLabel>
-				<h:inputSecret value="#{userBean.password}" required="true"></h:inputSecret>
-				<h:commandButton action="#{userBean.actionLogin}" value="Přihlásit"></h:commandButton>
-				<h:commandButton action="cancel" value="Storno"></h:commandButton>
-			</h:panelGrid>
+			<div class="form-group">
+				<h:outputLabel rendered="true" value="E-mail"></h:outputLabel>
+				<h:inputText value="#{userBean.email}" required="true" styleClass="form-control"></h:inputText>
+			</div>
+			<div class="form-group">
+				<h:outputLabel rendered="true" value="Heslo"></h:outputLabel>
+				<h:inputSecret value="#{userBean.password}" required="true" styleClass="form-control"></h:inputSecret>
+			</div>
+			<div class="form-group text-right">
+				<h:commandButton action="cancel" value="Storno" styleClass="btn btn-outline-secondary"></h:commandButton>
+				&nbsp;
+				<h:commandButton action="#{userBean.actionLogin}" value="Přihlásit se" styleClass="btn btn-primary"></h:commandButton>
+			</div>
 		</h:form>
+		
 		<h:form rendered="#{userBean.role == 'VISITOR'}">
 			<h:outputLabel rendered="true" value="Nemáte účet?"></h:outputLabel><br/>
-			<h:button value="Zaregistrovat" outcome="registration" />
+			<h:commandButton value="Zaregistrovat se" action="registration" styleClass="btn btn-outline-primary"/>
 		</h:form>
 	    
         <h:form rendered="#{userBean.role != 'VISITOR'}">
-			<h:commandButton action="#{userBean.actionLogout}" value="Odhlásit"></h:commandButton>
+			<h:commandButton action="#{userBean.actionLogout}" value="Odhlásit se" styleClass="btn btn-primary"></h:commandButton>
 		</h:form>
-		
-		<h:form>
-			<br/><br/><h:button value="Zpět na úvodní stránku" outcome="index" />
-		</h:form>
-	
 	</ui:define>
 </ui:composition>
 
