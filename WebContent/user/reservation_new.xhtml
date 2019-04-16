@@ -9,7 +9,39 @@
 <ui:composition template="../template.xhtml">
 	<ui:param name="title" value="Nová rezervace" />
 	<ui:define name="content">
-		TODO
+		<h:form>
+			<h:messages layout="table"></h:messages>
+			<h:dataTable value="" var="" styleClass="table table-striped table-hover">
+				<h:column>
+					<f:facet name="header">
+						<h:outputText value="Položka" />
+					</f:facet>
+					<h:selectOneMenu value = "TODO" required="true" styleClass="form-control"> 
+			            <f:selectItem itemValue = "TODO" itemLabel = "TODO" /> 
+					</h:selectOneMenu>
+				</h:column>
+				<h:column>
+					<f:facet name="header">
+						<h:outputText value="Od" />
+					</f:facet>
+					<h:inputText value="TODO" required="true" styleClass="form-control" />
+				</h:column>
+				<h:column>
+					<f:facet name="header">
+						<h:outputText value="Do" />
+					</f:facet>
+					<h:inputText value="TODO" required="true" styleClass="form-control" />
+				</h:column>
+				<h:column>
+					<h:commandButton action="null" value="Přidat" styleClass="btn btn-outline-primary"/>
+				</h:column>
+			</h:dataTable>
+			<div class="form-group text-right">
+				<h:commandButton action="null" value="Rezervovat" styleClass="btn btn-primary" />
+				&nbsp;
+				<h:button outcome="/user/reservation_list.xhtml" value="Storno" styleClass="btn btn-outline-secondary" />
+			</div>
+		</h:form>
 	</ui:define>
 </ui:composition>
 
