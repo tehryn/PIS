@@ -32,10 +32,10 @@
 				<h:outputLabel rendered="true" value="E-mail"></h:outputLabel>
 				<h:inputText value="#{userBean.editedUser.email}" required="true" styleClass="form-control"></h:inputText>
 			</div>
-			<div class="form-group">
-				<h:commandButton action="cancel" value="Storno" styleClass="btn btn-outline-secondary"></h:commandButton>
+			<div class="form-group text-right">
+				<h:button outcome="/admin/user_list.xhtml" value="Storno" styleClass="btn btn-outline-secondary" />
 				&nbsp;
-				<h:commandButton action="#{userBean.actionUpdate}" value="Uložit" styleClass="btn btn-primary"></h:commandButton>
+				<h:commandButton action="#{userBean.actionUpdate}" value="Uložit" styleClass="btn btn-primary" />
 			</div>
 		</h:form>
 	</ui:define>

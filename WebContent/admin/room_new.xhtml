@@ -19,10 +19,10 @@
 				<h:outputLabel rendered="true" value="Popis"></h:outputLabel>
 				<h:inputText value="#{roomBean.description}" styleClass="form-control"></h:inputText>
 			</div>
-			<div class="form-group">
-				<h:commandButton action="cancel" value="Storno" styleClass="btn btn-outline-secondary"></h:commandButton>
+			<div class="form-group text-right">
+				<h:button outcome="/admin/room_list.xhtml" value="Storno" styleClass="btn btn-outline-secondary" />
 				&nbsp;
-				<h:commandButton action="#{roomBean.actionInsertNew}" value="Přidat pokoj" styleClass="btn btn-primary"></h:commandButton>
+				<h:commandButton action="#{roomBean.actionInsertNew}" value="Přidat pokoj" styleClass="btn btn-primary" />
 			</div>
 		</h:form>
 	</ui:define>

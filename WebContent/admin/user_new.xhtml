@@ -36,10 +36,10 @@
 				<h:outputLabel rendered="true" value="Heslo"></h:outputLabel>
 				<h:inputText value="#{userBean.password}" required="true" styleClass="form-control"></h:inputText>
 			</div>
-			<div class="form-group">
-				<h:commandButton action="cancel" value="Storno" styleClass="btn btn-outline-secondary"></h:commandButton>
+			<div class="form-group text-right">
+				<h:button outcome="/admin/user_list.xhtml" value="Storno" styleClass="btn btn-outline-secondary" />
 				&nbsp;
-				<h:commandButton action="#{userBean.actionInsertNew}" value="Přidat uživatele" styleClass="btn btn-primary"></h:commandButton>
+				<h:commandButton action="#{userBean.actionInsertNew}" value="Přidat uživatele" styleClass="btn btn-primary" />
 			</div>
 		</h:form>
 	</ui:define>

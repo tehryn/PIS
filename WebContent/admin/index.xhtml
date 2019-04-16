@@ -9,37 +9,36 @@
 <ui:composition template="../template.xhtml">
 	<ui:param name="title" value="Administrace" />
     <ui:define name="content">
-		<h:form>
-			<div class="row">
-				<div class="col">
-					<div class="card">
-						<h5 class="card-header">Správa pokojů</h5>
-						<div class="card-body">
-							<p class="card-text">Lorem ipsum...</p>
-							<h:commandButton value="Spravovat pokoje" action="rooms" styleClass="btn btn-primary" />
-						</div>
-					</div>
-				</div>
-				<div class="col">
-					<div class="card">
-						<h5 class="card-header">Správa služeb</h5>
-						<div class="card-body">
-							<p class="card-text">Lorem ipsum...</p>
-							<h:commandButton value="Spravovat služby" action="services" styleClass="btn btn-primary" />
-						</div>
-					</div>
-				</div>
-				<div class="col">
-					<div class="card">
-						<h5 class="card-header">Správa uživatelů</h5>
-						<div class="card-body">
-							<p class="card-text">Lorem ipsum...</p>
-							<h:commandButton value="Spravovat uživatele" action="users" styleClass="btn btn-primary" />
-						</div>
+		<div class="row">
+			<div class="col">
+				<div class="card">
+					<h5 class="card-header">Správa pokojů</h5>
+					<div class="card-body">
+						<p class="card-text">Lorem ipsum...</p>
+						<h:link value="Spravovat pokoje" outcome="/admin/room_list.xhtml" styleClass="btn btn-primary" />
 					</div>
 				</div>
 			</div>
-		</h:form>
+			<div class="col">
+				<div class="card">
+					<h5 class="card-header">Správa služeb</h5>
+					<div class="card-body">
+						<p class="card-text">Lorem ipsum...</p>
+						<h:link value="Spravovat služby" outcome="/admin/service_list.xhtml" styleClass="btn btn-primary" />
+					</div>
+				</div>
+			</div>
+			<div class="col">
+				<div class="card">
+					<h5 class="card-header">Správa uživatelů</h5>
+					<div class="card-body">
+						<p class="card-text">Lorem ipsum...</p>
+						<h:link value="Spravovat uživatele" outcome="/admin/user_list.xhtml" styleClass="btn btn-primary" />
+					</div>
+				</div>
+			</div>
+		</div>
+		<p class="mt-5"><h:link outcome="/index.xhtml" value="Zpět na hlavní stránku" /></p>
     </ui:define>
 </ui:composition>
 
