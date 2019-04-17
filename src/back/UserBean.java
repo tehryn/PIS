@@ -70,9 +70,10 @@ public class UserBean implements Serializable {
     // Public functions
     
     // logout
-    public void actionLogout() {
+    public String actionLogout() {
     	loggedUser = null;
     	role = UserRole.VISITOR;
+    	return "/index.xhtml?faces-redirect=true";
     }
     
 	// login
@@ -91,7 +92,7 @@ public class UserBean implements Serializable {
 			return "loginFailed";
 		}
 		
-		return "loginSuccessful";
+		return "/index.xhtml?faces-redirect=true";
 	}
 	
 	// register
