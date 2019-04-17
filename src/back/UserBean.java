@@ -117,6 +117,34 @@ public class UserBean implements Serializable {
 		return role;
 	}
 	
+	public boolean hasRole(UserRole role) {
+		if (role == null)
+			return true;
+		
+		int role1 = 0;
+		int role2 = 0;
+		
+		if (this.role == UserRole.REGISTRATED)
+			role1 = 1;
+		else if (this.role == UserRole.RECEPTIONIST)
+			role1 = 2;
+		else if (this.role == UserRole.MANAGER)
+			role1 = 3;
+		else if (this.role == UserRole.ADMIN)
+			role1 = 4;
+		
+		if (role == UserRole.REGISTRATED)
+			role2 = 1;
+		else if (role == UserRole.RECEPTIONIST)
+			role2 = 2;
+		else if (role == UserRole.MANAGER)
+			role2 = 3;
+		else if (role == UserRole.ADMIN)
+			role2 = 4;
+		
+		return role1 >= role2;
+	}
+	
 	
 	
 	
