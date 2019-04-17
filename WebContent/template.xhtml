@@ -27,7 +27,12 @@
 					</li>
 					<h:outputFormat rendered="#{userBean.role != 'VISITOR'}">
 						<li class="nav-item active">
-							<h:link outcome="/user/reservation_list.xhtml" styleClass="nav-link">Rezervace</h:link>
+							<h:link outcome="/user/reservation_list.xhtml" styleClass="nav-link">Moje Rezervace</h:link>
+						</li>
+					</h:outputFormat>
+					<h:outputFormat rendered="#{userBean.role == 'RECEPTIONIST' || userBean.role == 'MANAGER' || userBean.role == 'ADMIN'}">
+						<li class="nav-item active">
+							<h:link outcome="/reservations/reservation_list.xhtml" styleClass="nav-link">Správa rezervací</h:link>
 						</li>
 					</h:outputFormat>
 					<h:outputFormat rendered="#{userBean.role == 'MANAGER' || userBean.role == 'ADMIN'}">
