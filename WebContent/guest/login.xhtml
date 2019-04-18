@@ -10,15 +10,15 @@
 	<ui:param name="title" value="Přihlášení" />
 	<ui:define name="content">
         <h:form rendered="#{userBean.role == 'VISITOR'}">
-			<h:messages layout="table" globalOnly="true" styleClass="text-danger mb-3"></h:messages>
+			<h:messages layout="table" globalOnly="true" styleClass="text-danger mb-3" />
 			<div class="form-group">
-				<h:outputLabel rendered="true" value="E-mail *"></h:outputLabel>
-				<h:inputText id="form-email" value="#{userBean.email}" required="true" requiredMessage="Zadejte prosím e-mail" styleClass="form-control"></h:inputText>
+				<h:outputLabel value="E-mail *" />
+				<h:inputText id="form-email" value="#{userBean.email}" required="true" requiredMessage="Zadejte prosím e-mail" styleClass="form-control" />
 				<h:message for="form-email" styleClass="text-danger" />
 			</div>
 			<div class="form-group">
-				<h:outputLabel rendered="true" value="Heslo *"></h:outputLabel>
-				<h:inputSecret id="form-password" value="#{userBean.password}" required="true" requiredMessage="Zadejte prosím heslo" styleClass="form-control"></h:inputSecret>
+				<h:outputLabel value="Heslo *" />
+				<h:inputSecret id="form-password" value="#{userBean.password}" required="true" requiredMessage="Zadejte prosím heslo" styleClass="form-control" />
 				<h:message for="form-password" styleClass="text-danger" />
 			</div>
 			<div class="form-group text-secondary">* povinná pole</div>
@@ -30,7 +30,7 @@
 		</h:form>
 		
 		<h:outputFormat rendered="#{userBean.role == 'VISITOR'}">
-			<h:outputLabel rendered="true" value="Nemáte účet?"></h:outputLabel><br/>
+			Nemáte účet?<br />
 			<h:button value="Zaregistrovat se" outcome="/guest/registration.xhtml" styleClass="btn btn-outline-primary"/>
 		</h:outputFormat>
 	    
