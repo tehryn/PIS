@@ -18,9 +18,27 @@ public class UserBean implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
 	// For editing or removing user
-	User editedUser;
+	private User editedUser;
 
-	public UserBean() {
+	// Used for user creating/registration
+	private String newUserFirstName;
+	private String newUserLastName;
+	private String newUserEmail;
+	private String newUserPassword;
+	private UserRole newUserRole;	// not for registration -> REGISTRATED
+    
+    // Logging in
+	private String firstName;
+	private String lastName;
+	private String email;
+	private String password;
+	private UserRole role = UserRole.VISITOR;
+    private User loggedUser;
+        
+    // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    // Public methods
+    
+    public UserBean() {
 	}
 
 	public List<User> getUsers() {
@@ -33,7 +51,7 @@ public class UserBean implements Serializable {
 
 	public String actionInsertNew() {
 		try {
-			new core.User(firstName, lastName, email, password).setRole(newUserRole);
+			new core.User(newUserFirstName, newUserLastName, newUserEmail, newUserPassword).setRole(newUserRole);
 		} catch (Exception e) {
 			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(e.getMessage()));
 		}
@@ -54,44 +72,26 @@ public class UserBean implements Serializable {
 		editedUser.remove();
 		return "delete";
     }
-
-	// Used for user creating/registration
-    String firstName;
-	String lastName;
-    String email;
-    String password;
-    UserRole newUserRole;	// not for registration -> REGISTRATED
-    
-    // Current logged in user
-    UserRole role = UserRole.VISITOR;
-    private User loggedUser;
-        
-    // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-    // Public functions
     
     // logout
-    public void actionLogout() {
+    public String actionLogout() {
     	loggedUser = null;
     	role = UserRole.VISITOR;
+    	return "/index.xhtml?faces-redirect=true";
     }
     
 	// login
 	public String actionLogin() {
 		try {
-			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("[DEBUG] email: " + email + " password: " + password));
-			
 			loggedUser = new core.User(email, password);
 			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Login successful"));
 			this.role = loggedUser.getRole();
-			
-			//FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("[DEBUG] UserRole.MANAGER: " + UserRole.MANAGER));
-			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("[DEBUG] loggedUser.getRole(): " + loggedUser.getRole()));
 		} catch (Exception e) {
 			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(e.getMessage()));
 			return "loginFailed";
 		}
 		
-		return "loginSuccessful";
+		return "/index.xhtml?faces-redirect=true";
 	}
 	
 	// register
@@ -106,24 +106,77 @@ public class UserBean implements Serializable {
 		return "register";
 	}
 	
+	public boolean hasRole(UserRole role) {
+		if (role == null)
+			return true;
+		
+		int role1 = 0;
+		int role2 = 0;
+		
+		if (this.role == UserRole.REGISTRATED)
+			role1 = 1;
+		else if (this.role == UserRole.RECEPTIONIST)
+			role1 = 2;
+		else if (this.role == UserRole.MANAGER)
+			role1 = 3;
+		else if (this.role == UserRole.ADMIN)
+			role1 = 4;
+		
+		if (role == UserRole.REGISTRATED)
+			role2 = 1;
+		else if (role == UserRole.RECEPTIONIST)
+			role2 = 2;
+		else if (role == UserRole.MANAGER)
+			role2 = 3;
+		else if (role == UserRole.ADMIN)
+			role2 = 4;
+		
+		return role1 >= role2;
+	}
+	
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-	// Private functions
+	// Private methods
 
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	// Getters and Setters
-	
 	
 	public UserRole getRole() {
 		return role;
 	}
 	
-	
-	
-	
-	
-	
-	
-    public User getEditedUser() {
+    public String getNewUserFirstName() {
+		return newUserFirstName;
+	}
+
+	public void setNewUserFirstName(String newUserFirstName) {
+		this.newUserFirstName = newUserFirstName;
+	}
+
+	public String getNewUserLastName() {
+		return newUserLastName;
+	}
+
+	public void setNewUserLastName(String newUserLastName) {
+		this.newUserLastName = newUserLastName;
+	}
+
+	public String getNewUserEmail() {
+		return newUserEmail;
+	}
+
+	public void setNewUserEmail(String newUserEmail) {
+		this.newUserEmail = newUserEmail;
+	}
+
+	public String getNewUserPassword() {
+		return newUserPassword;
+	}
+
+	public void setNewUserPassword(String newUserPassword) {
+		this.newUserPassword = newUserPassword;
+	}
+
+	public User getEditedUser() {
 		return editedUser;
 	}
 

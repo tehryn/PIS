@@ -7,36 +7,41 @@
 	xmlns:f="http://java.sun.com/jsf/core">
 
 <ui:composition template="../template.xhtml">
+	<ui:param name="title" value="Upravit uživatele" />
+	<ui:param name="role" value="MANAGER" />
 	<ui:define name="content">
-		<h2>Edit user</h2>
-
 		<h:form>
-			<h:messages layout="table"></h:messages>
+			<h:messages layout="table" globalOnly="true" styleClass="text-danger mb-3" />
 			<div class="form-group">
-				<h:outputLabel rendered="true" value="Role"></h:outputLabel>
-				<h:selectOneMenu value = "#{userBean.editedUser.role}" required="true" styleClass="form-control"> 
+				<h:outputLabel value="Role *" />
+				<h:selectOneMenu id="form-role" value="#{userBean.editedUser.role}" required="true" requiredMessage="Zvolte prosím roli" styleClass="form-control"> 
 		            <f:selectItem itemValue = "REGISTRATED" itemLabel = "REGISTRATED" /> 
 		            <f:selectItem itemValue = "RECEPTIONIST" itemLabel = "RECEPTIONIST" /> 
 		            <f:selectItem itemValue = "MANAGER" itemLabel = "MANAGER" /> 
 		            <f:selectItem itemValue = "ADMIN" itemLabel = "ADMIN" /> 
 				</h:selectOneMenu>
+				<h:message for="form-role" styleClass="text-danger" />
 			</div>
 			<div class="form-group">
-				<h:outputLabel rendered="true" value="First name"></h:outputLabel>
-				<h:inputText value="#{userBean.editedUser.firstName}" required="true" styleClass="form-control"></h:inputText>
+				<h:outputLabel value="Jméno *" />
+				<h:inputText id="form-firstname" value="#{userBean.editedUser.firstName}" required="true" requiredMessage="Zadejte prosím jméno" styleClass="form-control" />
+				<h:message for="form-firstname" styleClass="text-danger" />
 			</div>
 			<div class="form-group">
-				<h:outputLabel rendered="true" value="Last name"></h:outputLabel>
-				<h:inputText value="#{userBean.editedUser.lastName}" required="true" styleClass="form-control"></h:inputText>
+				<h:outputLabel value="Příjmení *" />
+				<h:inputText id="form-lastname" value="#{userBean.editedUser.lastName}" required="true" requiredMessage="Zadejte prosím příjmení" styleClass="form-control" />
+				<h:message for="form-lastname" styleClass="text-danger" />
 			</div>
 			<div class="form-group">
-				<h:outputLabel rendered="true" value="Email"></h:outputLabel>
-				<h:inputText value="#{userBean.editedUser.email}" required="true" styleClass="form-control"></h:inputText>
+				<h:outputLabel value="E-mail *" />
+				<h:inputText id="form-email" value="#{userBean.editedUser.email}" required="true" requiredMessage="Zadejte prosím e-mail" styleClass="form-control" />
+				<h:message for="form-email" styleClass="text-danger" />
 			</div>
-			<div class="form-group">
-				<h:commandButton action="cancel" value="Cancel" styleClass="btn btn-outline-secondary"></h:commandButton>
+			<div class="form-group text-secondary">* povinná pole</div>
+			<div class="form-group text-right">
+				<h:commandButton action="#{userBean.actionUpdate}" value="Uložit" styleClass="btn btn-primary" />
 				&nbsp;
-				<h:commandButton action="#{userBean.actionUpdate}" value="Update" styleClass="btn btn-primary"></h:commandButton>
+				<h:button outcome="/admin/user_list.xhtml" value="Storno" styleClass="btn btn-outline-secondary" />
 			</div>
 		</h:form>
 	</ui:define>

@@ -7,45 +7,86 @@
 	<meta charset="utf-8" />
 	<meta name="viewport"
 		content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-	<title><ui:insert name="title">PIS project</ui:insert></title>
+	<title><ui:insert name="title">#{title}</ui:insert></title>
 	<h:outputStylesheet library="style" name="bootstrap.min.css" />
+	<h:outputStylesheet library="style" name="bootstrap-datepicker3.min.css" />
 	<h:outputStylesheet library="style" name="default.css" />
 </h:head>
 
 <h:body>
+	<nav class="navbar navbar-expand-lg navbar-light bg-light">
+		<div class="container">
+			<h:link outcome="/index.xhtml" styleClass="navbar-brand">Hotel</h:link>
+			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent">
+				<span class="navbar-toggler-icon"></span>
+			</button>
 
-
-	<nav class="navbar navbar-expand-lg navbar-light bg-light"> <a
-		class="navbar-brand" href="#">Hotel</a>
-	<button class="navbar-toggler" type="button" data-toggle="collapse"
-		data-target="#navbarSupportedContent"
-		aria-controls="navbarSupportedContent" aria-expanded="false"
-		aria-label="Toggle navigation">
-		<span class="navbar-toggler-icon"></span>
-	</button>
-
-	<div class="collapse navbar-collapse" id="navbarSupportedContent">
-		<ul class="navbar-nav mr-auto">
-			<li class="nav-item active"><a class="nav-link" href="index.xhtml">Home</a>
-			</li>
-		</ul>
-	</div>
-	</nav>
-
-	<div class="container-fluid">
-		<div class="row">
-			<div class="col-sm">
-				<ui:insert name="content">Content</ui:insert>
+			<div class="collapse navbar-collapse" id="navbarSupportedContent">
+				<ul class="navbar-nav mr-auto">
+					<li class="nav-item active">
+						<h:link outcome="/index.xhtml" styleClass="nav-link">Domů</h:link>
+					</li>
+					<h:outputFormat rendered="#{userBean.hasRole('VISITOR')}">
+						<li class="nav-item active">
+							<h:link outcome="/user/reservation_list.xhtml" styleClass="nav-link">Moje Rezervace</h:link>
+						</li>
+					</h:outputFormat>
+					<h:outputFormat rendered="#{userBean.hasRole('RECEPTIONIST')}">
+						<li class="nav-item active">
+							<h:link outcome="/reservations/reservation_list.xhtml" styleClass="nav-link">Správa rezervací</h:link>
+						</li>
+					</h:outputFormat>
+					<h:outputFormat rendered="#{userBean.hasRole('MANAGER')}">
+						<li class="nav-item active">
+							<h:link outcome="/admin/index.xhtml" styleClass="nav-link">Administrace</h:link>
+						</li>
+					</h:outputFormat>
+				</ul>
+				<ul class="navbar-nav">
+					<h:form rendered="#{userBean.hasRole('REGISTRATED')}">
+						<li class="nav-item active">
+							<h:commandLink action="#{userBean.actionLogout}" styleClass="nav-link">Odhlásit se</h:commandLink>
+						</li>
+					</h:form>
+				</ul>
 			</div>
 		</div>
+	</nav>
+
+	<div class="container">
+		<h:outputFormat rendered="#{title != null}">
+			<div class="row">
+				<div class="col">
+					<h2 class="mt-5 mb-3">#{title}</h2>
+				</div>
+			</div>
+		</h:outputFormat>
+		<h:outputFormat rendered="#{userBean.hasRole(role)}">
+			<ui:insert name="content">Content</ui:insert>
+		</h:outputFormat>
+		<h:outputFormat rendered="#{!(userBean.hasRole(role))}">
+			<div class="alert alert-danger">
+				K zobrazení této stránky nemáte dostatečná oprávnění.
+			</div>
+			<p class="mt-5"><h:link outcome="/index.xhtml" value="Zpět na hlavní stránku" /></p>
+		</h:outputFormat>
 	</div>
 
-	<div class="container-fluid mt-5">
+	<div class="container mt-5">
 		<ui:insert name="footer">&copy; 2019</ui:insert>
 	</div>
 
-	<h:outputStylesheet library="script" name="jquery-3.4.0.min.js" />
-	<h:outputStylesheet library="script" name="bootstrap.bundle.min.js" />
+	<h:outputScript library="script" name="jquery-3.4.0.min.js" />
+	<h:outputScript library="script" name="bootstrap.bundle.min.js" />
+	<h:outputScript library="script" name="bootstrap-datepicker.min.js" />
+	<h:outputScript library="script" name="bootstrap-datepicker.cs.min.js" />
+	<script>
+		$('.form-control.date').datepicker({
+		    format: "mm.dd.yyyy",
+		    weekStart: 1,
+		    language: "cs"
+		});
+	</script>
 </h:body>
 
 </html>

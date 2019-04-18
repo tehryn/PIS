@@ -7,11 +7,11 @@
 	xmlns:f="http://java.sun.com/jsf/core">
 
 <ui:composition template="../template.xhtml">
+	<ui:param name="title" value="Služby" />
+	<ui:param name="role" value="MANAGER" />
 	<ui:define name="content">
-	    <h2>Services</h2>
-
-	    <h:form>
-			<h:commandButton action="#{serviceBean.actionNew}" value="New service" styleClass="btn btn-primary mb-3"></h:commandButton>
+		<h:form>
+			<h:commandButton action="#{serviceBean.actionNew}" value="Nová služba" styleClass="btn btn-primary mb-3"></h:commandButton>
 
 			<h:dataTable value="#{serviceBean.services}" var="service" styleClass="table table-striped table-hover">
 				<h:column>
@@ -22,21 +22,25 @@
 				</h:column>
 				<h:column>
 					<f:facet name="header">
-						<h:outputText value="Description" />
+						<h:outputText value="Popis" />
 					</f:facet>
 					<h:outputText value="#{service.description}"></h:outputText>
 				</h:column>
-				<h:column>
-					<h:commandButton action="#{serviceBean.actionEdit}" value="Edit" styleClass="btn btn-outline-primary">
-						<f:setPropertyActionListener target="#{serviceBean.service}" value="#{service}"/>
+				<h:column styleClass="text-right">
+					<h:commandButton action="#{serviceBean.actionEdit}" value="Upravit" styleClass="btn btn-outline-primary">
+						<f:setPropertyActionListener target="#{serviceBean.editedService}" value="#{service}"/>
 					</h:commandButton>
 					&nbsp;
-					<h:commandButton action="#{serviceBean.actionDelete}" value="Delete" styleClass="btn btn-outline-danger">
-						<f:setPropertyActionListener target="#{serviceBean.service}" value="#{service}"/>
+					<h:commandButton rendered="#{service.getAvailability() == 'AVAILABLE'}" action="#{serviceBean.actionBlock}" value="Zablokovat" styleClass="btn btn-outline-danger">
+						<f:setPropertyActionListener target="#{serviceBean.editedService}" value="#{service}"/>
+					</h:commandButton>
+					<h:commandButton rendered="#{service.getAvailability() == 'BLOCKED'}" action="#{serviceBean.actionEnable}" value="Zpřístupnit" styleClass="btn btn-outline-primary">
+						<f:setPropertyActionListener target="#{serviceBean.editedService}" value="#{service}"/>
 					</h:commandButton>
 				</h:column>
 			</h:dataTable>
 		</h:form>
+		<p class="mt-5"><h:link outcome="/admin/index.xhtml" value="Zpět do administrace" /></p>
 	</ui:define>
 </ui:composition>
 

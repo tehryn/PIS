@@ -7,32 +7,40 @@
 	xmlns:f="http://java.sun.com/jsf/core">
 
 <ui:composition template="../template.xhtml">
+	<ui:param name="title" value="Registrace" />
 	<ui:define name="content">
-	    <h2>Registrace</h2>
-
 	    <h:form rendered="#{userBean.role == 'VISITOR'}">
-			<h:messages layout="table"></h:messages>
-			<h:panelGrid columns="2">
-				<h:outputLabel rendered="true" value="firstName"></h:outputLabel>
-				<h:inputText value="#{userBean.firstName}" required="true"></h:inputText>
-				<h:outputLabel rendered="true" value="lastName"></h:outputLabel>
-				<h:inputText value="#{userBean.lastName}" required="true"></h:inputText>
-				<h:outputLabel rendered="true" value="email"></h:outputLabel>
-				<h:inputText value="#{userBean.email}" required="true"></h:inputText>
-				<h:outputLabel rendered="true" value="password"></h:outputLabel>
-				<h:inputSecret value="#{userBean.password}" required="true"></h:inputSecret>
-				<h:commandButton action="#{userBean.actionRegister}" value="Register"></h:commandButton>
-				<h:commandButton action="cancel" value="Cancel"></h:commandButton>
-			</h:panelGrid>
-		</h:form>
-        <h:form rendered="#{userBean.role == 'VISITOR'}">
-			<h:button value="Přihlášení" outcome="login" /><br/>
-			<br/><br/><h:button value="Zpět na úvodní stránku" outcome="index" />
+			<h:messages layout="table" globalOnly="true" styleClass="text-danger mb-3" />
+			<div class="form-group">
+				<h:outputLabel value="Jméno *" />
+				<h:inputText id="form-firstname" value="#{userBean.firstName}" required="true" requiredMessage="Zadejte prosím jméno" styleClass="form-control" />
+				<h:message for="form-firstname" styleClass="text-danger" />
+			</div>
+			<div class="form-group">
+				<h:outputLabel value="Příjmení *" />
+				<h:inputText id="form-lastname" value="#{userBean.lastName}" required="true" requiredMessage="Zadejte prosím příjmení" styleClass="form-control" />
+				<h:message for="form-lastname" styleClass="text-danger" />
+			</div>
+			<div class="form-group">
+				<h:outputLabel value="E-mail *" />
+				<h:inputText id="form-email" value="#{userBean.email}" required="true" requiredMessage="Zadejte prosím e-mail" styleClass="form-control" />
+				<h:message for="form-email" styleClass="text-danger" />
+			</div>
+			<div class="form-group">
+				<h:outputLabel value="Heslo *" />
+				<h:inputSecret id="form-password" value="#{userBean.password}" required="true" requiredMessage="Zadejte prosím heslo" styleClass="form-control" />
+				<h:message for="form-password" styleClass="text-danger" />
+			</div>
+			<div class="form-group text-secondary">* povinná pole</div>
+			<div class="form-group text-right">
+				<h:commandButton action="#{userBean.actionRegister}" value="Zaregistrovat se" styleClass="btn btn-primary" />
+				&nbsp;
+				<h:button outcome="/index.xhtml" value="Storno" styleClass="btn btn-outline-secondary" />
+			</div>
 		</h:form>
 		
 		<h:form rendered="#{userBean.role != 'VISITOR'}">
-			<h:commandButton action="#{userBean.actionLogout}" value="Odhlásit"></h:commandButton><br/>
-			<br/><br/><h:button value="Zpět na úvodní stránku" outcome="index" />
+			<h:commandButton action="#{userBean.actionLogout}" value="Odhlásit se" styleClass="btn btn-primary"></h:commandButton><br/>
 		</h:form>
         
 	</ui:define>

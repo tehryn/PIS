@@ -108,7 +108,7 @@ public class User {
 			//if (pass != password) throw new RuntimeException("Bad password");
 		}
 		catch (Exception e) {
-			throw new RuntimeException("Email or password is incorrect!");
+			throw new RuntimeException("Špatné heslo nebo e-mail!");
 		}
 	}
 	

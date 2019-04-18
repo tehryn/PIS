@@ -7,33 +7,36 @@
 	xmlns:f="http://java.sun.com/jsf/core">
 
 <ui:composition template="../template.xhtml">
+	<ui:param name="title" value="Přihlášení" />
 	<ui:define name="content">
-	    <h2>Přihlášení</h2>
-	    
         <h:form rendered="#{userBean.role == 'VISITOR'}">
-			<h:messages layout="table"></h:messages>
-			<h:panelGrid columns="2">
-				<h:outputLabel rendered="true" value="email"></h:outputLabel>
-				<h:inputText value="#{userBean.email}" required="true"></h:inputText>
-				<h:outputLabel rendered="true" value="password"></h:outputLabel>
-				<h:inputSecret value="#{userBean.password}" required="true"></h:inputSecret>
-				<h:commandButton action="#{userBean.actionLogin}" value="Přihlásit"></h:commandButton>
-				<h:commandButton action="cancel" value="Storno"></h:commandButton>
-			</h:panelGrid>
-		</h:form>
-		<h:form rendered="#{userBean.role == 'VISITOR'}">
-			<h:outputLabel rendered="true" value="Nemáte účet?"></h:outputLabel><br/>
-			<h:button value="Zaregistrovat" outcome="registration" />
-		</h:form>
-	    
-        <h:form rendered="#{userBean.role != 'VISITOR'}">
-			<h:commandButton action="#{userBean.actionLogout}" value="Odhlásit"></h:commandButton>
+			<h:messages layout="table" globalOnly="true" styleClass="text-danger mb-3" />
+			<div class="form-group">
+				<h:outputLabel value="E-mail *" />
+				<h:inputText id="form-email" value="#{userBean.email}" required="true" requiredMessage="Zadejte prosím e-mail" styleClass="form-control" />
+				<h:message for="form-email" styleClass="text-danger" />
+			</div>
+			<div class="form-group">
+				<h:outputLabel value="Heslo *" />
+				<h:inputSecret id="form-password" value="#{userBean.password}" required="true" requiredMessage="Zadejte prosím heslo" styleClass="form-control" />
+				<h:message for="form-password" styleClass="text-danger" />
+			</div>
+			<div class="form-group text-secondary">* povinná pole</div>
+			<div class="form-group text-right">
+				<h:commandButton action="#{userBean.actionLogin}" value="Přihlásit se" styleClass="btn btn-primary" />
+				&nbsp;
+				<h:button outcome="/index.xhtml" value="Storno" styleClass="btn btn-outline-secondary" />
+			</div>
 		</h:form>
 		
-		<h:form>
-			<br/><br/><h:button value="Zpět na úvodní stránku" outcome="index" />
+		<h:outputFormat rendered="#{userBean.role == 'VISITOR'}">
+			Nemáte účet?<br />
+			<h:button value="Zaregistrovat se" outcome="/guest/registration.xhtml" styleClass="btn btn-outline-primary"/>
+		</h:outputFormat>
+	    
+        <h:form rendered="#{userBean.role != 'VISITOR'}">
+			<h:commandButton action="#{userBean.actionLogout}" value="Odhlásit se" styleClass="btn btn-primary" />
 		</h:form>
-	
 	</ui:define>
 </ui:composition>
 
