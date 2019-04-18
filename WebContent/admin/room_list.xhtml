@@ -26,7 +26,7 @@
 					</f:facet>
 					<h:outputText value="#{room.description}"></h:outputText>
 				</h:column>
-				<h:column>
+				<h:column styleClass="text-right">
 					<h:commandButton action="#{roomBean.actionEdit}" value="Upravit" styleClass="btn btn-outline-primary">
 						<f:setPropertyActionListener target="#{roomBean.sysid}" value="#{room.sysid}"/>
 						<f:setPropertyActionListener target="#{roomBean.description}" value="#{room.description}"/>
