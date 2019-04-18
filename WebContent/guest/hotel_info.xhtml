@@ -7,31 +7,41 @@
 	xmlns:f="http://java.sun.com/jsf/core">
 
 <ui:composition template="/template.xhtml">
-	<ui:param name="title" value="Informace o hotelu" />
+	<ui:param name="title" value="Nabídka hotelu" />
 	<ui:define name="content">
-		<div class="row">
-			<div class="col">
-				<div class="card">
-					<h5 class="card-header">Volné pokoje</h5>
-					<div class="card-body">
-						<p class="card-text">Lorem ipsum...</p>
-						<h:link value="Volné pokoje" outcome="/guest/offered_rooms.xhtml"
-							styleClass="btn btn-primary" />
-					</div>
-				</div>
-			</div>
-			<div class="col">
-				<div class="card">
-					<h5 class="card-header">Nabídka služeb</h5>
-					<div class="card-body">
-						<p class="card-text">Lorem ipsum...</p>
-						<h:link value="Nabídka služeb"
-							outcome="/guest/offered_services.xhtml"
-							styleClass="btn btn-primary" />
-					</div>
-				</div>
-			</div>
-		</div>
+		<h3>Pokoje</h3>
+		<h:dataTable value="#{roomBean.rooms}" var="room" styleClass="table table-striped">
+			<h:column>
+				<f:facet name="header">
+					<h:outputText value="ID" />
+				</f:facet>
+				<h:outputText value="#{room.sysid}" />
+			</h:column>
+			<h:column>
+				<f:facet name="header">
+					<h:outputText value="Popis" />
+				</f:facet>
+				<h:outputText value="#{room.description}" />
+			</h:column>
+		</h:dataTable>
+		
+		<h3>Služby</h3>
+		<h:dataTable value="#{serviceBean.services}" var="service" styleClass="table table-striped">
+			<h:column>
+				<f:facet name="header">
+					<h:outputText value="ID" />
+				</f:facet>
+				<h:outputText value="#{service.sysid}" />
+			</h:column>
+			<h:column>
+				<f:facet name="header">
+					<h:outputText value="Popis" />
+				</f:facet>
+				<h:outputText value="#{service.description}" />
+			</h:column>
+		</h:dataTable>
+		
+		<p><h:link outcome="/index.xhtml" value="Zpět na hlavní stránku" /></p>
 	</ui:define>
 </ui:composition>
 
