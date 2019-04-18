@@ -10,23 +10,28 @@
 	<ui:param name="title" value="Registrace" />
 	<ui:define name="content">
 	    <h:form rendered="#{userBean.role == 'VISITOR'}">
-			<h:messages layout="table"></h:messages>
+			<h:messages layout="table" globalOnly="true" styleClass="text-danger mb-3"></h:messages>
 			<div class="form-group">
-				<h:outputLabel rendered="true" value="Jméno"></h:outputLabel>
-				<h:inputText value="#{userBean.firstName}" required="true" styleClass="form-control"></h:inputText>
+				<h:outputLabel rendered="true" value="Jméno *"></h:outputLabel>
+				<h:inputText id="form-firstname" value="#{userBean.firstName}" required="true" requiredMessage="Zadejte prosím jméno" styleClass="form-control"></h:inputText>
+				<h:message for="form-firstname" styleClass="text-danger" />
 			</div>
 			<div class="form-group">
-				<h:outputLabel rendered="true" value="Příjmení"></h:outputLabel>
-				<h:inputText value="#{userBean.lastName}" required="true" styleClass="form-control"></h:inputText>
+				<h:outputLabel rendered="true" value="Příjmení *"></h:outputLabel>
+				<h:inputText id="form-lastname" value="#{userBean.lastName}" required="true" requiredMessage="Zadejte prosím příjmení" styleClass="form-control"></h:inputText>
+				<h:message for="form-lastname" styleClass="text-danger" />
 			</div>
 			<div class="form-group">
-				<h:outputLabel rendered="true" value="E-mail"></h:outputLabel>
-				<h:inputText value="#{userBean.email}" required="true" styleClass="form-control"></h:inputText>
+				<h:outputLabel rendered="true" value="E-mail *"></h:outputLabel>
+				<h:inputText id="form-email" value="#{userBean.email}" required="true" requiredMessage="Zadejte prosím e-mail" styleClass="form-control"></h:inputText>
+				<h:message for="form-email" styleClass="text-danger" />
 			</div>
 			<div class="form-group">
-				<h:outputLabel rendered="true" value="Heslo"></h:outputLabel>
-				<h:inputSecret value="#{userBean.password}" required="true" styleClass="form-control"></h:inputSecret>
+				<h:outputLabel rendered="true" value="Heslo *"></h:outputLabel>
+				<h:inputSecret id="form-password" value="#{userBean.password}" required="true" requiredMessage="Zadejte prosím heslo" styleClass="form-control"></h:inputSecret>
+				<h:message for="form-password" styleClass="text-danger" />
 			</div>
+			<div class="form-group text-secondary">* povinná pole</div>
 			<div class="form-group text-right">
 				<h:commandButton action="#{userBean.actionRegister}" value="Zaregistrovat se" styleClass="btn btn-primary" />
 				&nbsp;

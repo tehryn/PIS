@@ -79,14 +79,9 @@ public class UserBean implements Serializable {
 	// login
 	public String actionLogin() {
 		try {
-			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("[DEBUG] email: " + email + " password: " + password));
-			
 			loggedUser = new core.User(email, password);
 			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Login successful"));
 			this.role = loggedUser.getRole();
-			
-			//FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("[DEBUG] UserRole.MANAGER: " + UserRole.MANAGER));
-			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("[DEBUG] loggedUser.getRole(): " + loggedUser.getRole()));
 		} catch (Exception e) {
 			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(e.getMessage()));
 			return "loginFailed";
