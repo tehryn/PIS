@@ -9,6 +9,7 @@
 		content="width=device-width, initial-scale=1, shrink-to-fit=no" />
 	<title><ui:insert name="title">#{title}</ui:insert></title>
 	<h:outputStylesheet library="style" name="bootstrap.min.css" />
+	<h:outputStylesheet library="style" name="bootstrap-datepicker3.min.css" />
 	<h:outputStylesheet library="style" name="default.css" />
 </h:head>
 
@@ -77,6 +78,15 @@
 
 	<h:outputScript library="script" name="jquery-3.4.0.min.js" />
 	<h:outputScript library="script" name="bootstrap.bundle.min.js" />
+	<h:outputScript library="script" name="bootstrap-datepicker.min.js" />
+	<h:outputScript library="script" name="bootstrap-datepicker.cs.min.js" />
+	<script>
+		$('.form-control.date').datepicker({
+		    format: "mm.dd.yyyy",
+		    weekStart: 1,
+		    language: "cs"
+		});
+	</script>
 </h:body>
 
 </html>
