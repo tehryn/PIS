@@ -6,10 +6,7 @@ import java.util.List;
 
 import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
-import javax.faces.application.FacesMessage;
-import javax.faces.context.FacesContext;
 
-import core.Commodity;
 import core.Hotel;
 import core.Room;
 import datatypes.CommodityPrice;

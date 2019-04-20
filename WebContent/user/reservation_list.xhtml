@@ -9,16 +9,25 @@
 <ui:composition template="../template.xhtml">
 	<ui:param name="title" value="Rezervace" />
 	<ui:param name="role" value="REGISTRATED" />
+	<f:metadata>
+        <f:event type="preRenderView" listener="#{reservationBean.preRenderList}"/>
+	</f:metadata>
 	<ui:define name="content">
 		<h:form>
-			<h:commandButton action="new" value="Nová rezervace" styleClass="btn btn-primary mb-3"></h:commandButton>
+			<h:commandButton action="#{reservationBean.actionNew}" value="Nová rezervace" styleClass="btn btn-primary mb-3"></h:commandButton>
 
-			<h:dataTable value="" var="" styleClass="table table-striped table-hover">
+			<h:dataTable binding="#{table}" value="#{reservationBean.reservations}" var="reservation" styleClass="table table-striped table-hover">
 				<h:column>
 					<f:facet name="header">
 						<h:outputText value="Číslo rezervace" />
 					</f:facet>
-					TODO
+					<h:outputText value="#{table.rowIndex + 1}"></h:outputText>
+				</h:column>
+				<h:column>
+					<f:facet name="header">
+						<h:outputText value="Cena" />
+					</f:facet>
+					<h:outputText value="#{reservation.getPrice('CZK')}"></h:outputText>
 				</h:column>
 				<h:column>
 					<f:facet name="header">
@@ -27,7 +36,9 @@
 					TODO
 				</h:column>
 				<h:column>
-					<h:commandButton action="null" value="Zrušit" styleClass="btn btn-outline-danger" />
+					<h:commandButton action="#{reservationBean.actionCancelReservation}" value="Zrušit" styleClass="btn btn-outline-danger">
+						<f:setPropertyActionListener target="#{reservationBean.cancelledReservation}" value="#{reservation}"/>
+					</h:commandButton>
 				</h:column>
 			</h:dataTable>
 		</h:form>
