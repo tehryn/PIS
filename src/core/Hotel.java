@@ -26,6 +26,17 @@ public class Hotel {
 	
 	private Hotel() {}
 	
+	public List<Room> getRooms() {
+		List<Commodity> rooms = Commodity.getCommodities(CommodityType.ROOM);
+		List<Room> result = new ArrayList<Room>();
+		
+		for (Commodity room : rooms) {
+			result.add(new Room(room));
+		}
+		
+		return result;
+	}
+	
 	public List<Room> getRooms(Date from, Date until) {
 		List<Commodity> rooms = Commodity.getCommodities(CommodityType.ROOM);
 		List<Room> result = new ArrayList<Room>();
@@ -39,6 +50,16 @@ public class Hotel {
 		return result;
 	}
 	
+	public List<Service> getServices() {
+		List<Commodity> services = Commodity.getCommodities(CommodityType.SERVICE);
+		List<Service> result = new ArrayList<Service>();
+		
+		for (Commodity service : services) {
+			result.add(new Service(service));
+		}
+		
+		return result;
+	}
 	public List<Service> getServices(Date from, Date until) {
 		List<Commodity> services = Commodity.getCommodities(CommodityType.SERVICE);
 		List<Service> result = new ArrayList<Service>();

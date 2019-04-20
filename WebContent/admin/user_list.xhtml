@@ -1,0 +1,56 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core">
+
+<ui:composition template="../template.xhtml">
+	<ui:param name="title" value="Uživatelé" />
+	<ui:param name="role" value="MANAGER" />
+	<ui:define name="content">
+		<h:form>
+			<h:commandButton action="#{userBean.actionNew}" value="Nový uživatel" styleClass="btn btn-primary mb-3"></h:commandButton>
+
+			<h:dataTable value="#{userBean.users}" var="user" styleClass="table table-striped table-hover">
+				<h:column>
+					<f:facet name="header">
+						<h:outputText value="Role" />
+					</f:facet>
+					<h:outputText value="#{user.role}"></h:outputText>
+				</h:column>
+				<h:column>
+					<f:facet name="header">
+						<h:outputText value="Jméno" />
+					</f:facet>
+					<h:outputText value="#{user.firstName}"></h:outputText>
+				</h:column>
+				<h:column>
+					<f:facet name="header">
+						<h:outputText value="Příjmení" />
+					</f:facet>
+					<h:outputText value="#{user.lastName}"></h:outputText>
+				</h:column>
+				<h:column>
+					<f:facet name="header">
+						<h:outputText value="E-mail" />
+					</f:facet>
+					<h:outputText value="#{user.email}"></h:outputText>
+				</h:column>
+				<h:column styleClass="text-right">
+					<h:commandButton action="#{userBean.actionEdit}" value="Upravit" styleClass="btn btn-outline-primary">
+						<f:setPropertyActionListener target="#{userBean.editedUser}" value="#{user}"/>
+					</h:commandButton>
+					&nbsp;
+					<h:commandButton action="#{userBean.actionDelete}" value="Odstranit" styleClass="btn btn-outline-danger">
+						<f:setPropertyActionListener target="#{userBean.editedUser}" value="#{user}"/>
+					</h:commandButton>
+				</h:column>
+			</h:dataTable>
+		</h:form>
+		<p class="mt-5"><h:link outcome="/admin/index.xhtml" value="Zpět do administrace" /></p>
+	</ui:define>
+</ui:composition>
+
+</html>

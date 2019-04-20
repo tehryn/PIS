@@ -21,6 +21,15 @@ public class Room extends Commodity {
 		super(com);
 	}
 	
+	public Room() {
+		// TODO
+		resHandle = query.newCommodity(CommodityType.ROOM, CommodityState.AVAILABLE, "", "");
+	}
+	
+	public Room(Commodity com) {
+		super(com);
+	}
+	
 	public Room(String sysid, String description, List<CommodityPrice> prices) {
 		resHandle = query.newCommodity(CommodityType.ROOM, CommodityState.AVAILABLE, sysid, description);
 		
@@ -34,7 +43,7 @@ public class Room extends Commodity {
 	 * @param from  Start of time frame
 	 * @param until End of time frame
 	 */
-	List<Commodity> showAvailable(Timestamp from, Timestamp until) {
+	public static List<Commodity> showAvailable(Timestamp from, Timestamp until) {
 		CommodityQueries query = CommodityQueries.getQuery();
 		List<queries.db.Commodity> allCommodities = query.getAllItems();
 		List<Commodity> result = new ArrayList<Commodity>();

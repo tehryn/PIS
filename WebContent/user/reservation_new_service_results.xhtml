@@ -1,0 +1,42 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core">
+
+<ui:composition template="../template.xhtml">
+	<ui:param name="title" value="Volné služby" />
+	<ui:param name="role" value="REGISTRATED" />
+	<ui:define name="content">
+		<h:form>
+			<h:messages layout="table" globalOnly="true" styleClass="text-danger mb-3" />
+			<h:dataTable value="#{reservationBean.freeServices}" var="service" styleClass="table table-striped table-hover">
+				<h:column>
+					<f:facet name="header">
+						<h:outputText value="Služba" />
+					</f:facet>
+					<h:outputText value="#{service.sysid}"></h:outputText>
+				</h:column>
+				<h:column>
+					<f:facet name="header">
+						<h:outputText value="Popis" />
+					</f:facet>
+					<h:outputText value="#{service.description}"></h:outputText>
+				</h:column>
+				<h:column styleClass="text-right">
+					<h:commandButton action="#{reservationBean.actionReserveService}" value="Přidat do rezervace" styleClass="btn btn-outline-primary">
+						<f:setPropertyActionListener target="#{reservationBean.reservedService}" value="#{service}"/>
+					</h:commandButton>
+				</h:column>
+			</h:dataTable>
+			
+			<div class="form-group text-right">
+				<h:button outcome="/user/reservation_new.xhtml" value="Storno" styleClass="btn btn-outline-secondary" />
+			</div>
+		</h:form>
+	</ui:define>
+</ui:composition>
+
+</html>

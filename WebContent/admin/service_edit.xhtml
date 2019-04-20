@@ -1,0 +1,53 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core">
+
+<ui:composition template="../template.xhtml">
+	<ui:param name="title" value="Upravit službu" />
+	<ui:param name="role" value="MANAGER" />
+	<ui:define name="content">
+		<h:form>
+			<h:messages layout="table" globalOnly="true" styleClass="text-danger mb-3" />
+			<div class="form-group">
+				<h:outputLabel value="ID *" />
+				<h:inputText id="form-id" value="#{serviceBean.editedSysid}" disabled="true" required="true" requiredMessage="Zadejte prosím ID služby" styleClass="form-control" />
+				<h:message for="form-id" styleClass="text-danger" />
+			</div>
+			<div class="form-group">
+				<h:outputLabel value="Popis" />
+				<h:inputText id="form-description" value="#{serviceBean.editedDescription}" styleClass="form-control" />
+				<h:message for="form-description" styleClass="text-danger" />
+			</div>
+			<div class="form-group">
+				<h:outputLabel rendered="true" value="Jednotka účtování *"></h:outputLabel>
+				<h:selectOneMenu value="#{serviceBean.editedUnit}" required="true" styleClass="form-control">
+					<f:selectItem itemValue="MINUTE" itemLabel="minuta" />
+					<f:selectItem itemValue="HOUR" itemLabel="hodina" />
+					<f:selectItem itemValue="NIGHT" itemLabel="noc" />
+				</h:selectOneMenu>
+			</div>
+			<div class="form-group">
+				<h:outputLabel value="Cena za jednotku *" />
+				<div class="input-group">
+					<h:inputText id="form-price" value="#{serviceBean.editedPrice}" required="true" requiredMessage="Zadejte prosím cenu za jednotku" styleClass="form-control" />
+					<div class="input-group-append">
+						<span class="input-group-text">Kč</span>
+					</div>
+				</div>
+				<h:message for="form-price" styleClass="text-danger" />
+			</div>
+			<div class="form-group text-secondary">* povinná pole</div>
+			<div class="form-group text-right">
+				<h:commandButton action="#{serviceBean.actionUpdate}" value="Uložit" styleClass="btn btn-primary" />
+				&nbsp;
+				<h:button outcome="/admin/service_list.xhtml" value="Storno" styleClass="btn btn-outline-secondary" />
+			</div>
+		</h:form>
+	</ui:define>
+</ui:composition>
+
+</html>

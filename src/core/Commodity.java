@@ -27,6 +27,11 @@ public class Commodity {
 		resHandle = handle;
 	}
 	
+	protected Commodity(Commodity com) {
+		this.query = com.query;
+		this.resHandle = com.resHandle;
+	}
+	
 	/**
 	 * @brief Get list of commodities of certain type
 	 * @param type Type of commodity to filter by
