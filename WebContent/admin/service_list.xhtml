@@ -28,11 +28,14 @@
 				</h:column>
 				<h:column styleClass="text-right">
 					<h:commandButton action="#{serviceBean.actionEdit}" value="Upravit" styleClass="btn btn-outline-primary">
-						<f:setPropertyActionListener target="#{serviceBean.service}" value="#{service}"/>
+						<f:setPropertyActionListener target="#{serviceBean.editedService}" value="#{service}"/>
 					</h:commandButton>
 					&nbsp;
-					<h:commandButton action="#{serviceBean.actionDelete}" value="Odstranit" styleClass="btn btn-outline-danger">
-						<f:setPropertyActionListener target="#{serviceBean.service}" value="#{service}"/>
+					<h:commandButton rendered="#{service.getAvailability() == 'AVAILABLE'}" action="#{serviceBean.actionBlock}" value="Zablokovat" styleClass="btn btn-outline-danger">
+						<f:setPropertyActionListener target="#{serviceBean.editedService}" value="#{service}"/>
+					</h:commandButton>
+					<h:commandButton rendered="#{service.getAvailability() == 'BLOCKED'}" action="#{serviceBean.actionEnable}" value="Zpřístupnit" styleClass="btn btn-outline-primary">
+						<f:setPropertyActionListener target="#{serviceBean.editedService}" value="#{service}"/>
 					</h:commandButton>
 				</h:column>
 			</h:dataTable>

@@ -9,10 +9,13 @@ import javax.enterprise.context.SessionScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 
+import core.Commodity;
 import core.Hotel;
 import core.Room;
 import datatypes.CommodityPrice;
 import datatypes.CommodityPriceCounter;
+import datatypes.CommodityState;
+import datatypes.CommodityType;
 import datatypes.Currency;
 
 @Named
@@ -20,82 +23,164 @@ import datatypes.Currency;
 public class RoomBean implements Serializable {
 	private static final long serialVersionUID = 1L;
 
+	// New room
+	private String newSysid;
+	private String newDescription;
+	private float newPrice;	// NIGHT, CZK
 	
-	String sysid;
-	String description;
+	// Editing room
+	private String editedSysid;
+	private String editedDescription;
+	private float editedPrice;	// NIGHT, CZK
+	private Room editedRoom;
 	
-	//private Room editedRoom;
 	private Hotel hotelMgr;
+	
+	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	// Public methods
 
 	public RoomBean() {
 		hotelMgr = Hotel.getHotel();
 	}
-
-	
-/*
-	public Room getEditedRoom() {
-		return editedRoom;
-	}
-
-	public void setEditedRoom(Room editedRoom) {
-		this.editedRoom = editedRoom;
-	}
-*/
-
 
 	public List<Room> getRooms() {
 		return hotelMgr.getRooms();
 	}
 
 	public String actionNew() {
-		//room = new Room();
 		return "new";
 	}
 
 	public String actionInsertNew() {
 		ArrayList<CommodityPrice> prices = new ArrayList<CommodityPrice>(){{
-			add(new CommodityPrice(69, CommodityPriceCounter.NIGHT, Currency.CZK));
-			add(new CommodityPrice(42.f, CommodityPriceCounter.NIGHT, Currency.EUR));
-			add(new CommodityPrice(0.01f, CommodityPriceCounter.NIGHT, Currency.USD));
+			add(new CommodityPrice(newPrice, CommodityPriceCounter.NIGHT, Currency.CZK));
 		}};
-			
-		new Room(sysid, description, prices);
+		
+		try {
+			hotelMgr.newCommodity(newSysid, newDescription, CommodityType.ROOM, prices);
+		} catch (Exception e) {
+			// TODO
+			e.printStackTrace();
+		}
 		return "insert";
 	}
 
 	public String actionUpdate() {
-		// TODO
-		//FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("[DEBUG] actionUpdate() neni hotovy!!!"));
-		//editedRoom.setDescription(description);
+		editedRoom.setDescription(editedDescription);
+		editedRoom.setPrice(new CommodityPrice(editedPrice, CommodityPriceCounter.NIGHT, Currency.CZK));
+		
 		return "update";
 	}
 
 	public String actionEdit() {
+		editedSysid = editedRoom.getSysid();
+		editedDescription = editedRoom.getDescription();
+		editedPrice = editedRoom.getPrice().get(0).getValue();
+		
 		return "edit";
 	}
 
-	public String actionDelete() {
+	public String actionEnable() {
+		editedRoom.setAvailability(CommodityState.AVAILABLE);
+		
+		return "delete";
+	}
+	
+	public String actionBlock() {
+		editedRoom.setAvailability(CommodityState.BLOCKED);
+		
 		return "delete";
 	}
 
+	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	// Private methods
+
+	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	// Getters and Setters
 	
-	
-	
-	public String getSysid() {
-		return sysid;
+	public String getEditedSysid() {
+		return editedSysid;
 	}
 
-	public void setSysid(String sysid) {
-		this.sysid = sysid;
+
+
+	public void setEditedSysid(String editedSysid) {
+		this.editedSysid = editedSysid;
 	}
 
-	public String getDescription() {
-		return description;
+
+
+	public String getEditedDescription() {
+		return editedDescription;
 	}
 
-	public void setDescription(String description) {
-		this.description = description;
+
+
+	public void setEditedDescription(String editedDescription) {
+		this.editedDescription = editedDescription;
 	}
+
+
+
+	public float getEditedPrice() {
+		return editedPrice;
+	}
+
+
+
+	public void setEditedPrice(float editedPrice) {
+		this.editedPrice = editedPrice;
+	}
+
+
+
+	public Room getEditedRoom() {
+		return editedRoom;
+	}
+
+
+
+	public void setEditedRoom(Room editedRoom) {
+		this.editedRoom = editedRoom;
+	}
+
+
+
+	public float getNewPrice() {
+		return newPrice;
+	}
+
+
+
+	public void setNewPrice(float newPrice) {
+		this.newPrice = newPrice;
+	}
+	
+
+	public String getNewSysid() {
+		return newSysid;
+	}
+
+
+
+	public void setNewSysid(String newSysid) {
+		this.newSysid = newSysid;
+	}
+
+
+
+	public String getNewDescription() {
+		return newDescription;
+	}
+
+
+
+	public void setNewDescription(String newDescription) {
+		this.newDescription = newDescription;
+	}
+
+	
+	
 	
 	
 	

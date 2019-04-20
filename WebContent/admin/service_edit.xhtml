@@ -14,17 +14,17 @@
 			<h:messages layout="table" globalOnly="true" styleClass="text-danger mb-3" />
 			<div class="form-group">
 				<h:outputLabel value="ID *" />
-				<h:inputText id="form-id" value="#{serviceBean.service.sysid}" required="true" requiredMessage="Zadejte prosím ID služby" styleClass="form-control" />
+				<h:inputText id="form-id" value="#{serviceBean.editedSysid}" disabled="true" required="true" requiredMessage="Zadejte prosím ID služby" styleClass="form-control" />
 				<h:message for="form-id" styleClass="text-danger" />
 			</div>
 			<div class="form-group">
 				<h:outputLabel value="Popis" />
-				<h:inputText id="form-description" value="#{serviceBean.service.description}" styleClass="form-control" />
+				<h:inputText id="form-description" value="#{serviceBean.editedDescription}" styleClass="form-control" />
 				<h:message for="form-description" styleClass="text-danger" />
 			</div>
 			<div class="form-group">
 				<h:outputLabel rendered="true" value="Jednotka účtování *"></h:outputLabel>
-				<h:selectOneMenu value="" required="true" styleClass="form-control">
+				<h:selectOneMenu value="#{serviceBean.editedUnit}" required="true" styleClass="form-control">
 					<f:selectItem itemValue="MINUTE" itemLabel="minuta" />
 					<f:selectItem itemValue="HOUR" itemLabel="hodina" />
 					<f:selectItem itemValue="NIGHT" itemLabel="noc" />
@@ -33,7 +33,7 @@
 			<div class="form-group">
 				<h:outputLabel value="Cena za jednotku *" />
 				<div class="input-group">
-					<h:inputText id="form-price" value="TODO" required="true" requiredMessage="Zadejte prosím cenu za jednotku" styleClass="form-control" />
+					<h:inputText id="form-price" value="#{serviceBean.editedPrice}" required="true" requiredMessage="Zadejte prosím cenu za jednotku" styleClass="form-control" />
 					<div class="input-group-append">
 						<span class="input-group-text">Kč</span>
 					</div>

@@ -14,18 +14,18 @@
 			<h:messages layout="table" globalOnly="true" styleClass="text-danger mb-3" />
 			<div class="form-group">
 				<h:outputLabel value="ID *" />
-				<h:inputText id="form-id" value="#{roomBean.sysid}" required="true" requiredMessage="Zadejte prosím ID pokoje" styleClass="form-control" />
+				<h:inputText id="form-id" value="#{roomBean.editedSysid}" disabled="true" required="true" requiredMessage="Zadejte prosím ID pokoje" styleClass="form-control" />
 				<h:message for="form-id" styleClass="text-danger" />
 			</div>
 			<div class="form-group">
 				<h:outputLabel value="Popis" />
-				<h:inputText id="form-description" value="#{roomBean.description}" styleClass="form-control" />
+				<h:inputText id="form-description" value="#{roomBean.editedDescription}" styleClass="form-control" />
 				<h:message for="form-description" styleClass="text-danger" />
 			</div>
 			<div class="form-group">
 				<h:outputLabel value="Cena za noc *" />
 				<div class="input-group">
-					<h:inputText id="form-price" value="TODO" required="true" requiredMessage="Zadejte prosím cenu pokoje" styleClass="form-control" />
+					<h:inputText id="form-price" value="#{roomBean.editedPrice}" required="true" requiredMessage="Zadejte prosím cenu pokoje" styleClass="form-control" />
 					<div class="input-group-append">
 						<span class="input-group-text">Kč</span>
 					</div>

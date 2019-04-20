@@ -28,11 +28,13 @@
 				</h:column>
 				<h:column styleClass="text-right">
 					<h:commandButton action="#{roomBean.actionEdit}" value="Upravit" styleClass="btn btn-outline-primary">
-						<f:setPropertyActionListener target="#{roomBean.sysid}" value="#{room.sysid}"/>
-						<f:setPropertyActionListener target="#{roomBean.description}" value="#{room.description}"/>
+						<f:setPropertyActionListener target="#{roomBean.editedRoom}" value="#{room}"/>
 					</h:commandButton>
 					&nbsp;
-					<h:commandButton action="#{roomBean.actionDelete}" value="Odstranit" styleClass="btn btn-outline-danger">
+					<h:commandButton rendered="#{room.getAvailability() == 'AVAILABLE'}" action="#{roomBean.actionBlock}" value="Zablokovat" styleClass="btn btn-outline-danger">
+						<f:setPropertyActionListener target="#{roomBean.editedRoom}" value="#{room}"/>
+					</h:commandButton>
+					<h:commandButton rendered="#{room.getAvailability() == 'BLOCKED'}" action="#{roomBean.actionEnable}" value="Zpřístupnit" styleClass="btn btn-outline-primary">
 						<f:setPropertyActionListener target="#{roomBean.editedRoom}" value="#{room}"/>
 					</h:commandButton>
 				</h:column>

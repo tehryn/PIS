@@ -18,9 +18,27 @@ public class UserBean implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
 	// For editing or removing user
-	User editedUser;
+	private User editedUser;
 
-	public UserBean() {
+	// Used for user creating/registration
+	private String newUserFirstName;
+	private String newUserLastName;
+	private String newUserEmail;
+	private String newUserPassword;
+	private UserRole newUserRole;	// not for registration -> REGISTRATED
+    
+    // Logging in
+	private String firstName;
+	private String lastName;
+	private String email;
+	private String password;
+	private UserRole role = UserRole.VISITOR;
+    private User loggedUser;
+        
+    // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    // Public methods
+    
+    public UserBean() {
 	}
 
 	public List<User> getUsers() {
@@ -33,7 +51,7 @@ public class UserBean implements Serializable {
 
 	public String actionInsertNew() {
 		try {
-			new core.User(firstName, lastName, email, password).setRole(newUserRole);
+			new core.User(newUserFirstName, newUserLastName, newUserEmail, newUserPassword).setRole(newUserRole);
 		} catch (Exception e) {
 			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(e.getMessage()));
 		}
@@ -54,20 +72,6 @@ public class UserBean implements Serializable {
 		editedUser.remove();
 		return "delete";
     }
-
-	// Used for user creating/registration
-    String firstName;
-	String lastName;
-    String email;
-    String password;
-    UserRole newUserRole;	// not for registration -> REGISTRATED
-    
-    // Current logged in user
-    UserRole role = UserRole.VISITOR;
-    private User loggedUser;
-        
-    // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-    // Public functions
     
     // logout
     public String actionLogout() {
@@ -102,17 +106,6 @@ public class UserBean implements Serializable {
 		return "register";
 	}
 	
-	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-	// Private functions
-
-	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-	// Getters and Setters
-	
-	
-	public UserRole getRole() {
-		return role;
-	}
-	
 	public boolean hasRole(UserRole role) {
 		if (role == null)
 			return true;
@@ -141,13 +134,49 @@ public class UserBean implements Serializable {
 		return role1 >= role2;
 	}
 	
+	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	// Private methods
+
+	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	// Getters and Setters
 	
+	public UserRole getRole() {
+		return role;
+	}
 	
-	
-	
-	
-	
-    public User getEditedUser() {
+    public String getNewUserFirstName() {
+		return newUserFirstName;
+	}
+
+	public void setNewUserFirstName(String newUserFirstName) {
+		this.newUserFirstName = newUserFirstName;
+	}
+
+	public String getNewUserLastName() {
+		return newUserLastName;
+	}
+
+	public void setNewUserLastName(String newUserLastName) {
+		this.newUserLastName = newUserLastName;
+	}
+
+	public String getNewUserEmail() {
+		return newUserEmail;
+	}
+
+	public void setNewUserEmail(String newUserEmail) {
+		this.newUserEmail = newUserEmail;
+	}
+
+	public String getNewUserPassword() {
+		return newUserPassword;
+	}
+
+	public void setNewUserPassword(String newUserPassword) {
+		this.newUserPassword = newUserPassword;
+	}
+
+	public User getEditedUser() {
 		return editedUser;
 	}
 

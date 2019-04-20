@@ -14,7 +14,7 @@
 			<h:messages layout="table" globalOnly="true" styleClass="text-danger mb-3" />
 			<div class="form-group">
 				<h:outputLabel value="Role *" />
-				<h:selectOneMenu id="form-role" value="#{userBean.editedUser.role}" required="true" requiredMessage="Zvolte prosím roli" styleClass="form-control"> 
+				<h:selectOneMenu id="form-role" value="#{userBean.newUserRole}" required="true" requiredMessage="Zvolte prosím roli" styleClass="form-control"> 
 		            <f:selectItem itemValue = "REGISTRATED" itemLabel = "REGISTRATED" /> 
 		            <f:selectItem itemValue = "RECEPTIONIST" itemLabel = "RECEPTIONIST" /> 
 		            <f:selectItem itemValue = "MANAGER" itemLabel = "MANAGER" /> 
@@ -24,22 +24,22 @@
 			</div>
 			<div class="form-group">
 				<h:outputLabel value="Jméno *" />
-				<h:inputText id="form-firstname" value="#{userBean.editedUser.firstName}" required="true" requiredMessage="Zadejte prosím jméno" styleClass="form-control" />
+				<h:inputText id="form-firstname" value="#{userBean.newUserFirstName}" required="true" requiredMessage="Zadejte prosím jméno" styleClass="form-control" />
 				<h:message for="form-firstname" styleClass="text-danger" />
 			</div>
 			<div class="form-group">
 				<h:outputLabel value="Příjmení *" />
-				<h:inputText id="form-lastname" value="#{userBean.editedUser.lastName}" required="true" requiredMessage="Zadejte prosím příjmení" styleClass="form-control" />
+				<h:inputText id="form-lastname" value="#{userBean.newUserLastName}" required="true" requiredMessage="Zadejte prosím příjmení" styleClass="form-control" />
 				<h:message for="form-lastname" styleClass="text-danger" />
 			</div>
 			<div class="form-group">
 				<h:outputLabel value="E-mail *" />
-				<h:inputText id="form-email" value="#{userBean.editedUser.email}" required="true" requiredMessage="Zadejte prosím e-mail" styleClass="form-control" />
+				<h:inputText id="form-email" value="#{userBean.newUserEmail}" required="true" requiredMessage="Zadejte prosím e-mail" styleClass="form-control" />
 				<h:message for="form-email" styleClass="text-danger" />
 			</div>
 			<div class="form-group">
 				<h:outputLabel value="Heslo *" />
-				<h:inputText id="form-password" value="#{userBean.password}" required="true" requiredMessage="Zadejte prosím heslo" styleClass="form-control" />
+				<h:inputText id="form-password" value="#{userBean.newUserPassword}" required="true" requiredMessage="Zadejte prosím heslo" styleClass="form-control" />
 				<h:message for="form-password" styleClass="text-danger" />
 			</div>
 			<div class="form-group text-secondary">* povinná pole</div>
