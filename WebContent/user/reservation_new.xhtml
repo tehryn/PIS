@@ -11,30 +11,33 @@
 	<ui:param name="role" value="REGISTRATED" />
 	<ui:define name="content">
 		<h:form>
-			<h:messages layout="table"></h:messages>
+			<div class="form-group">
+				<h:commandButton action="/user/reservation_new_room.xhtml" value="Přidat pokoj" styleClass="btn btn-primary"></h:commandButton>&nbsp;
+				<h:commandButton action="/user/reservation_new_service.xhtml" value="Přidat službu" styleClass="btn btn-primary"></h:commandButton>
+			</div>
+
+			<h:messages layout="table" />
 			<h:dataTable value="" var="" styleClass="table table-striped table-hover">
 				<h:column>
 					<f:facet name="header">
 						<h:outputText value="Položka" />
 					</f:facet>
-					<h:selectOneMenu value = "TODO" required="true" styleClass="form-control"> 
-			            <f:selectItem itemValue = "TODO" itemLabel = "TODO" /> 
-					</h:selectOneMenu>
+					TODO
 				</h:column>
 				<h:column>
 					<f:facet name="header">
 						<h:outputText value="Od" />
 					</f:facet>
-					<h:inputText value="TODO" required="true" styleClass="form-control date" />
+					TODO
 				</h:column>
 				<h:column>
 					<f:facet name="header">
 						<h:outputText value="Do" />
 					</f:facet>
-					<h:inputText value="TODO" required="true" styleClass="form-control date" />
+					TODO
 				</h:column>
-				<h:column>
-					<h:commandButton action="null" value="Přidat" styleClass="btn btn-outline-primary"/>
+				<h:column styleClass="text-right">
+					<h:commandButton action="null" value="Odstranit" styleClass="btn btn-outline-danger"/>
 				</h:column>
 			</h:dataTable>
 			<div class="form-group text-right">

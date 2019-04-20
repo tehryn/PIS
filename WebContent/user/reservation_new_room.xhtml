@@ -1,0 +1,35 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core">
+
+<ui:composition template="../template.xhtml">
+	<ui:param name="title" value="Rezervace pokoje" />
+	<ui:param name="role" value="REGISTRATED" />
+	<ui:define name="content">
+		<h:form>
+			<h:messages layout="table" globalOnly="true" styleClass="text-danger mb-3" />
+			<div class="form-group">
+				<h:outputLabel value="Od *" />
+				<h:inputText id="form-since" value="TODO" required="true" requiredMessage="Zadejte prosím začátek rezervace" styleClass="form-control date" />
+				<h:message for="form-since" styleClass="text-danger" />
+			</div>
+			<div class="form-group">
+				<h:outputLabel value="Do *" />
+				<h:inputText id="form-until" value="TODO" required="true" requiredMessage="Zadejte prosím konec rezervace" styleClass="form-control date" />
+				<h:message for="form-until" styleClass="text-danger" />
+			</div>
+			<div class="form-group text-secondary">* povinná pole</div>
+			<div class="form-group text-right">
+				<h:commandButton action="/user/reservation_new_room_results.xhtml" value="Hledat volné pokoje" styleClass="btn btn-primary" />
+				&nbsp;
+				<h:button outcome="/user/reservation_new.xhtml" value="Storno" styleClass="btn btn-outline-secondary" />
+			</div>
+		</h:form>
+	</ui:define>
+</ui:composition>
+
+</html>
