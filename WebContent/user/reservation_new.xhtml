@@ -11,34 +11,39 @@
 	<ui:param name="role" value="REGISTRATED" />
 	<ui:define name="content">
 		<h:form>
-			<h:messages layout="table"></h:messages>
-			<h:dataTable value="" var="" styleClass="table table-striped table-hover">
+			<div class="form-group">
+				<h:commandButton action="#{reservationBean.actionAddRoom}" value="Přidat pokoj" styleClass="btn btn-primary"></h:commandButton>&nbsp;
+				<h:commandButton action="#{reservationBean.actionAddService}" value="Přidat službu" styleClass="btn btn-primary"></h:commandButton>
+			</div>
+
+			<h:messages layout="table" />
+			<h:dataTable value="#{reservationBean.reservedItems}" var="reservedItem" styleClass="table table-striped table-hover">
 				<h:column>
 					<f:facet name="header">
 						<h:outputText value="Položka" />
 					</f:facet>
-					<h:selectOneMenu value = "TODO" required="true" styleClass="form-control"> 
-			            <f:selectItem itemValue = "TODO" itemLabel = "TODO" /> 
-					</h:selectOneMenu>
+					<h:outputText value="#{reservedItem.item.sysid}"></h:outputText>
 				</h:column>
 				<h:column>
 					<f:facet name="header">
 						<h:outputText value="Od" />
 					</f:facet>
-					<h:inputText value="TODO" required="true" styleClass="form-control date" />
+					<h:outputText value="#{reservedItem.from}"></h:outputText>
 				</h:column>
 				<h:column>
 					<f:facet name="header">
 						<h:outputText value="Do" />
 					</f:facet>
-					<h:inputText value="TODO" required="true" styleClass="form-control date" />
+					<h:outputText value="#{reservedItem.until}"></h:outputText>
 				</h:column>
-				<h:column>
-					<h:commandButton action="null" value="Přidat" styleClass="btn btn-outline-primary"/>
+				<h:column styleClass="text-right">
+					<h:commandButton action="#{reservationBean.actionRemoveItem}" value="Odstranit" styleClass="btn btn-outline-danger">
+						<f:setPropertyActionListener target="#{reservationBean.removedItem}" value="#{reservedItem}"/>
+					</h:commandButton>
 				</h:column>
 			</h:dataTable>
-			<div class="form-group text-right">
-				<h:commandButton action="null" value="Rezervovat" styleClass="btn btn-primary" />
+			<div class="form-group text-right">			
+				<h:commandButton action="#{reservationBean.actionReserve}" value="Rezervovat" styleClass="btn btn-primary" />
 				&nbsp;
 				<h:button outcome="/user/reservation_list.xhtml" value="Storno" styleClass="btn btn-outline-secondary" />
 			</div>

@@ -43,7 +43,7 @@ public class Room extends Commodity {
 	 * @param from  Start of time frame
 	 * @param until End of time frame
 	 */
-	List<Commodity> showAvailable(Timestamp from, Timestamp until) {
+	public static List<Commodity> showAvailable(Timestamp from, Timestamp until) {
 		CommodityQueries query = CommodityQueries.getQuery();
 		List<queries.db.Commodity> allCommodities = query.getAllItems();
 		List<Commodity> result = new ArrayList<Commodity>();

@@ -34,7 +34,18 @@ public class UserBean implements Serializable {
 	private String password;
 	private UserRole role = UserRole.VISITOR;
     private User loggedUser;
-        
+    
+    // Reservations connected to this user
+    /*
+    Reservation reservationsMgr;
+    
+    public List<Reservation> getReservations() {
+    	//loggedUser = new core.User("franta@pis.cz", "123");
+		return reservationsMgr.findReservationsOfUser(loggedUser/*userBean.getLoggedUser()*//*);
+    	//return null;
+	
+    }
+    */
     // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     // Public methods
     
@@ -140,11 +151,17 @@ public class UserBean implements Serializable {
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	// Getters and Setters
 	
+	
+	
 	public UserRole getRole() {
 		return role;
 	}
 	
-    public String getNewUserFirstName() {
+    public User getLoggedUser() {
+		return loggedUser;
+	}
+
+	public String getNewUserFirstName() {
 		return newUserFirstName;
 	}
 
