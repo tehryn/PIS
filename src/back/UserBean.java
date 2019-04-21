@@ -35,17 +35,6 @@ public class UserBean implements Serializable {
 	private UserRole role = UserRole.VISITOR;
     private User loggedUser;
     
-    // Reservations connected to this user
-    /*
-    Reservation reservationsMgr;
-    
-    public List<Reservation> getReservations() {
-    	//loggedUser = new core.User("franta@pis.cz", "123");
-		return reservationsMgr.findReservationsOfUser(loggedUser/*userBean.getLoggedUser()*//*);
-    	//return null;
-	
-    }
-    */
     // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     // Public methods
     
@@ -114,7 +103,7 @@ public class UserBean implements Serializable {
 		}
 		
 		this.actionLogin();
-		return "register";
+		return "/index.xhtml";
 	}
 	
 	public boolean hasRole(UserRole role) {

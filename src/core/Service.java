@@ -51,7 +51,7 @@ public class Service extends Commodity {
 		for (queries.db.Commodity com : allCommodities) {
 			Commodity mycom = new Commodity(com);
 			
-			if (mycom.isReserved(from, until) && mycom.getType() == CommodityType.SERVICE) {
+			if (!mycom.isReserved(from, until) && mycom.getType() == CommodityType.SERVICE) {
 				result.add(new Service(com));
 			}
 		}

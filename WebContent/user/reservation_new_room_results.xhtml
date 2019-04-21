@@ -12,21 +12,23 @@
 	<ui:define name="content">
 		<h:form>
 			<h:messages layout="table" globalOnly="true" styleClass="text-danger mb-3" />
-			<h:dataTable value="" var="" styleClass="table table-striped table-hover">
+			<h:dataTable value="#{reservationBean.freeRooms}" var="room" styleClass="table table-striped table-hover">
 				<h:column>
 					<f:facet name="header">
 						<h:outputText value="Pokoj" />
 					</f:facet>
-					TODO
+					<h:outputText value="#{room.sysid}"></h:outputText>
 				</h:column>
 				<h:column>
 					<f:facet name="header">
 						<h:outputText value="Popis" />
 					</f:facet>
-					TODO
+					<h:outputText value="#{room.description}"></h:outputText>
 				</h:column>
 				<h:column styleClass="text-right">
-					<h:commandButton action="/user/reservation_new.xhtml" value="Přidat do rezervace" styleClass="btn btn-outline-primary" />
+					<h:commandButton action="#{reservationBean.actionReserveRoom}" value="Přidat do rezervace" styleClass="btn btn-outline-primary">
+						<f:setPropertyActionListener target="#{reservationBean.reservedRoom}" value="#{room}"/>
+					</h:commandButton>
 				</h:column>
 			</h:dataTable>
 			

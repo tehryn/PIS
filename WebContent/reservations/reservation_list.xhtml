@@ -14,8 +14,6 @@
 	</f:metadata>
 	<ui:define name="content">
 		<h:form>
-			<h:commandButton action="new" value="Nová rezervace" styleClass="btn btn-primary mb-3"></h:commandButton>
-
 			<h:dataTable binding="#{table}" value="#{reservationBean.allReservations}" var="reservation" styleClass="table table-striped table-hover">
 				<h:column>
 					<f:facet name="header">
@@ -25,7 +23,7 @@
 				</h:column>
 				<h:column>
 					<f:facet name="header">
-						<h:outputText value="Cena???" />
+						<h:outputText value="Cena" />
 					</f:facet>
 					<h:outputText value="#{reservation.getPrice('CZK')}"></h:outputText>
 				</h:column>
@@ -33,13 +31,13 @@
 					<f:facet name="header">
 						<h:outputText value="Uživatel" />
 					</f:facet>
-					TODO
+					<h:outputText value="#{reservation.getAuthor().getFullName()}"></h:outputText>
 				</h:column>
 				<h:column>
 					<f:facet name="header">
 						<h:outputText value="Stav" />
 					</f:facet>
-					TODO
+					<h:outputText value="#{reservation.getStatus()}"></h:outputText>
 				</h:column>
 				<h:column>
 					<h:commandButton action="#{reservationBean.actionAcceptReservation}" value="Schválit" styleClass="btn btn-outline-primary">
