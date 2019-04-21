@@ -10,6 +10,11 @@
 	<ui:param name="title" value="Volné služby" />
 	<ui:param name="role" value="REGISTRATED" />
 	<ui:define name="content">
+		<h:outputFormat rendered="#{reservationBean.errorCollisionInReservationList}">
+			<div class="alert alert-danger">
+				Chyba: Položku nelze přidat do rezervace, protože koliduje s položkou v seznamu.
+			</div>
+		</h:outputFormat>
 		<h:form>
 			<h:messages layout="table" globalOnly="true" styleClass="text-danger mb-3" />
 			<h:dataTable value="#{reservationBean.freeServices}" var="service" styleClass="table table-striped table-hover">

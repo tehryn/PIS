@@ -39,6 +39,11 @@ public class ReservationBean implements Serializable {
 	private Reservation acceptedReservation;
 	private Reservation deniedReservation;
 	
+	// Errors
+	private Boolean errorSinceNotLessUntil = false;
+	private Boolean errorSinceIsNotFuture = false;
+	private Boolean errorCollisionInReservationList = false;
+	
 	
     @Inject
 	private UserBean userBean; 
@@ -78,7 +83,7 @@ public class ReservationBean implements Serializable {
     	newReservation.request();
     	reservations = Reservation.findReservationsOfUser(userBean.getLoggedUser());
     	
-		return "/user/reservation_list.xhtml";
+		return "/user/reservation_list.xhtml?faces-redirect=true";
 	}
     
     public String actionNew() {
@@ -87,72 +92,74 @@ public class ReservationBean implements Serializable {
 	}
     
     public String actionAddRoom() {
-		return "/user/reservation_new_room.xhtml";
+		return "/user/reservation_new_room.xhtml?faces-redirect=true";
 	}
     
     public String actionAddService() {
-		return "/user/reservation_new_service.xhtml";
+		return "/user/reservation_new_service.xhtml?faces-redirect=true";
 	}
     
     public String actionSearchFreeRooms() {
     	if (!isCommoditySearchTimeOK()){
-    		return "null";	// TODO Error message
+    		return "null";
     	}
     	
+    	errorCollisionInReservationList = false;
     	freeRooms = Room.showAvailable(new java.sql.Timestamp(since.getTime()), new java.sql.Timestamp(until.getTime()));
-		return "/user/reservation_new_room_results.xhtml";
+		return "/user/reservation_new_room_results.xhtml?faces-redirect=true";
 	}
     
     public String actionSearchFreeServices() {
     	if (!isCommoditySearchTimeOK()){
-    		return "null";	// TODO Error message
+    		return "null";
     	}
     	
+    	errorCollisionInReservationList = false;
     	freeServices = Service.showAvailable(new java.sql.Timestamp(since.getTime()), new java.sql.Timestamp(until.getTime()));
-		return "/user/reservation_new_service_results.xhtml";
+		return "/user/reservation_new_service_results.xhtml?faces-redirect=true";
 	}
         
     public String actionReserveRoom() {
     	if (!canAddToReservedItems(reservedRoom)) {
-    		return "/user/reservation_new.xhtml";	// TODO The room is already in the list message
+    		return "null";
     	}
     	reservedItems.add(new ReservedCommodity(reservedRoom, since, until));
     	
-		return "/user/reservation_new.xhtml";
+		return "/user/reservation_new.xhtml?faces-redirect=true";
 	}
     
     public String actionReserveService() {
     	if (!canAddToReservedItems(reservedService)) {
-    		return "/user/reservation_new.xhtml";	// TODO The service is already in the list message
+    		return "null";
     	}
     	reservedItems.add(new ReservedCommodity(reservedService, since, until));
     	
-		return "/user/reservation_new.xhtml";
+		return "/user/reservation_new.xhtml?faces-redirect=true";
 	}
     
     public String actionCancelReservation() {
     	// TODO Can be ACCEPTED/REJECTED reservation cancelled?
     	cancelledReservation.cancel();
     	
-		return "/user/reservation_list.xhtml";
+		return "/user/reservation_list.xhtml?faces-redirect=true";
 	}
     
     public String actionRemoveItem() {
     	reservedItems.remove(removedItem);
     	
-		return "/user/reservation_new.xhtml";
+		return "/user/reservation_new.xhtml?faces-redirect=true";
 	}
     
     public String actionAcceptReservation() {
     	acceptedReservation.accept();
     	
-		return "/reservations/reservation_list.xhtml";
+		return "/reservations/reservation_list.xhtml?faces-redirect=true";
 	}
     
     public String actionDenyReservation() {
     	deniedReservation.reject();
     	
-		return "/reservations/reservation_list.xhtml";
+		return "/reservations/reservation_list.xhtml?faces-redirect=true";
 	}
     
     
@@ -163,21 +170,20 @@ public class ReservationBean implements Serializable {
     	for(ReservedCommodity item: reservedItems) {
     		if (item.getItem().getSysid().equals(newItem.getSysid())) {
     			// Time intervals overlap
-    			/*
-    			t1.begin.isAfter(t2.begin) && t1.begin.isBefore(t2.end) ||
-                t1.end.isAfter(t2.begin) && t1.end.isBefore(t2.end) ||
-                t1.begin.isBefore(t2.begin) && t1.end.isAfter(t2.end);
-    			*/
-    			// OK
-    			return (item.getUntil().before(since) || item.getUntil().equals(since)) ||
-    				   (until.before(item.getFrom()) || until.equals(item.getFrom()));
+    			errorCollisionInReservationList = !((item.getUntil().before(since) || item.getUntil().equals(since)) ||
+    											  (until.before(item.getFrom()) || until.equals(item.getFrom())));
+    			if (errorCollisionInReservationList)
+    				return !errorCollisionInReservationList;
     		}
         }
-    	return true;    	
+    	errorCollisionInReservationList = false;
+    	return !errorCollisionInReservationList;
     }
     
     private Boolean isCommoditySearchTimeOK() {
-    	return since.before(until) && since.after(new Date()); // new Date() == now
+    	errorSinceNotLessUntil = !since.before(until);
+    	errorSinceIsNotFuture = !since.after(new Date()); // new Date() == now
+    	return (!errorSinceNotLessUntil) && (!errorSinceIsNotFuture);
     }
     
  	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -187,6 +193,30 @@ public class ReservationBean implements Serializable {
 
 	public ArrayList<ReservedCommodity> getReservedItems() {
 		return reservedItems;
+	}
+
+	public Boolean getErrorCollisionInReservationList() {
+		return errorCollisionInReservationList;
+	}
+
+	public void setErrorCollisionInReservationList(Boolean errorCollisionInReservationList) {
+		this.errorCollisionInReservationList = errorCollisionInReservationList;
+	}
+
+	public Boolean getErrorSinceNotLessUntil() {
+		return errorSinceNotLessUntil;
+	}
+
+	public void setErrorSinceNotLessUntil(Boolean errorSinceNotLessUntil) {
+		this.errorSinceNotLessUntil = errorSinceNotLessUntil;
+	}
+
+	public Boolean getErrorSinceIsNotFuture() {
+		return errorSinceIsNotFuture;
+	}
+
+	public void setErrorSinceIsNotFuture(Boolean errorSinceIsNotFuture) {
+		this.errorSinceIsNotFuture = errorSinceIsNotFuture;
 	}
 
 	public Reservation getAcceptedReservation() {

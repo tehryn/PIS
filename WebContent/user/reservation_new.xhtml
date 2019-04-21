@@ -28,13 +28,17 @@
 					<f:facet name="header">
 						<h:outputText value="Od" />
 					</f:facet>
-					<h:outputText value="#{reservedItem.from}"></h:outputText>
+					<h:outputText value="#{reservedItem.from}">
+						<f:convertDateTime type="both" pattern="MM.dd.yyyy" />
+					</h:outputText>
 				</h:column>
 				<h:column>
 					<f:facet name="header">
 						<h:outputText value="Do" />
 					</f:facet>
-					<h:outputText value="#{reservedItem.until}"></h:outputText>
+					<h:outputText value="#{reservedItem.until}">
+						<f:convertDateTime type="both" pattern="MM.dd.yyyy" />
+					</h:outputText>
 				</h:column>
 				<h:column styleClass="text-right">
 					<h:commandButton action="#{reservationBean.actionRemoveItem}" value="Odstranit" styleClass="btn btn-outline-danger">

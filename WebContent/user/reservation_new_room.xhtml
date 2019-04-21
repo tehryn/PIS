@@ -11,6 +11,16 @@
 	<ui:param name="role" value="REGISTRATED" />
 	<ui:define name="content">
 		<h:form>
+			<h:outputFormat rendered="#{reservationBean.errorSinceNotLessUntil}">
+				<div class="alert alert-danger">
+					Chyba: Čas "Od" není dřív, než "Do".
+				</div>
+			</h:outputFormat>
+			<h:outputFormat rendered="#{reservationBean.errorSinceIsNotFuture}">
+				<div class="alert alert-danger">
+					Chyba: Čas "Od" je v minulosti.
+				</div>
+			</h:outputFormat>
 			<h:messages layout="table" globalOnly="true" styleClass="text-danger mb-3" />
 			<div class="form-group">
 				<h:outputLabel value="Od *" />
