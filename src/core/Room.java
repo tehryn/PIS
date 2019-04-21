@@ -51,7 +51,7 @@ public class Room extends Commodity {
 		for (queries.db.Commodity com : allCommodities) {
 			Commodity mycom = new Commodity(com);
 			
-			if (mycom.isReserved(from, until) && mycom.getType() == CommodityType.ROOM) {
+			if (!mycom.isReserved(from, until) && mycom.getType() == CommodityType.ROOM) {
 				result.add(new Room(com));
 			}
 		}

@@ -130,6 +130,7 @@ public class ReservationBean implements Serializable {
 	}
     
     public String actionCancelReservation() {
+    	// TODO Can be ACCEPTED/REJECTED reservation cancelled?
     	cancelledReservation.cancel();
     	
 		return "/user/reservation_list.xhtml";
@@ -148,7 +149,7 @@ public class ReservationBean implements Serializable {
 	}
     
     public String actionDenyReservation() {
-    	acceptedReservation.accept();
+    	deniedReservation.reject();
     	
 		return "/reservations/reservation_list.xhtml";
 	}
