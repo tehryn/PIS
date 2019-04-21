@@ -180,12 +180,15 @@ public class ReservationQueries extends Queries<Reservation> {
 		params.add(commodity);
 		params.add(from);
 		params.add(to);
+		params.add(datatypes.ReservationStatus.APPROVED);
+		params.add(datatypes.ReservationStatus.REQUESTED);
 		String query = "SELECT rc FROM ReservedCommodity rc WHERE "
 				+ "rc.commodity = ?1 "
 				+ "AND ( "
 					+ "( ?2 BETWEEN rc.from AND rc.until ) "
 					+ "OR ( ?3 BETWEEN rc.from AND rc.until ) "
-				+ ")";
+				+ ")"
+				+ "AND rc.reservation IN ( SELECT r FROM Reservation r WHERE r.status IN (?4, ?5) )";
 		return select(query, params).size() != 0;
 	}
 

@@ -51,7 +51,12 @@ public class ServiceBean implements Serializable {
 	}
 
 	public String actionInsertNew() {
-		ArrayList<CommodityPrice> prices = new ArrayList<CommodityPrice>(){{
+		ArrayList<CommodityPrice> prices = new ArrayList<CommodityPrice>(){/**
+			 * 
+			 */
+			private static final long serialVersionUID = 1L;
+
+		{
 			add(new CommodityPrice(newPrice, CommodityPriceCounter.NIGHT, Currency.CZK));
 		}};
 		

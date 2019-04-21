@@ -30,7 +30,6 @@ public class ReservationBean implements Serializable {
 	private List<Commodity> freeServices;
 	private Room reservedRoom;
 	private Service reservedService;
-	private Reservation reservationsMgr;
 	private List<Reservation> reservations;
 	private Reservation cancelledReservation;
 	private ReservedCommodity removedItem;
@@ -48,7 +47,7 @@ public class ReservationBean implements Serializable {
     public void init() {
         // Put original constructor code here.
     	reservedItems = new ArrayList<ReservedCommodity>();
-    	reservations = reservationsMgr.findReservationsOfUser(userBean.getLoggedUser());
+    	reservations = Reservation.findReservationsOfUser(userBean.getLoggedUser());
     }
 	
     public ReservationBean() {
@@ -62,11 +61,11 @@ public class ReservationBean implements Serializable {
     }
     
     public void preRenderList() {
-    	reservations = reservationsMgr.findReservationsOfUser(userBean.getLoggedUser());
+    	reservations = Reservation.findReservationsOfUser(userBean.getLoggedUser());
 	}
     
     public void preRenderAllList() {
-    	allReservations = reservationsMgr.getPendingReservations();
+    	allReservations = Reservation.getPendingReservations();
 	}
     
     public String actionReserve() {
@@ -77,7 +76,7 @@ public class ReservationBean implements Serializable {
         }
     	
     	newReservation.request();
-    	reservations = reservationsMgr.findReservationsOfUser(userBean.getLoggedUser());
+    	reservations = Reservation.findReservationsOfUser(userBean.getLoggedUser());
     	
 		return "/user/reservation_list.xhtml";
 	}
@@ -96,34 +95,36 @@ public class ReservationBean implements Serializable {
 	}
     
     public String actionSearchFreeRooms() {
+    	if (!isCommoditySearchTimeOK()){
+    		return "null";	// TODO Error message
+    	}
+    	
     	freeRooms = Room.showAvailable(new java.sql.Timestamp(since.getTime()), new java.sql.Timestamp(until.getTime()));
 		return "/user/reservation_new_room_results.xhtml";
 	}
     
     public String actionSearchFreeServices() {
+    	if (!isCommoditySearchTimeOK()){
+    		return "null";	// TODO Error message
+    	}
+    	
     	freeServices = Service.showAvailable(new java.sql.Timestamp(since.getTime()), new java.sql.Timestamp(until.getTime()));
 		return "/user/reservation_new_service_results.xhtml";
 	}
-    
+        
     public String actionReserveRoom() {
-    	for(ReservedCommodity item: reservedItems) {
-    		if (item.getItem().getSysid().equals(reservedRoom.getSysid()) &&
-                	item.getFrom().equals(since) &&
-                	item.getUntil().equals(until))
-    			return "/user/reservation_new.xhtml";	// TODO The room is already in the list message
-        }
+    	if (!canAddToReservedItems(reservedRoom)) {
+    		return "/user/reservation_new.xhtml";	// TODO The room is already in the list message
+    	}
     	reservedItems.add(new ReservedCommodity(reservedRoom, since, until));
     	
 		return "/user/reservation_new.xhtml";
 	}
     
     public String actionReserveService() {
-    	for(ReservedCommodity item: reservedItems) {
-    		if (item.getItem().getSysid().equals(reservedService.getSysid()) &&
-    				item.getFrom().equals(since) &&
-    				item.getUntil().equals(until))
-    			return "/user/reservation_new.xhtml";	// TODO The service is already in the list message
-        }
+    	if (!canAddToReservedItems(reservedService)) {
+    		return "/user/reservation_new.xhtml";	// TODO The service is already in the list message
+    	}
     	reservedItems.add(new ReservedCommodity(reservedService, since, until));
     	
 		return "/user/reservation_new.xhtml";
@@ -158,6 +159,27 @@ public class ReservationBean implements Serializable {
     // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
  	// Private methods
 
+    private Boolean canAddToReservedItems(Commodity newItem) {
+    	for(ReservedCommodity item: reservedItems) {
+    		if (item.getItem().getSysid().equals(newItem.getSysid())) {
+    			// Time intervals overlap
+    			/*
+    			t1.begin.isAfter(t2.begin) && t1.begin.isBefore(t2.end) ||
+                t1.end.isAfter(t2.begin) && t1.end.isBefore(t2.end) ||
+                t1.begin.isBefore(t2.begin) && t1.end.isAfter(t2.end);
+    			*/
+    			// OK
+    			return (item.getUntil().before(since) || item.getUntil().equals(since)) ||
+    				   (until.before(item.getFrom()) || until.equals(item.getFrom()));
+    		}
+        }
+    	return true;    	
+    }
+    
+    private Boolean isCommoditySearchTimeOK() {
+    	return since.before(until) && since.after(new Date()); // new Date() == now
+    }
+    
  	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
  	// Getters and Setters
     
