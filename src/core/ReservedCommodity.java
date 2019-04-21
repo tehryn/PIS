@@ -7,6 +7,7 @@ package core;
 import java.util.List;
 import java.time.Period;
 import java.util.Date;
+import java.lang.Math;
 
 import datatypes.CommodityPrice;
 import datatypes.Currency;
@@ -43,11 +44,11 @@ public class ReservedCommodity {
 			if (price.getCurrency() == currency) {
 				datatypes.CommodityPriceCounter modifiedBy = price.getValuePer();
 				switch ( modifiedBy ) {
-					case HOUR: return ( this.until.getTime() * 3600000 - this.from.getTime() * 3600000 ) * price.getValue();
-					case NIGHT: return ( this.until.getTime() * 86400000 - this.from.getTime() * 86400000 ) * price.getValue();
+					case HOUR: return (int) Math.ceil( ( this.until.getTime() - this.from.getTime() ) / 3600000.0 ) * price.getValue();
+					case NIGHT: return (int) Math.ceil( ( this.until.getTime() - this.from.getTime() ) / 86400000.0 ) * price.getValue();
 					case ITEM:  return price.getValue();
-					case SECOND: return ( this.until.getTime() * 1000 - this.from.getTime() * 1000 ) * price.getValue();
-					case MINUTE: return ( this.until.getTime() * 60000 - this.from.getTime() * 60000 ) * price.getValue();
+					case SECOND: return (int) Math.ceil( ( this.until.getTime() - this.from.getTime() ) / 1000.0 ) * price.getValue();
+					case MINUTE: return (int) Math.ceil( ( this.until.getTime() - this.from.getTime() ) / 60000.0 ) * price.getValue();
 				}
 			}
 		}
