@@ -187,6 +187,12 @@ public class Reservation {
 		return resHandle.getStatus();
 	}
 	
+	public core.User getAuthor() {
+		queries.db.User user = resHandle.getUser();
+		
+		return new core.User(user.getId());
+	}
+	
 	/**
 	 * @brief Calculate earliest time of reservation for all reserved commodities
 	 * @return From the set of reserved commodities, earliest from time is returned
