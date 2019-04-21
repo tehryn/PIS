@@ -5,7 +5,9 @@
 package core;
 
 import java.util.List;
+import java.time.Period;
 import java.util.Date;
+import java.lang.Math;
 
 import datatypes.CommodityPrice;
 import datatypes.Currency;
@@ -39,7 +41,16 @@ public class ReservedCommodity {
 	public float getPrice(Currency currency) {
 		List<CommodityPrice> prices = item.getPrice();
 		for (CommodityPrice price : prices) {
-			if (price.getCurrency() == currency) return price.getValue();
+			if (price.getCurrency() == currency) {
+				datatypes.CommodityPriceCounter modifiedBy = price.getValuePer();
+				switch ( modifiedBy ) {
+					case HOUR: return (int) Math.ceil( ( this.until.getTime() - this.from.getTime() ) / 3600000.0 ) * price.getValue();
+					case NIGHT: return (int) Math.ceil( ( this.until.getTime() - this.from.getTime() ) / 86400000.0 ) * price.getValue();
+					case ITEM:  return price.getValue();
+					case SECOND: return (int) Math.ceil( ( this.until.getTime() - this.from.getTime() ) / 1000.0 ) * price.getValue();
+					case MINUTE: return (int) Math.ceil( ( this.until.getTime() - this.from.getTime() ) / 60000.0 ) * price.getValue();
+				}
+			}
 		}
 		
 		return -1.f;
