@@ -183,6 +183,10 @@ public class Reservation {
 		return result;
 	}
 	
+	public datatypes.ReservationStatus getStatus() {
+		return resHandle.getStatus();
+	}
+	
 	/**
 	 * @brief Calculate earliest time of reservation for all reserved commodities
 	 * @return From the set of reserved commodities, earliest from time is returned
