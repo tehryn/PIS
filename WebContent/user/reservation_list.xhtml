@@ -33,7 +33,7 @@
 					<f:facet name="header">
 						<h:outputText value="Stav" />
 					</f:facet>
-					TODO
+					<h:outputText value="#{reservation.getStatus()}"></h:outputText>
 				</h:column>
 				<h:column>
 					<h:commandButton action="#{reservationBean.actionCancelReservation}" value="Zrušit" styleClass="btn btn-outline-danger">
