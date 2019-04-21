@@ -44,8 +44,15 @@ public class CoreExample {
 		ReservedCommodity reservedService = new ReservedCommodity(service, Date.valueOf("2019-03-17"), Date.valueOf("2019-03-18"));
 		reservation.addItem(reservedService);
 		
+		// Read name of user that issued the reservation
+		User usrRef = reservation.getAuthor();
+		System.out.println(usrRef.getFullName());
+		
 		// Admin should approve the reservation
 		reservation.accept();
+		
+		// Read status of reservation
+		System.out.println(reservation.getStatus());
 	}
 
 }
