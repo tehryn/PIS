@@ -187,6 +187,8 @@ public class ReservationQueries extends Queries<Reservation> {
 				+ "AND ( "
 					+ "( ?2 BETWEEN rc.from AND rc.until ) "
 					+ "OR ( ?3 BETWEEN rc.from AND rc.until ) "
+					+ "OR ( rc.from BETWEEN ?2 AND ?3 ) "
+					+ "OR ( rc.until BETWEEN ?2 AND ?3 ) "
 				+ ")"
 				+ "AND rc.reservation IN ( SELECT r FROM Reservation r WHERE r.status IN (?4, ?5) )";
 		return select(query, params).size() != 0;
