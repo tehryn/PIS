@@ -67,11 +67,6 @@ public class UserBean implements Serializable {
 	public String actionEdit() {
 		return "edit";
 	}
-
-	public String actionDelete() {
-		editedUser.remove();
-		return "delete";
-    }
     
     // logout
     public String actionLogout() {
