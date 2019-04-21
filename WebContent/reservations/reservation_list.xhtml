@@ -14,8 +14,6 @@
 	</f:metadata>
 	<ui:define name="content">
 		<h:form>
-			<h:commandButton action="new" value="Nová rezervace" styleClass="btn btn-primary mb-3"></h:commandButton>
-
 			<h:dataTable binding="#{table}" value="#{reservationBean.allReservations}" var="reservation" styleClass="table table-striped table-hover">
 				<h:column>
 					<f:facet name="header">
