@@ -1,3 +1,6 @@
+/**
+ * @author Jiri Matejka (xmatej52)
+ */
 package queries.db;
 
 import javax.persistence.Entity;
@@ -11,7 +14,7 @@ import javax.persistence.Table;
 import datatypes.UserRole;
 
 /**
- * 
+ *
  * @author xmatej52
  *
  */
@@ -19,17 +22,17 @@ import datatypes.UserRole;
 @Table(name="user")
 public class User extends Object {
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY) 
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
-	
+
 	@Enumerated(EnumType.ORDINAL)
 	private UserRole role;
-	
+
 	private String firstName;
 	private String lastName;
 	private String email;
 	private String password;
-	
+
 	public User() {
 		super();
 	}
@@ -41,7 +44,7 @@ public class User extends Object {
 		this.email = email;
 		this.role = role;
 	}
-	
+
 	public User(String firstName, String lastName, String email, UserRole role, String password) {
 		super();
 		this.firstName = firstName;
@@ -50,7 +53,7 @@ public class User extends Object {
 		this.role = role;
 		this.password = password;
 	}
-	
+
 	public String getEmail() {
 		return email;
 	}
@@ -58,11 +61,11 @@ public class User extends Object {
 	public String getFirstName() {
 		return firstName;
 	}
-	
+
 	public int getId() {
 		return id;
 	}
-	
+
 	public String getLastName() {
 		return lastName;
 	}
@@ -100,5 +103,5 @@ public class User extends Object {
 		return "User [id=" + id + ", firstName=" + firstName + ", lastName=" + lastName + ", email=" + email + ", role="
 				+ role + ", password=" + password + "]";
 	}
-	
+
 }

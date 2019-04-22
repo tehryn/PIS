@@ -1,5 +1,5 @@
 /**
- * 
+ * @author Jiri Matejka (xmatej52)
  */
 package queries;
 
@@ -22,19 +22,19 @@ import queries.db.CommodityPrice;
 public class CommodityQueries extends Queries<Commodity> {
 
 	private static CommodityQueries self;
-	
+
 	public static synchronized CommodityQueries getQuery() {
 		if ( self == null ) {
 			self = new CommodityQueries();
 		}
 		return self;
 	}
-	
+
 	private CommodityQueries() {
 		super();
 		beginTransaction();
 	}
-	
+
 	@Override
 	public void deleteItem(int id) {
 		Commodity c = getItem(id);
@@ -71,7 +71,7 @@ public class CommodityQueries extends Queries<Commodity> {
 	public Commodity getItem(int id) {
 		return entitymanager.find( Commodity.class, id );
 	}
-	
+
 	/**
 	 * Creates new commodity.
 	 * @param type commodity type
@@ -92,7 +92,7 @@ public class CommodityQueries extends Queries<Commodity> {
 		flush2Db();
 		return c;
 	}
-	
+
 	/**
 	 * Removes support of currency for specific commodity
 	 * @param commodity commodity, that will be changed
@@ -109,7 +109,7 @@ public class CommodityQueries extends Queries<Commodity> {
 			}
 		}
 	}
-	
+
 	@Override
 	protected List<Commodity> select(String query, List<Object> params) {
 		TypedQuery<Commodity> q = entitymanager.createQuery(query, Commodity.class);
@@ -118,7 +118,7 @@ public class CommodityQueries extends Queries<Commodity> {
 		}
 		return q.getResultList();
 	}
-	
+
 	/**
 	 * Sets new state of commodity availability
 	 * @param commodity commodity that we be changed

@@ -1,3 +1,6 @@
+/**
+ * @author Jiri Matejka (xmatej52)
+ */
 package queries.db;
 
 import javax.persistence.CascadeType;
@@ -23,25 +26,25 @@ public class CommodityPrice extends Object {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
-	
+
 	private float value;
-	
+
 	@Enumerated(EnumType.ORDINAL)
 	private Currency currency;
-	
+
 	@Enumerated(EnumType.ORDINAL)
 	private CommodityPriceCounter valuePer;
-	
+
 	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name="commodity", nullable=false)
 	private Commodity commodity;
-	
+
 	public CommodityPrice() {
 		value = 0.f;
 		currency = Currency.CZK;
 		valuePer = CommodityPriceCounter.ITEM;
 	}
-	
+
 	public CommodityPrice(float value, Currency currency, CommodityPriceCounter valuePer, Commodity commodity) {
 		this.value = value;
 		this.currency = currency;
@@ -52,7 +55,7 @@ public class CommodityPrice extends Object {
 	public Commodity getCommodity() {
 		return commodity;
 	}
-	
+
 	public Currency getCurrency() {
 		return currency;
 	}
@@ -86,5 +89,5 @@ public class CommodityPrice extends Object {
 		return "CommodityPrice [id=" + id + ", value=" + value + ", currency=" + currency + ", valuePer=" + valuePer
 				+ ", commodity=" + commodity.getSysid() + "]";
 	}
-	
+
 }

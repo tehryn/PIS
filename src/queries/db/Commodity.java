@@ -1,3 +1,6 @@
+/**
+ * @author Jiri Matejka (xmatej52)
+ */
 package queries.db;
 
 import java.util.ArrayList;
@@ -23,15 +26,15 @@ public class Commodity {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
-	
+
 	@Enumerated(EnumType.ORDINAL)
 	private CommodityType type;
-	
+
 	@Enumerated(EnumType.ORDINAL)
 	private CommodityState availability;
-	
+
 	private String sysid;
-	
+
 	private String description;
 
 	@OneToMany(mappedBy = "commodity", cascade = CascadeType.ALL, orphanRemoval=true)
@@ -40,7 +43,7 @@ public class Commodity {
 	protected Commodity() {
 		super();
 	}
-	
+
 	public Commodity( CommodityType type, CommodityState state, String sysid ) {
 		this.type = type;
 		this.availability = state;
@@ -55,7 +58,7 @@ public class Commodity {
 		this.sysid = sysid;
 		this.description = desc;
 	}
-	
+
 	public CommodityState getAvailability() {
 		return availability;
 	}

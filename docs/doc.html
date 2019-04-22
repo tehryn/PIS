@@ -1,15 +1,111 @@
-<!DOCTYPE html>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<!-- saved from url=(0067)https://www.fit.vutbr.cz/study/courses/PIS/private/cviceni/doc.html -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 
-<html>
-
-<head>
-	<title>PIS Projekt 2019 Dokumentace</title>
+    <title>Projekt PIS</title>
+    <style type="text/css">
+    	table { border-collapse: collapse; }
+    	td, th { border: 1px solid black; padding: 0.3em 0.5em; text-align: left; }
+    	dt { font-weight: bold; margin-top: 0.5em; }
+    </style>
 </head>
-
 <body>
-	<h1>TODO: Titulek</h1>
-	
-	<p>TODO: Text</p>
-</body>
 
-</html>
+<!-- Zkontrolujte prosím nastavení kódování v hlavičce dokumentu
+     podle použitého editoru -->
+
+<!-- Nahraďte prosím názvem tématu -->
+<h1>Hotel</h1>
+<h2>Zadání</h2>
+<small>[Text zadání převzat (a upraven) z projektu do předmětu AIS -- autoři projektu AIS: Matějka Jiří, Opichal Tomáš a Pobořil Filip]</small>
+
+<p>
+    Manažer luxusního hotelu se rozhodl přejít z papírové evidence rezervací na elektronickou.
+    Z tohoto důvodu si objednal nový informační systém, který recepci hotelu umožní rezervace spravovat.
+</p>
+<p>
+    Hotel kromě ubytování také nabízí různé služby klientů. Mezi tyto služby patří například
+    pronájem bowlingové dráhy nebo kulečníkového stolu. Tyto služby si klient může rezervovat
+    stejným způsobem jako pokoje.
+</p>
+<p>
+    Primární funkcí systému bude rezervace pokojů na konkrétní datum a počet nocí.
+    Součástí rezervace bude výběr požadovaných služeb (například rezervace kulečníkového stolu).
+    Systém umožní zobrazení dostupnosti pokojů a služeb neregistrovaným uživatelům.
+    Registrovaný uživatel bude mít možnost prostřednictvím webového rozhraní požádat o rezervaci pokoje.
+    Rezervaci bude moci potvrdit recepční, případně může vytvořit novou rezervaci na základě komunikace s klientem.
+    Rezervaci bude mít možnost upravit jak autor rezervace, tak i recepční. Klient bude moci zobrazit historii u svých rezervací,
+    recepční u všech rezervací.
+    Manažer hotelu musí mít možnost zablokovat na určitá data pokoje i služby (např. kvůli rekonstrukci).
+    Součástí systému bude i uživatel v roli administrátora, který bude mít veškerá oprávnění včetně správy uživatelů.
+</p>
+
+<!-- Editujte jména a maily autorů a jejich činnost -->
+<dl>
+	<dt>Autoři</dt>
+	<dd>Matějka Jiří
+	    <a href="mailto:xmatej5201@stud.fit.vutbr.cz">xmatej52@stud.fit.vutbr.cz</a> -
+		Databázový subsystém
+	</dd>
+	<dd>Neruda Jakub
+	    <a href="mailto:xnerud01@stud.fit.vutbr.cz">xnerud01@stud.fit.vutbr.cz</a> -
+		Operace s daty
+	</dd>
+    <dd>Sedlo Ondřej
+	    <a href="mailto:xsedlo02@stud.fit.vutbr.cz">xsedlo02@stud.fit.vutbr.cz</a> -
+		Uživatelské rozhraní
+	</dd>
+    <dd>Žárský Jan
+        <a href="mailto:xzarsk03@stud.fit.vutbr.cz">xzarsk03@stud.fit.vutbr.cz</a> -
+        Uživatelské rozhraní
+    </dd>
+</dl>
+
+<!-- uživatelské účty -->
+<h2>Uživatelé systému pro testování</h2>
+<table>
+<tbody><tr><th>Login</th><th>Heslo</th><th>Role</th></tr>
+<tr><td>matej@pis.cz</td><td>123</td><td>Administrátor</td></tr>
+<tr><td>gargamel@pis.cz</td><td>123</td><td>Manažer</td></tr>
+<tr><td>petr@pis.cz</td><td>123</td><td>Recepční</td></tr>
+<tr><td>jan@pis.cz</td><td>123</td><td>Registrovaný uživatel</td></tr>
+</tbody></table>
+
+<h2>Postup instalace</h2>
+Projekt je implementován v jazyce Java EE. Pro správnou funkcionalitu projektu je nutné před spuštěním nakonfigurovat připojení k databázovému serveru.
+<h3>Databáze</h3>
+<p>Pro relační databázový model byl zvolen systém MySQL. Pro korektní nastavení databáze je třeba provést následující konfiguraci mysql serveru:</p>
+
+Editace konfiguračního souboru (na ubuntu se jedná o soubor /etc/mysql/my.cnf):
+<pre>
+    <code>[mysqld]
+    lower_case_table_names = 1
+    </code>
+</pre>
+
+Vytvoření databáze:
+<pre>
+    <code>CREATE DATABASE pis;
+    ALTER DATABASE pis CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+    CREATE USER 'pis'@'localhost' IDENTIFIED BY 'p1sh3sl0';
+    GRANT ALL PRIVILEGES ON pis.* TO 'pis'@'localhost' IDENTIFIED BY 'p1sh3sl0';
+    </code>
+</pre>
+
+Vytvoření tabulek a naplnění testovacími daty:
+<pre>
+    <code>mysql -u [USER] --password=[PASSWORD] -s &lt;./sql/init.sql
+    </code>
+</pre>
+
+<!-- vyžadované knihovny třetích stran i s verzemi, které byly použity pro testování -->
+<h2>Vyžadované knihovny a nástroje</h2>
+<ul>
+    <li>glassfish 5.0</li>
+    <li>Java EE 8</li>
+    <li>MySQL Connector/J 8.0.15</li>
+    <li>EclipseLink 2.5.2</li>
+    <li>cdi-api 2.0.0</li>
+	<li>JRE System Library [JavaSE-1.8]</li>
+</ul>
+</body></html>

@@ -1,3 +1,6 @@
+/**
+ * @author Jiri Matejka (xmatej52)
+ */
 package queries.db;
 
 import java.util.ArrayList;
@@ -16,7 +19,7 @@ import javax.persistence.Table;
 
 
 /**
- * 
+ *
  * @author xmatej52
  *
  */
@@ -26,10 +29,10 @@ public class Reservation extends Object {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
-	
+
 	@JoinColumn(name="user")
 	private User user;
-	
+
 	@OneToMany(mappedBy = "reservation", orphanRemoval=true, cascade = CascadeType.ALL)
 	private List<ReservedCommodity> items;
 
@@ -39,7 +42,7 @@ public class Reservation extends Object {
 	public Reservation() {
 		super();
 	}
-	
+
 	public Reservation(User user) {
 		super();
 		this.user = user;
@@ -54,11 +57,11 @@ public class Reservation extends Object {
 	public List<ReservedCommodity> getItems() {
 		return items;
 	}
-	
+
 	public datatypes.ReservationStatus getStatus() {
 		return status;
 	}
-	
+
 	public User getUser() {
 		return user;
 	}
@@ -66,7 +69,7 @@ public class Reservation extends Object {
 	public void setStatus(datatypes.ReservationStatus status  ) {
 		this.status = status;
 	}
-	
+
 	@Override
 	public String toString() {
 		return "Reservation [id=" + id + ", user=" + user + ", items=" + items + ", status=" + status + "]";
