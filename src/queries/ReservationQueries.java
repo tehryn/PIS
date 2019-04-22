@@ -54,6 +54,9 @@ public class ReservationQueries extends Queries<Reservation> {
 			}
 		}
 		ReservedCommodity rc = new ReservedCommodity( reservation, commodity, from, until );
+		if ( reservation.getStatus() == datatypes.ReservationStatus.APPROVED ) {
+			reservation.setStatus( datatypes.ReservationStatus.REQUESTED );
+		}
 		resCommodities.add(rc);
 		flush2Db();
 		return true;
@@ -124,7 +127,11 @@ public class ReservationQueries extends Queries<Reservation> {
 	 * @param reservedCommodity Reservation request for commodity
 	 */
 	public void removeCommodity( ReservedCommodity reservedCommodity ) {
+		Reservation reservation = reservedCommodity.getRezervation();
 		entitymanager.remove(reservedCommodity);
+		if ( reservation.getStatus() == datatypes.ReservationStatus.APPROVED ) {
+			reservation.setStatus( datatypes.ReservationStatus.REQUESTED );
+		}
 		flush2Db();
 	}
 
