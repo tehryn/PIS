@@ -11,6 +11,7 @@
 	<h:outputStylesheet library="style" name="bootstrap.min.css" />
 	<h:outputStylesheet library="style" name="bootstrap-datepicker3.min.css" />
 	<h:outputStylesheet library="style" name="default.css" />
+	<meta http-equiv="refresh" content="#{facesContext.externalContext.sessionMaxInactiveInterval};url=#{request.contextPath}/index.xhtml"/>
 </h:head>
 
 <h:body>
@@ -26,7 +27,7 @@
 					<li class="nav-item active">
 						<h:link outcome="/index.xhtml" styleClass="nav-link">Domů</h:link>
 					</li>
-					<h:outputFormat rendered="#{userBean.hasRole('VISITOR')}">
+					<h:outputFormat rendered="#{userBean.hasRole('REGISTRATED')}">
 						<li class="nav-item active">
 							<h:link outcome="/user/reservation_list.xhtml" styleClass="nav-link">Moje Rezervace</h:link>
 						</li>

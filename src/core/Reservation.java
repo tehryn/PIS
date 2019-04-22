@@ -22,6 +22,13 @@ public class Reservation {
 	private ReservationQueries query = ReservationQueries.getQuery();
 	private queries.db.Reservation resHandle = null;
 	
+	private void checkHistoricReservation() throws Exception {
+		Date now = new Date();
+		if (calcFrom().compareTo(now) < 0) { // if from is less than now
+			throw new Exception("Status of historic reservation cannot be changed!");
+		}
+	}
+	
 	private Reservation(queries.db.Reservation reservation) {
 		resHandle = reservation;
 	}
@@ -89,8 +96,9 @@ public class Reservation {
 	/**
 	 *  @brief Change status of reservation to REQUESTED
 	 */
-	public void request() {
+	public void request() throws Exception {
 		try {
+			checkHistoricReservation();
 			resHandle.setStatus(ReservationStatus.REQUESTED);
 		}
 		catch (Exception e) {
@@ -104,8 +112,9 @@ public class Reservation {
 	/**
 	 *  @brief Change status of reservation to APPROVED
 	 */
-	public void accept() {
+	public void accept() throws Exception {
 		try {
+			checkHistoricReservation();
 			resHandle.setStatus(ReservationStatus.APPROVED);
 		}
 		catch (Exception e) {
@@ -119,8 +128,9 @@ public class Reservation {
 	/**
 	 *  @brief Change status of reservation to REJECTED
 	 */
-	public void reject() {
+	public void reject() throws Exception {
 		try {
+			checkHistoricReservation();
 			resHandle.setStatus(ReservationStatus.REJECTED);
 		}
 		catch (Exception e) {
@@ -134,8 +144,9 @@ public class Reservation {
 	/**
 	 *  @brief Change status of reservation to CANCELED
 	 */
-	public void cancel() {
+	public void cancel() throws Exception {
 		try {
+			checkHistoricReservation();
 			resHandle.setStatus(ReservationStatus.CANCELED);
 		}
 		catch (Exception e) {

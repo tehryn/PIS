@@ -11,10 +11,16 @@
 	<ui:param name="role" value="MANAGER" />
 	<ui:define name="content">
 		<h:form>
+			<h:outputFormat rendered="#{userBean.errorInsert}">
+				<div class="alert alert-danger">
+					Chyba: Nelze vložit záznam.
+				</div>
+			</h:outputFormat>
 			<h:messages layout="table" globalOnly="true" styleClass="text-danger mb-3" />
 			<div class="form-group">
 				<h:outputLabel value="Role *" />
-				<h:selectOneMenu id="form-role" value="#{userBean.newUserRole}" required="true" requiredMessage="Zvolte prosím roli" styleClass="form-control"> 
+				<h:selectOneMenu id="form-role" value="#{userBean.newUserRole}" required="true" requiredMessage="Zvolte prosím roli" styleClass="form-control" > 
+					<f:selectItem itemValue = "VISITOR" itemLabel = "VISITOR" />
 		            <f:selectItem itemValue = "REGISTRATED" itemLabel = "REGISTRATED" /> 
 		            <f:selectItem itemValue = "RECEPTIONIST" itemLabel = "RECEPTIONIST" /> 
 		            <f:selectItem itemValue = "MANAGER" itemLabel = "MANAGER" /> 

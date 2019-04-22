@@ -11,6 +11,11 @@
 	<ui:param name="role" value="MANAGER" />
 	<ui:define name="content">
 		<h:form>
+			<h:outputFormat rendered="#{serviceBean.errorInsert}">
+				<div class="alert alert-danger">
+					Chyba: Nelze vložit záznam.
+				</div>
+			</h:outputFormat>
 			<h:messages layout="table" globalOnly="true" styleClass="text-danger mb-3" />
 			<div class="form-group">
 				<h:outputLabel value="ID *" />
