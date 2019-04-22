@@ -22,8 +22,15 @@ public class Room extends Commodity {
 	}
 	
 	public Room() {
-		// TODO
-		resHandle = query.newCommodity(CommodityType.ROOM, CommodityState.AVAILABLE, "", "");
+		try {
+			resHandle = query.newCommodity(CommodityType.ROOM, CommodityState.AVAILABLE, "", "");
+		}
+		catch (Exception e) {
+			CommodityQueries.rollback();
+			throw e;
+		}
+		
+		CommodityQueries.update();
 	}
 	
 	public Room(Commodity com) {
@@ -31,11 +38,20 @@ public class Room extends Commodity {
 	}
 	
 	public Room(String sysid, String description, List<CommodityPrice> prices) {
-		resHandle = query.newCommodity(CommodityType.ROOM, CommodityState.AVAILABLE, sysid, description);
-		
-		for (CommodityPrice price : prices) {
-			setPrice(price);
+		try {
+			resHandle = query.newCommodity(CommodityType.ROOM, CommodityState.AVAILABLE, sysid, description);
+			
+			for (CommodityPrice price : prices) {
+				setPrice(price);
+			}
 		}
+		catch (Exception e) {
+			CommodityQueries.rollback();
+			throw e;
+		}
+		
+		CommodityQueries.update();
+		
 	}
 	
 	/**
