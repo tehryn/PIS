@@ -38,7 +38,7 @@
 			</h:dataTable>
 			
 			<div class="form-group text-right">
-				<h:button outcome="/user/reservation_new.xhtml" value="Storno" styleClass="btn btn-outline-secondary" />
+				<h:commandButton action="#{reservationBean.actionStorno('/user/reservation_new_room_results.xhtml')}" value="Storno" styleClass="btn btn-outline-secondary" />
 			</div>
 		</h:form>
 	</ui:define>

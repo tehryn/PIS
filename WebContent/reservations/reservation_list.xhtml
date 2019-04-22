@@ -14,6 +14,11 @@
 	</f:metadata>
 	<ui:define name="content">
 		<h:form>
+			<h:outputFormat rendered="#{reservationBean.errorUserEmail}">
+				<div class="alert alert-danger">
+					Chyba: Nepodařilo se nalézt uživatele se zadaným e-mailem.
+				</div>
+			</h:outputFormat>
 			<h:outputFormat rendered="#{reservationBean.errorAccept}">
 				<div class="alert alert-danger">
 					Chyba: Nelze schválit rezervaci v minulosti.
@@ -24,6 +29,14 @@
 					Chyba: Nelze zamítnout rezervaci v minulosti.
 				</div>
 			</h:outputFormat>
+			<div class="form-group">
+				<h:outputLabel value="E-mail" />
+				<h:inputText id="form-email" value="#{reservationBean.userEmail}" styleClass="form-control" />
+				<h:message for="form-email" styleClass="text-danger" />
+			</div>
+			<div class="form-group">
+				<h:commandButton action="#{reservationBean.actionNewReservationForUser}" value="Přidat rezervaci pro uživatele" styleClass="btn btn-primary"></h:commandButton>
+			</div>
 			<h:dataTable binding="#{table}" value="#{reservationBean.allReservations}" var="reservation" styleClass="table table-striped table-hover">
 				<h:column>
 					<f:facet name="header">

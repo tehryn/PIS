@@ -40,7 +40,7 @@
 			<div class="form-group text-right">
 				<h:commandButton action="#{reservationBean.actionSearchFreeRooms}" value="Hledat volné pokoje" styleClass="btn btn-primary" />
 				&nbsp;
-				<h:button outcome="/user/reservation_new.xhtml" value="Storno" styleClass="btn btn-outline-secondary" />
+				<h:commandButton action="#{reservationBean.actionStorno('/user/reservation_new_room.xhtml')}" value="Storno" styleClass="btn btn-outline-secondary" />
 			</div>
 		</h:form>
 	</ui:define>
