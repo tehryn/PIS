@@ -167,16 +167,16 @@ public class Reservation {
 	 */
 	public float getPrice(Currency currency) {
 		List<queries.db.ReservedCommodity> resComs = resHandle.getItems();
+		
 		float result = 0.f;
 		
 		for (queries.db.ReservedCommodity res : resComs) {
-			Commodity com = new Commodity(res.getCommodity());
-			List<CommodityPrice> prices = com.getPrice();
-			
-			for (CommodityPrice price : prices) {
-				if (price.getCurrency() == currency) {
-					result += price.getValue();
-				}
+			float tmp = new core.ReservedCommodity( res ).getPrice(currency);
+			if ( tmp > 0 ) {
+				result += tmp;
+			}
+			else {
+				return -1.f;
 			}
 		}
 		

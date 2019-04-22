@@ -5,7 +5,6 @@
 package core;
 
 import java.util.List;
-import java.time.Period;
 import java.util.Date;
 import java.lang.Math;
 
@@ -24,6 +23,12 @@ public class ReservedCommodity {
 		this.item = item;
 		this.from = from;
 		this.until = until;
+	}
+	
+	public ReservedCommodity( queries.db.ReservedCommodity handler ) {
+		this.item = new Commodity( handler.getCommodity() );
+		this.from = handler.getFrom();
+		this.until = handler.getUntil();
 	}
 	
 	public Commodity getItem() {
