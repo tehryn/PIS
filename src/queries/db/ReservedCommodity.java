@@ -1,3 +1,6 @@
+/**
+ * @author Jiri Matejka (xmatej52)
+ */
 package queries.db;
 
 import java.util.Date;
@@ -19,26 +22,26 @@ public class ReservedCommodity extends Object {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
-	
+
 	@ManyToOne
 	@JoinColumn(name="reservation")
 	private Reservation reservation;
-	
+
 	@ManyToOne
 	@JoinColumn(name="commodity")
 	private Commodity commodity;
-	
+
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name="frm")
 	private Date from;
-	
+
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date until;
-	
+
 	public ReservedCommodity() {
 		super();
 	}
-	
+
 	public ReservedCommodity(Reservation reservation, Commodity commodity, Date from, Date until) {
 		super();
 		this.reservation = reservation;
@@ -70,7 +73,7 @@ public class ReservedCommodity extends Object {
 	public void setFrom(Date from) {
 		this.from = from;
 	}
-	
+
 	public void setUntil(Date until) {
 		this.until = until;
 	}
@@ -80,5 +83,5 @@ public class ReservedCommodity extends Object {
 		return "ReservedCommodity [id=" + id + ", reservation=" + reservation.getId() + ", commodity=" + commodity + ", from="
 				+ from + ", until=" + until + "]";
 	}
-	
+
 }

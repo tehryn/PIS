@@ -1,5 +1,5 @@
 /**
- * 
+ * @author Jiri Matejka (xmatej52)
  */
 package queries;
 
@@ -11,34 +11,34 @@ import javax.persistence.TypedQuery;
 import queries.db.User;
 
 /**
- * 
+ *
  * @author xmatej52
  *
  */
 public class UserQueries extends Queries<User> {
 
-	
+
 	private static UserQueries self;
-	
+
 	public static synchronized UserQueries getQuery() {
 		if ( self == null ) {
 			self = new UserQueries();
 		}
 		return self;
 	}
-	
+
 	private UserQueries() {
 		super();
 		beginTransaction();
 	}
-	
+
 	@Override
 	public void deleteItem(int id) {
 		User u = getItem(id);
 		entitymanager.remove( u );
 		flush2Db();
 	}
-	
+
 	public List<User> find( String firstName, String lastName ) {
 		List<Object> params = new ArrayList<Object>();
 		params.add(firstName);
@@ -101,7 +101,7 @@ public class UserQueries extends Queries<User> {
 		flush2Db();
 		return u;
 	}
-	
+
 	/**
 	 * Creates new user in database
 	 * @param firstName Name of the user
@@ -116,7 +116,7 @@ public class UserQueries extends Queries<User> {
 		flush2Db();
 		return u;
 	}
-	
+
 	@Override
 	protected List<User> select(String query, List<Object> params) {
 		TypedQuery<User> q = entitymanager.createQuery(query, User.class);
@@ -125,7 +125,7 @@ public class UserQueries extends Queries<User> {
 		}
 		return q.getResultList();
 	}
-	
+
 	/**
 	 * Change login info of user
 	 * @param user user that shall be updated
@@ -137,7 +137,7 @@ public class UserQueries extends Queries<User> {
 		user.setPassword(password);
 		flush2Db();
 	}
-	
+
 	/**
 	 * Updates role of user
 	 * @param user user that shall be updated
