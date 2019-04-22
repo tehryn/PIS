@@ -56,7 +56,7 @@
 			<div class="form-group text-right">
 				<h:commandButton action="#{reservationBean.actionSearchFreeServices}" value="Hledat volné služby" styleClass="btn btn-primary" />
 				&nbsp;
-				<h:button outcome="/user/reservation_new.xhtml" value="Storno" styleClass="btn btn-outline-secondary" />
+				<h:commandButton action="#{reservationBean.actionStorno('/user/reservation_new_service.xhtml')}" value="Storno" styleClass="btn btn-primary" />
 			</div>
 		</h:form>
 	</ui:define>

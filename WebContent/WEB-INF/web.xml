@@ -15,6 +15,6 @@
   </session-config>
   <error-page>
     <exception-type>javax.faces.application.ViewExpiredException</exception-type>
-    <location>/index.xhtml</location>
+    <location>/faces/index.xhtml</location>
   </error-page>
 </web-app>

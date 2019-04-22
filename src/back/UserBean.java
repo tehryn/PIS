@@ -39,6 +39,26 @@ public class UserBean implements Serializable {
     private User loggedUser;
     private Boolean errorLogin = false;
     
+    // Reservations for user
+    private User reservationsUser = null;
+    
+    public Boolean isSetReservationsUser() {
+    	return reservationsUser != null;
+    }
+    
+    public void freeReservationsUser() {
+    	reservationsUser = null;
+    }
+    
+    public void setupReservationsUser(String userEmail) throws Exception {
+    	try {
+    		reservationsUser = new User(userEmail);
+    	} catch (Exception e) {
+    		reservationsUser = null;
+    		throw e;
+    	}
+    }
+    
     // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     // Public methods
     
@@ -57,7 +77,6 @@ public class UserBean implements Serializable {
 		try {
 			new core.User(newUserFirstName, newUserLastName, newUserEmail, newUserPassword).setRole(newUserRole);
 		} catch (Exception e) {
-			//FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(e.getMessage()));
 			errorInsert = true;
 			return "null";
 		}
@@ -80,6 +99,7 @@ public class UserBean implements Serializable {
     public String actionLogout() {
     	loggedUser = null;
     	role = UserRole.VISITOR;
+    	reservationsUser = null;
     	return "/index.xhtml?faces-redirect=true";
     }
     
@@ -89,11 +109,19 @@ public class UserBean implements Serializable {
 			loggedUser = new core.User(email, password);
 			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Login successful"));
 			this.role = loggedUser.getRole();
+			
+			// Can't log in as VISITOR
+			if (this.role == UserRole.VISITOR) {
+				loggedUser = null;	// TODO check
+				errorLogin = true;
+				return "null";
+			}
 		} catch (Exception e) {
 			errorLogin = true;
 			return "null";
 		}
 		errorLogin = false;
+		reservationsUser = null;
 		return "/index.xhtml?faces-redirect=true";
 	}
 	
@@ -102,7 +130,6 @@ public class UserBean implements Serializable {
 		try {
 			loggedUser = new core.User(firstName, lastName, email, password);
 		} catch (Exception e) {
-			//FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(e.getMessage()));
 			errorRegister = true;
 			return "null";
 		}
@@ -152,7 +179,11 @@ public class UserBean implements Serializable {
 		return role;
 	}
 	
-    public Boolean getErrorEdit() {
+    public User getReservationsUser() {
+		return reservationsUser;
+	}
+
+	public Boolean getErrorEdit() {
 		return errorEdit;
 	}
 

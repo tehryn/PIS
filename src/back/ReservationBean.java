@@ -43,6 +43,7 @@ public class ReservationBean implements Serializable {
 	private List<Reservation> allReservations;
 	private Reservation acceptedReservation;
 	private Reservation deniedReservation;
+	String userEmail;	// Email of user who will get new reservations from Receptionist
 	
 	// Errors
 	private Boolean errorSinceNotLessUntil = false;
@@ -52,8 +53,7 @@ public class ReservationBean implements Serializable {
 	private Boolean errorCancel = false;
 	private Boolean errorAccept = false;
 	private Boolean errorDeny = false;
-	
-	
+	private Boolean errorUserEmail = false;
 	
     @Inject
 	private UserBean userBean;
@@ -93,11 +93,16 @@ public class ReservationBean implements Serializable {
 	}
     
     public void preRenderAllList() {
+    	reservedItems = new ArrayList<ReservedCommodity>();
     	allReservations = Reservation.getPendingReservations();
 	}
     
     public String actionReserve() throws Exception {
-    	newReservation = new Reservation(userBean.getLoggedUser());
+    	if (userBean.isSetReservationsUser()) {
+    		newReservation = new Reservation(userBean.getReservationsUser());
+    	} else {
+    		newReservation = new Reservation(userBean.getLoggedUser());
+    	}
     	
     	for(ReservedCommodity item: reservedItems) {
     		newReservation.addItem(item);
@@ -110,12 +115,17 @@ public class ReservationBean implements Serializable {
     		return "null";
     	}
     	errorRequest = false;
-    	reservations = Reservation.findReservationsOfUser(userBean.getLoggedUser());
     	
-		return "/user/reservation_list.xhtml?faces-redirect=true";
+    	if (userBean.isSetReservationsUser()) {
+    		return "/reservations/reservation_list.xhtml?faces-redirect=true";
+    	} else {
+    		reservations = Reservation.findReservationsOfUser(userBean.getLoggedUser());
+    		return "/user/reservation_list.xhtml?faces-redirect=true";
+    	}
 	}
     
     public String actionNew() {
+    	userBean.freeReservationsUser();
     	reservedItems.clear();
 		return "new";
 	}
@@ -154,7 +164,11 @@ public class ReservationBean implements Serializable {
     	}
     	reservedItems.add(new ReservedCommodity(reservedRoom, since, until));
     	
-		return "/user/reservation_new.xhtml?faces-redirect=true";
+    	if (userBean.isSetReservationsUser()) {
+    		return "/reservations/reservation_new_for_user.xhtml?faces-redirect=true";
+    	} else {
+    		return "/user/reservation_new.xhtml?faces-redirect=true";
+    	}
 	}
     
     public String actionReserveService() {
@@ -163,7 +177,11 @@ public class ReservationBean implements Serializable {
     	}
     	reservedItems.add(new ReservedCommodity(reservedService, since, until));
     	
-		return "/user/reservation_new.xhtml?faces-redirect=true";
+		if (userBean.isSetReservationsUser()) {
+    		return "/reservations/reservation_new_for_user.xhtml?faces-redirect=true";
+    	} else {
+    		return "/user/reservation_new.xhtml?faces-redirect=true";
+    	}
 	}
     
     public String actionCancelReservation() throws Exception {
@@ -180,7 +198,11 @@ public class ReservationBean implements Serializable {
     public String actionRemoveItem() {
     	reservedItems.remove(removedItem);
     	
-		return "/user/reservation_new.xhtml?faces-redirect=true";
+    	if (userBean.isSetReservationsUser()) {
+    		return "/reservations/reservation_new_for_user.xhtml?faces-redirect=true";
+    	} else {
+    		return "/user/reservation_new.xhtml?faces-redirect=true";
+    	}
 	}
     
     public String actionAcceptReservation() throws Exception {
@@ -205,6 +227,33 @@ public class ReservationBean implements Serializable {
 		return "/reservations/reservation_list.xhtml?faces-redirect=true";
 	}
     
+    public String actionNewReservationForUser () {
+    	
+    	try {
+			userBean.setupReservationsUser(userEmail);
+		} catch (Exception e) {
+			errorUserEmail = true;
+			return "null";
+		}
+    	
+    	errorUserEmail = false;
+    	return "/reservations/reservation_new_for_user.xhtml?faces-redirect=true";
+    }
+    
+    public String actionStorno(String fromUrl) {
+    	if (userBean.isSetReservationsUser()) {/*
+    		if (fromUrl.equals("/user/reservation_new_room.xhtml"))
+    			return "/reservations/reservation_new_for_user.xhtml?faces-redirect=true";
+    		if (fromUrl.equals("/user/reservation_new_service.xhtml"))*/
+    		return "/reservations/reservation_new_for_user.xhtml?faces-redirect=true";
+    	} else {/*
+    		if (fromUrl.equals("/user/reservation_new_room.xhtml"))
+    			return "/user/reservation_new.xhtml?faces-redirect=true";
+    		if (fromUrl.equals("/user/reservation_new_service.xhtml"))*/
+			return "/user/reservation_new.xhtml?faces-redirect=true";
+    	}
+    	//return "null";    	
+    }
     
     // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
  	// Private methods
@@ -262,6 +311,22 @@ public class ReservationBean implements Serializable {
 
 	public ArrayList<ReservedCommodity> getReservedItems() {
 		return reservedItems;
+	}
+
+	public String getUserEmail() {
+		return userEmail;
+	}
+
+	public void setUserEmail(String userEmail) {
+		this.userEmail = userEmail;
+	}
+
+	public Boolean getErrorUserEmail() {
+		return errorUserEmail;
+	}
+
+	public void setErrorUserEmail(Boolean errorUserEmail) {
+		this.errorUserEmail = errorUserEmail;
 	}
 
 	public Boolean getErrorRequest() {

@@ -1,0 +1,63 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core">
+
+<ui:composition template="../template.xhtml">
+	<ui:param name="title" value="Nová rezervace pro vybraného uživatele" />
+	<ui:param name="role" value="RECEPTIONIST" />
+	<ui:define name="content">
+		<h:form>
+			<h:outputFormat rendered="#{reservationBean.errorRequest}">
+				<div class="alert alert-danger">
+					Chyba: Nepodařilo se rezervovat položky v minulosti.
+				</div>
+			</h:outputFormat>
+			<div class="form-group">
+				<h:commandButton action="#{reservationBean.actionAddRoom}" value="Přidat pokoj" styleClass="btn btn-primary"></h:commandButton>&nbsp;
+				<h:commandButton action="#{reservationBean.actionAddService}" value="Přidat službu" styleClass="btn btn-primary"></h:commandButton>
+			</div>
+
+			<h:messages layout="table" />
+			<h:dataTable value="#{reservationBean.reservedItems}" var="reservedItem" styleClass="table table-striped table-hover">
+				<h:column>
+					<f:facet name="header">
+						<h:outputText value="Položka" />
+					</f:facet>
+					<h:outputText value="#{reservedItem.item.sysid}"></h:outputText>
+				</h:column>
+				<h:column>
+					<f:facet name="header">
+						<h:outputText value="Od" />
+					</f:facet>
+					<h:outputText value="#{reservedItem.from}">
+						<f:convertDateTime type="both" pattern="MM.dd.yyyy HH:mm" />
+					</h:outputText>
+				</h:column>
+				<h:column>
+					<f:facet name="header">
+						<h:outputText value="Do" />
+					</f:facet>
+					<h:outputText value="#{reservedItem.until}">
+						<f:convertDateTime type="both" pattern="MM.dd.yyyy HH:mm" />
+					</h:outputText>
+				</h:column>
+				<h:column styleClass="text-right">
+					<h:commandButton action="#{reservationBean.actionRemoveItemUser}" value="Odstranit" styleClass="btn btn-outline-danger">
+						<f:setPropertyActionListener target="#{reservationBean.removedItem}" value="#{reservedItem}"/>
+					</h:commandButton>
+				</h:column>
+			</h:dataTable>
+			<div class="form-group text-right">
+				<h:commandButton action="#{reservationBean.actionReserve}" value="Rezervovat" styleClass="btn btn-primary" />
+				&nbsp;
+				<h:button outcome="/reservations/reservation_list.xhtml" value="Storno" styleClass="btn btn-outline-secondary" />
+			</div>
+		</h:form>
+	</ui:define>
+</ui:composition>
+
+</html>
