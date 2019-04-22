@@ -91,13 +91,14 @@ public class ReservationBean implements Serializable {
     	allReservations = Reservation.getPendingReservations();
 	}
     
-    public String actionReserve() {
+    public String actionReserve() throws Exception {
     	newReservation = new Reservation(userBean.getLoggedUser());
     	
     	for(ReservedCommodity item: reservedItems) {
     		newReservation.addItem(item);
         }
     	
+    	// todo try catch
     	newReservation.request();
     	reservations = Reservation.findReservationsOfUser(userBean.getLoggedUser());
     	
@@ -155,8 +156,9 @@ public class ReservationBean implements Serializable {
 		return "/user/reservation_new.xhtml?faces-redirect=true";
 	}
     
-    public String actionCancelReservation() {
+    public String actionCancelReservation() throws Exception {
     	// TODO Can be ACCEPTED/REJECTED reservation cancelled?
+    	// TODO try/catch
     	cancelledReservation.cancel();
     	
 		return "/user/reservation_list.xhtml?faces-redirect=true";
@@ -168,13 +170,15 @@ public class ReservationBean implements Serializable {
 		return "/user/reservation_new.xhtml?faces-redirect=true";
 	}
     
-    public String actionAcceptReservation() {
+    public String actionAcceptReservation() throws Exception {
+    	// TODO: try catch
     	acceptedReservation.accept();
     	
 		return "/reservations/reservation_list.xhtml?faces-redirect=true";
 	}
     
-    public String actionDenyReservation() {
+    public String actionDenyReservation() throws Exception {
+    	// TODO: try catch
     	deniedReservation.reject();
     	
 		return "/reservations/reservation_list.xhtml?faces-redirect=true";
