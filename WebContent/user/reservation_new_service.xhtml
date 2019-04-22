@@ -13,28 +13,44 @@
 		<h:form>
 			<h:outputFormat rendered="#{reservationBean.errorSinceNotLessUntil}">
 				<div class="alert alert-danger">
-					Chyba: Čas "Od" není dřív, než "Do".
+					Chyba: Začátek rezervace není dřív, než Konec rezervace.
 				</div>
 			</h:outputFormat>
 			<h:outputFormat rendered="#{reservationBean.errorSinceIsNotFuture}">
 				<div class="alert alert-danger">
-					Chyba: Čas "Od" je v minulosti.
+					Chyba: Začátek rezervace je v minulosti.
 				</div>
 			</h:outputFormat>
 			<h:messages layout="table" globalOnly="true" styleClass="text-danger mb-3" />
-			<div class="form-group">
-				<h:outputLabel value="Od *" />
-				<h:inputText id="form-since" value="#{reservationBean.since}" required="true" requiredMessage="Zadejte prosím začátek rezervace" styleClass="form-control date">
-					<f:convertDateTime pattern="MM.dd.yyyy" />
-				</h:inputText>
-				<h:message for="form-since" styleClass="text-danger" />
+			<h:outputLabel value="Datum a čas začátku *" />
+			<div class="form-row">
+				<div class="form-group col">
+					<h:inputText id="form-since" value="#{reservationBean.sinceDate}" required="true" requiredMessage="Zadejte prosím začátek rezervace" styleClass="form-control date" >
+						<f:convertDateTime pattern="MM.dd.yyyy" />
+					</h:inputText>
+					<h:message for="form-since" styleClass="text-danger" />
+				</div>
+				<div class="form-group col">
+					<h:inputText id="form-since-time" value="#{reservationBean.sinceTime}" required="true" requiredMessage="Zadejte prosím začátek rezervace" styleClass="form-control" >
+						<f:convertDateTime pattern="HH:mm" />
+					</h:inputText>
+					<h:message for="form-since-time" styleClass="text-danger" />
+				</div>
 			</div>
-			<div class="form-group">
-				<h:outputLabel value="Do *" />
-				<h:inputText id="form-until" value="#{reservationBean.until}" required="true" requiredMessage="Zadejte prosím konec rezervace" styleClass="form-control date">
-					<f:convertDateTime pattern="MM.dd.yyyy" />
-				</h:inputText>
-				<h:message for="form-until" styleClass="text-danger" />
+			<h:outputLabel value="Datum a čas konce *" />
+			<div class="form-row">
+				<div class="form-group col">
+					<h:inputText id="form-until" value="#{reservationBean.untilDate}" required="true" requiredMessage="Zadejte prosím konec rezervace" styleClass="form-control date" >
+						<f:convertDateTime pattern="MM.dd.yyyy" />
+					</h:inputText>
+					<h:message for="form-until" styleClass="text-danger" />
+				</div>
+				<div class="form-group col">
+					<h:inputText id="form-until-time" value="#{reservationBean.untilTime}" required="true" requiredMessage="Zadejte prosím konec rezervace" styleClass="form-control" >
+						<f:convertDateTime pattern="HH:mm" />
+					</h:inputText>
+					<h:message for="form-until-time" styleClass="text-danger" />
+				</div>
 			</div>
 			<div class="form-group text-secondary">* povinná pole</div>
 			<div class="form-group text-right">

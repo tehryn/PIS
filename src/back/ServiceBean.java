@@ -57,7 +57,7 @@ public class ServiceBean implements Serializable {
 			private static final long serialVersionUID = 1L;
 
 		{
-			add(new CommodityPrice(newPrice, CommodityPriceCounter.NIGHT, Currency.CZK));
+			add(new CommodityPrice(newPrice, newUnit, Currency.CZK));
 		}};
 		
 		try {

@@ -23,14 +23,14 @@
 			</div>
 			<div class="form-group">
 				<h:outputLabel value="E-mail *" />
-				<h:inputText id="form-email" value="#{userBean.email}" required="true" requiredMessage="Zadejte prosím e-mail" styleClass="form-control" >
+				<h:inputText id="form-email" value="#{userBean.email}" required="true" requiredMessage="Zadejte prosím e-mail" styleClass="form-control" validatorMessage="Zadejte e-mailovou adresu." >
 					<f:validateRegex pattern="^[_A-Za-z0-9-\+]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})$" />
 				</h:inputText>
 				<h:message for="form-email" styleClass="text-danger" />
 			</div>
 			<div class="form-group">
 				<h:outputLabel value="Heslo *" />
-				<h:inputSecret id="form-password" value="#{userBean.password}" required="true" requiredMessage="Zadejte prosím heslo" styleClass="form-control" >
+				<h:inputSecret id="form-password" value="#{userBean.password}" required="true" requiredMessage="Zadejte prosím heslo" styleClass="form-control"  validatorMessage="Heslo musí obsahovat alespoň 1 číslo, 1 malé písmeno a musí být délky 6-20 znaků." >
 					<f:validateRegex pattern="((?=.*\d)(?=.*[a-z]).{6,20})" />
 				</h:inputSecret>
 				<h:message for="form-password" styleClass="text-danger" />

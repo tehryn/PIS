@@ -29,7 +29,7 @@
 						<h:outputText value="Od" />
 					</f:facet>
 					<h:outputText value="#{reservedItem.from}">
-						<f:convertDateTime type="both" pattern="MM.dd.yyyy" />
+						<f:convertDateTime type="both" pattern="MM.dd.yyyy HH:mm" />
 					</h:outputText>
 				</h:column>
 				<h:column>
@@ -37,7 +37,7 @@
 						<h:outputText value="Do" />
 					</f:facet>
 					<h:outputText value="#{reservedItem.until}">
-						<f:convertDateTime type="both" pattern="MM.dd.yyyy" />
+						<f:convertDateTime type="both" pattern="MM.dd.yyyy HH:mm" />
 					</h:outputText>
 				</h:column>
 				<h:column styleClass="text-right">

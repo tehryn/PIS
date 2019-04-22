@@ -2,6 +2,7 @@ package back;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -26,6 +27,10 @@ public class ReservationBean implements Serializable {
 	private ArrayList<ReservedCommodity> reservedItems;
 	private Date since;
 	private Date until;
+	private Date sinceDate;
+	private Date untilDate;
+	private Date sinceTime;
+	private Date untilTime;	
 	private List<Commodity> freeRooms;
 	private List<Commodity> freeServices;
 	private Room reservedRoom;
@@ -53,6 +58,19 @@ public class ReservationBean implements Serializable {
         // Put original constructor code here.
     	reservedItems = new ArrayList<ReservedCommodity>();
     	reservations = Reservation.findReservationsOfUser(userBean.getLoggedUser());
+    	sinceTime = new Date();
+    	untilTime = new Date();
+    	sinceDate = new Date();
+    	untilDate = new Date();
+    	since = new Date();
+    	until = new Date();
+    	
+    	Calendar cal = Calendar.getInstance();
+    	
+    	sinceTime = cal.getTime();
+    	untilTime = cal.getTime();
+    	sinceDate = cal.getTime();
+    	untilDate = cal.getTime();
     }
 	
     public ReservationBean() {
@@ -165,8 +183,33 @@ public class ReservationBean implements Serializable {
     
     // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
  	// Private methods
+    
+    public Date dateTime(Date date, Date time) {
+
+        Calendar aDate = Calendar.getInstance();
+        aDate.setTime(date);
+
+        Calendar aTime = Calendar.getInstance();
+        aTime.setTime(time);
+
+        Calendar aDateTime = Calendar.getInstance();
+        aDateTime.set(Calendar.DAY_OF_MONTH, aDate.get(Calendar.DAY_OF_MONTH));
+        aDateTime.set(Calendar.MONTH, aDate.get(Calendar.MONTH));
+        aDateTime.set(Calendar.YEAR, aDate.get(Calendar.YEAR));
+        aDateTime.set(Calendar.HOUR, aTime.get(Calendar.HOUR));
+        aDateTime.set(Calendar.MINUTE, aTime.get(Calendar.MINUTE));
+        aDateTime.set(Calendar.SECOND, aTime.get(Calendar.SECOND));
+
+        return aDateTime.getTime();
+    }
+    
+    private void updateSinceUntil() {
+    	since = dateTime(sinceDate, sinceTime);
+    	until = dateTime(untilDate, untilTime);
+    }
 
     private Boolean canAddToReservedItems(Commodity newItem) {
+    	updateSinceUntil();
     	for(ReservedCommodity item: reservedItems) {
     		if (item.getItem().getSysid().equals(newItem.getSysid())) {
     			// Time intervals overlap
@@ -181,6 +224,7 @@ public class ReservationBean implements Serializable {
     }
     
     private Boolean isCommoditySearchTimeOK() {
+    	updateSinceUntil();
     	errorSinceNotLessUntil = !since.before(until);
     	errorSinceIsNotFuture = !since.after(new Date()); // new Date() == now
     	return (!errorSinceNotLessUntil) && (!errorSinceIsNotFuture);
@@ -193,6 +237,54 @@ public class ReservationBean implements Serializable {
 
 	public ArrayList<ReservedCommodity> getReservedItems() {
 		return reservedItems;
+	}
+/*
+	public Date getSince() {
+		return since;
+	}
+
+	public void setSince(Date since) {
+		this.since = since;
+	}
+
+	public Date getUntil() {
+		return until;
+	}
+
+	public void setUntil(Date until) {
+		this.until = until;
+	}
+*/
+	public Date getSinceDate() {
+		return sinceDate;
+	}
+
+	public void setSinceDate(Date sinceDate) {
+		this.sinceDate = sinceDate;
+	}
+
+	public Date getUntilDate() {
+		return untilDate;
+	}
+
+	public void setUntilDate(Date untilDate) {
+		this.untilDate = untilDate;
+	}
+
+	public Date getSinceTime() {
+		return sinceTime;
+	}
+
+	public void setSinceTime(Date sinceTime) {
+		this.sinceTime = sinceTime;
+	}
+
+	public Date getUntilTime() {
+		return untilTime;
+	}
+
+	public void setUntilTime(Date untilTime) {
+		this.untilTime = untilTime;
 	}
 
 	public Boolean getErrorCollisionInReservationList() {
@@ -301,22 +393,6 @@ public class ReservationBean implements Serializable {
 
 	public void setFreeRooms(List<Commodity> freeRooms) {
 		this.freeRooms = freeRooms;
-	}
-
-	public Date getSince() {
-		return since;
-	}
-
-	public void setSince(Date since) {
-		this.since = since;
-	}
-
-	public Date getUntil() {
-		return until;
-	}
-
-	public void setUntil(Date until) {
-		this.until = until;
 	}
 
 	
