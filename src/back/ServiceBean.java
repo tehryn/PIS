@@ -7,6 +7,7 @@ import java.util.List;
 import javax.enterprise.context.SessionScoped;
 import javax.inject.Named;
 
+import core.Commodity;
 import core.Hotel;
 import core.Service;
 import datatypes.CommodityPrice;
@@ -14,6 +15,7 @@ import datatypes.CommodityPriceCounter;
 import datatypes.CommodityState;
 import datatypes.CommodityType;
 import datatypes.Currency;
+import queries.Queries;
 
 @Named
 @SessionScoped
@@ -25,6 +27,7 @@ public class ServiceBean implements Serializable {
 	private String newDescription;
 	private CommodityPriceCounter newUnit;
 	private float newPrice;	// CZK
+	private Boolean errorInsert = false;
 	
 	// Editing service
 	private String editedSysid;
@@ -63,9 +66,12 @@ public class ServiceBean implements Serializable {
 		try {
 			hotelMgr.newCommodity(newSysid, newDescription, CommodityType.SERVICE, prices);
 		} catch (Exception e) {
-			// TODO
-			e.printStackTrace();
+			Queries.rollback();
+			errorInsert = true;
+			return "null";
 		}
+		
+		errorInsert = false;
 		return "insert";
 	}
 
@@ -105,8 +111,18 @@ public class ServiceBean implements Serializable {
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	// Getters and Setters
 	
+	
+	
 	public String getNewSysid() {
 		return newSysid;
+	}
+
+	public Boolean getErrorInsert() {
+		return errorInsert;
+	}
+
+	public void setErrorInsert(Boolean errorInsert) {
+		this.errorInsert = errorInsert;
 	}
 
 	public void setNewSysid(String newSysid) {

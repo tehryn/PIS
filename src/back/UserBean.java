@@ -19,6 +19,8 @@ public class UserBean implements Serializable {
 	
 	// For editing or removing user
 	private User editedUser;
+	private Boolean errorInsert = false;
+	private Boolean errorEdit = false;
 
 	// Used for user creating/registration
 	private String newUserFirstName;
@@ -26,6 +28,7 @@ public class UserBean implements Serializable {
 	private String newUserEmail;
 	private String newUserPassword;
 	private UserRole newUserRole;	// not for registration -> REGISTRATED
+	private Boolean errorRegister = false;
     
     // Logging in
 	private String firstName;
@@ -34,6 +37,7 @@ public class UserBean implements Serializable {
 	private String password;
 	private UserRole role = UserRole.VISITOR;
     private User loggedUser;
+    private Boolean errorLogin = false;
     
     // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     // Public methods
@@ -53,14 +57,18 @@ public class UserBean implements Serializable {
 		try {
 			new core.User(newUserFirstName, newUserLastName, newUserEmail, newUserPassword).setRole(newUserRole);
 		} catch (Exception e) {
-			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(e.getMessage()));
+			//FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(e.getMessage()));
+			errorInsert = true;
+			return "null";
 		}
 		
+		errorInsert = false;
 		return "insert";
 	}
 
 	public String actionUpdate() {
-		// TODO
+		
+		errorEdit = false;
 		return "update";
 	}
 
@@ -82,10 +90,11 @@ public class UserBean implements Serializable {
 			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Login successful"));
 			this.role = loggedUser.getRole();
 		} catch (Exception e) {
-			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(e.getMessage()));
-			return "loginFailed";
+			//FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(e.getMessage()));
+			errorLogin = true;
+			return "null";
 		}
-		
+		errorLogin = false;
 		return "/index.xhtml?faces-redirect=true";
 	}
 	
@@ -94,11 +103,14 @@ public class UserBean implements Serializable {
 		try {
 			loggedUser = new core.User(firstName, lastName, email, password);
 		} catch (Exception e) {
-			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(e.getMessage()));
+			//FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(e.getMessage()));
+			errorRegister = true;
+			return "null";
 		}
 		
+		errorRegister = false;
 		this.actionLogin();
-		return "/index.xhtml";
+		return "/index.xhtml?faces-redirect=true";
 	}
 	
 	public boolean hasRole(UserRole role) {
@@ -141,7 +153,39 @@ public class UserBean implements Serializable {
 		return role;
 	}
 	
-    public User getLoggedUser() {
+    public Boolean getErrorEdit() {
+		return errorEdit;
+	}
+
+	public void setErrorEdit(Boolean errorEdit) {
+		this.errorEdit = errorEdit;
+	}
+
+	public Boolean getErrorInsert() {
+		return errorInsert;
+	}
+
+	public void setErrorInsert(Boolean errorInsert) {
+		this.errorInsert = errorInsert;
+	}
+
+	public Boolean getErrorRegister() {
+		return errorRegister;
+	}
+
+	public void setErrorRegister(Boolean errorRegister) {
+		this.errorRegister = errorRegister;
+	}
+
+	public Boolean getErrorLogin() {
+		return errorLogin;
+	}
+
+	public void setErrorLogin(Boolean errorLogin) {
+		this.errorLogin = errorLogin;
+	}
+
+	public User getLoggedUser() {
 		return loggedUser;
 	}
 

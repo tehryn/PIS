@@ -7,6 +7,7 @@ import java.util.List;
 import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
 
+import core.Commodity;
 import core.Hotel;
 import core.Room;
 import datatypes.CommodityPrice;
@@ -14,6 +15,7 @@ import datatypes.CommodityPriceCounter;
 import datatypes.CommodityState;
 import datatypes.CommodityType;
 import datatypes.Currency;
+import queries.Queries;
 
 @Named
 @SessionScoped
@@ -24,6 +26,7 @@ public class RoomBean implements Serializable {
 	private String newSysid;
 	private String newDescription;
 	private float newPrice;	// NIGHT, CZK
+	private Boolean errorInsert = false;
 	
 	// Editing room
 	private String editedSysid;
@@ -61,9 +64,12 @@ public class RoomBean implements Serializable {
 		try {
 			hotelMgr.newCommodity(newSysid, newDescription, CommodityType.ROOM, prices);
 		} catch (Exception e) {
-			// TODO
-			e.printStackTrace();
+			Queries.rollback();
+			errorInsert = true;
+			return "null";
 		}
+		
+		errorInsert = false;
 		return "insert";
 	}
 
@@ -100,11 +106,21 @@ public class RoomBean implements Serializable {
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	// Getters and Setters
 	
+	
+	
 	public String getEditedSysid() {
 		return editedSysid;
 	}
 
 
+
+	public Boolean getErrorInsert() {
+		return errorInsert;
+	}
+
+	public void setErrorInsert(Boolean errorInsert) {
+		this.errorInsert = errorInsert;
+	}
 
 	public void setEditedSysid(String editedSysid) {
 		this.editedSysid = editedSysid;

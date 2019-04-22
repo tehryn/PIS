@@ -51,13 +51,14 @@ public class ReservationBean implements Serializable {
 	
 	
     @Inject
-	private UserBean userBean; 
+	private UserBean userBean;
 
     @PostConstruct
     public void init() {
         // Put original constructor code here.
     	reservedItems = new ArrayList<ReservedCommodity>();
-    	reservations = Reservation.findReservationsOfUser(userBean.getLoggedUser());
+		reservations = Reservation.findReservationsOfUser(userBean.getLoggedUser());
+		//reservations = new ArrayList<Reservation>();
     	sinceTime = new Date();
     	untilTime = new Date();
     	sinceDate = new Date();
