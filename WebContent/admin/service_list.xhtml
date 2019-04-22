@@ -1,0 +1,47 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core">
+
+<ui:composition template="../template.xhtml">
+	<ui:param name="title" value="Služby" />
+	<ui:param name="role" value="MANAGER" />
+	<ui:define name="content">
+		<h:form>
+			<h:commandButton action="#{serviceBean.actionNew}" value="Nová služba" styleClass="btn btn-primary mb-3"></h:commandButton>
+
+			<h:dataTable value="#{serviceBean.services}" var="service" styleClass="table table-striped table-hover">
+				<h:column>
+					<f:facet name="header">
+						<h:outputText value="ID" />
+					</f:facet>
+					<h:outputText value="#{service.sysid}"></h:outputText>
+				</h:column>
+				<h:column>
+					<f:facet name="header">
+						<h:outputText value="Popis" />
+					</f:facet>
+					<h:outputText value="#{service.description}"></h:outputText>
+				</h:column>
+				<h:column styleClass="text-right">
+					<h:commandButton action="#{serviceBean.actionEdit}" value="Upravit" styleClass="btn btn-outline-primary">
+						<f:setPropertyActionListener target="#{serviceBean.editedService}" value="#{service}"/>
+					</h:commandButton>
+					&nbsp;
+					<h:commandButton rendered="#{service.getAvailability() == 'AVAILABLE'}" action="#{serviceBean.actionBlock}" value="Zablokovat" styleClass="btn btn-outline-danger">
+						<f:setPropertyActionListener target="#{serviceBean.editedService}" value="#{service}"/>
+					</h:commandButton>
+					<h:commandButton rendered="#{service.getAvailability() == 'BLOCKED'}" action="#{serviceBean.actionEnable}" value="Zpřístupnit" styleClass="btn btn-outline-primary">
+						<f:setPropertyActionListener target="#{serviceBean.editedService}" value="#{service}"/>
+					</h:commandButton>
+				</h:column>
+			</h:dataTable>
+		</h:form>
+		<p class="mt-5"><h:link outcome="/admin/index.xhtml" value="Zpět do administrace" /></p>
+	</ui:define>
+</ui:composition>
+
+</html>

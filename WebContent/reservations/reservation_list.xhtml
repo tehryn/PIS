@@ -1,0 +1,58 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core">
+
+<ui:composition template="../template.xhtml">
+	<ui:param name="title" value="Rezervace" />
+	<ui:param name="role" value="RECEPTIONIST" />
+	<f:metadata>
+        <f:event type="preRenderView" listener="#{reservationBean.preRenderAllList}"/>
+	</f:metadata>
+	<ui:define name="content">
+		<h:form>
+			<h:dataTable binding="#{table}" value="#{reservationBean.allReservations}" var="reservation" styleClass="table table-striped table-hover">
+				<h:column>
+					<f:facet name="header">
+						<h:outputText value="Číslo rezervace" />
+					</f:facet>
+					<h:outputText value="#{table.rowIndex + 1}"></h:outputText>
+				</h:column>
+				<h:column>
+					<f:facet name="header">
+						<h:outputText value="Cena" />
+					</f:facet>
+					<h:outputText value="#{reservation.getPrice('CZK')}"></h:outputText>
+				</h:column>
+				<h:column>
+					<f:facet name="header">
+						<h:outputText value="Uživatel" />
+					</f:facet>
+					<h:outputText value="#{reservation.getAuthor().getFullName()}"></h:outputText>
+				</h:column>
+				<h:column>
+					<f:facet name="header">
+						<h:outputText value="Stav" />
+					</f:facet>
+					<h:outputText value="#{reservation.getStatus()}"></h:outputText>
+				</h:column>
+				<h:column>
+					<h:commandButton action="#{reservationBean.actionAcceptReservation}" value="Schválit" styleClass="btn btn-outline-primary">
+						<f:setPropertyActionListener target="#{reservationBean.acceptedReservation}" value="#{reservation}"/>
+					</h:commandButton>
+					&nbsp;
+					<h:commandButton action="#{reservationBean.actionDenyReservation}" value="Zamítnout" styleClass="btn btn-outline-danger">
+						<f:setPropertyActionListener target="#{reservationBean.deniedReservation}" value="#{reservation}"/>
+					</h:commandButton>
+				</h:column>
+			</h:dataTable>
+		</h:form>
+
+		<p><h:link outcome="/index.xhtml" value="Zpět na hlavní stránku" /></p>
+	</ui:define>
+</ui:composition>
+
+</html>

@@ -1,0 +1,47 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core">
+
+<ui:composition template="../template.xhtml">
+	<ui:param name="title" value="Pokoje" />
+	<ui:param name="role" value="MANAGER" />
+	<ui:define name="content">
+		<h:form>
+			<h:commandButton action="#{roomBean.actionNew}" value="Nový pokoj" styleClass="btn btn-primary mb-3"></h:commandButton>
+
+			<h:dataTable value="#{roomBean.rooms}" var="room" styleClass="table table-striped table-hover">
+				<h:column>
+					<f:facet name="header">
+						<h:outputText value="ID" />
+					</f:facet>
+					<h:outputText value="#{room.sysid}"></h:outputText>
+				</h:column>
+				<h:column>
+					<f:facet name="header">
+						<h:outputText value="Popis" />
+					</f:facet>
+					<h:outputText value="#{room.description}"></h:outputText>
+				</h:column>
+				<h:column styleClass="text-right">
+					<h:commandButton action="#{roomBean.actionEdit}" value="Upravit" styleClass="btn btn-outline-primary">
+						<f:setPropertyActionListener target="#{roomBean.editedRoom}" value="#{room}"/>
+					</h:commandButton>
+					&nbsp;
+					<h:commandButton rendered="#{room.getAvailability() == 'AVAILABLE'}" action="#{roomBean.actionBlock}" value="Zablokovat" styleClass="btn btn-outline-danger">
+						<f:setPropertyActionListener target="#{roomBean.editedRoom}" value="#{room}"/>
+					</h:commandButton>
+					<h:commandButton rendered="#{room.getAvailability() == 'BLOCKED'}" action="#{roomBean.actionEnable}" value="Zpřístupnit" styleClass="btn btn-outline-primary">
+						<f:setPropertyActionListener target="#{roomBean.editedRoom}" value="#{room}"/>
+					</h:commandButton>
+				</h:column>
+			</h:dataTable>
+		</h:form>
+		<p class="mt-5"><h:link outcome="/admin/index.xhtml" value="Zpět do administrace" /></p>
+	</ui:define>
+</ui:composition>
+
+</html>

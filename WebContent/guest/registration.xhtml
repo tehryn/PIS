@@ -1,0 +1,53 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core">
+
+<ui:composition template="../template.xhtml">
+	<ui:param name="title" value="Registrace" />
+	<ui:define name="content">
+	    <h:form rendered="#{userBean.role == 'VISITOR'}">
+			<h:messages layout="table" globalOnly="true" styleClass="text-danger mb-3" />
+			<div class="form-group">
+				<h:outputLabel value="Jméno *" />
+				<h:inputText id="form-firstname" value="#{userBean.firstName}" required="true" requiredMessage="Zadejte prosím jméno" styleClass="form-control" />
+				<h:message for="form-firstname" styleClass="text-danger" />
+			</div>
+			<div class="form-group">
+				<h:outputLabel value="Příjmení *" />
+				<h:inputText id="form-lastname" value="#{userBean.lastName}" required="true" requiredMessage="Zadejte prosím příjmení" styleClass="form-control" />
+				<h:message for="form-lastname" styleClass="text-danger" />
+			</div>
+			<div class="form-group">
+				<h:outputLabel value="E-mail *" />
+				<h:inputText id="form-email" value="#{userBean.email}" required="true" requiredMessage="Zadejte prosím e-mail" styleClass="form-control" validatorMessage="Zadejte e-mailovou adresu." >
+					<f:validateRegex pattern="^[_A-Za-z0-9-\+]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})$" />
+				</h:inputText>
+				<h:message for="form-email" styleClass="text-danger" />
+			</div>
+			<div class="form-group">
+				<h:outputLabel value="Heslo *" />
+				<h:inputSecret id="form-password" value="#{userBean.password}" required="true" requiredMessage="Zadejte prosím heslo" styleClass="form-control"  validatorMessage="Heslo musí obsahovat alespoň 1 číslo, 1 malé písmeno a musí být délky 6-20 znaků." >
+					<f:validateRegex pattern="((?=.*\d)(?=.*[a-z]).{6,20})" />
+				</h:inputSecret>
+				<h:message for="form-password" styleClass="text-danger" />
+			</div>
+			<div class="form-group text-secondary">* povinná pole</div>
+			<div class="form-group text-right">
+				<h:commandButton action="#{userBean.actionRegister}" value="Zaregistrovat se" styleClass="btn btn-primary" />
+				&nbsp;
+				<h:button outcome="/index.xhtml" value="Storno" styleClass="btn btn-outline-secondary" />
+			</div>
+		</h:form>
+		
+		<h:form rendered="#{userBean.role != 'VISITOR'}">
+			<h:commandButton action="#{userBean.actionLogout}" value="Odhlásit se" styleClass="btn btn-primary"></h:commandButton><br/>
+		</h:form>
+        
+	</ui:define>
+</ui:composition>
+
+</html>
