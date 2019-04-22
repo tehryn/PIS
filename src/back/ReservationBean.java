@@ -48,16 +48,21 @@ public class ReservationBean implements Serializable {
 	private Boolean errorSinceNotLessUntil = false;
 	private Boolean errorSinceIsNotFuture = false;
 	private Boolean errorCollisionInReservationList = false;
+	private Boolean errorRequest = false;
+	private Boolean errorCancel = false;
+	private Boolean errorAccept = false;
+	private Boolean errorDeny = false;
+	
 	
 	
     @Inject
-	private UserBean userBean; 
+	private UserBean userBean;
 
     @PostConstruct
     public void init() {
         // Put original constructor code here.
     	reservedItems = new ArrayList<ReservedCommodity>();
-    	reservations = Reservation.findReservationsOfUser(userBean.getLoggedUser());
+		reservations = Reservation.findReservationsOfUser(userBean.getLoggedUser());
     	sinceTime = new Date();
     	untilTime = new Date();
     	sinceDate = new Date();
@@ -91,14 +96,20 @@ public class ReservationBean implements Serializable {
     	allReservations = Reservation.getPendingReservations();
 	}
     
-    public String actionReserve() {
+    public String actionReserve() throws Exception {
     	newReservation = new Reservation(userBean.getLoggedUser());
     	
     	for(ReservedCommodity item: reservedItems) {
     		newReservation.addItem(item);
         }
     	
-    	newReservation.request();
+    	try {
+    		newReservation.request();
+    	} catch (Exception e) {
+    		errorRequest = true;
+    		return "null";
+    	}
+    	errorRequest = false;
     	reservations = Reservation.findReservationsOfUser(userBean.getLoggedUser());
     	
 		return "/user/reservation_list.xhtml?faces-redirect=true";
@@ -155,10 +166,14 @@ public class ReservationBean implements Serializable {
 		return "/user/reservation_new.xhtml?faces-redirect=true";
 	}
     
-    public String actionCancelReservation() {
-    	// TODO Can be ACCEPTED/REJECTED reservation cancelled?
-    	cancelledReservation.cancel();
-    	
+    public String actionCancelReservation() throws Exception {
+    	try {
+    		cancelledReservation.cancel();
+    	} catch (Exception e) {
+    		errorCancel = true;
+    		return "null";
+    	}
+    	errorCancel = false;
 		return "/user/reservation_list.xhtml?faces-redirect=true";
 	}
     
@@ -168,15 +183,25 @@ public class ReservationBean implements Serializable {
 		return "/user/reservation_new.xhtml?faces-redirect=true";
 	}
     
-    public String actionAcceptReservation() {
-    	acceptedReservation.accept();
-    	
+    public String actionAcceptReservation() throws Exception {
+    	try {
+    		acceptedReservation.accept();
+    	} catch (Exception e) {
+    		errorAccept = true;
+    		return "null";
+    	}
+    	errorAccept = false;
 		return "/reservations/reservation_list.xhtml?faces-redirect=true";
 	}
     
-    public String actionDenyReservation() {
-    	deniedReservation.reject();
-    	
+    public String actionDenyReservation() throws Exception {
+    	try {
+    		deniedReservation.reject();
+		} catch (Exception e) {
+			errorDeny = true;
+			return "null";
+		}
+		errorDeny = false;
 		return "/reservations/reservation_list.xhtml?faces-redirect=true";
 	}
     
@@ -238,23 +263,39 @@ public class ReservationBean implements Serializable {
 	public ArrayList<ReservedCommodity> getReservedItems() {
 		return reservedItems;
 	}
-/*
-	public Date getSince() {
-		return since;
+
+	public Boolean getErrorRequest() {
+		return errorRequest;
 	}
 
-	public void setSince(Date since) {
-		this.since = since;
+	public void setErrorRequest(Boolean errorRequest) {
+		this.errorRequest = errorRequest;
 	}
 
-	public Date getUntil() {
-		return until;
+	public Boolean getErrorCancel() {
+		return errorCancel;
 	}
 
-	public void setUntil(Date until) {
-		this.until = until;
+	public void setErrorCancel(Boolean errorCancel) {
+		this.errorCancel = errorCancel;
 	}
-*/
+
+	public Boolean getErrorAccept() {
+		return errorAccept;
+	}
+
+	public void setErrorAccept(Boolean errorAccept) {
+		this.errorAccept = errorAccept;
+	}
+
+	public Boolean getErrorDeny() {
+		return errorDeny;
+	}
+
+	public void setErrorDeny(Boolean errorDeny) {
+		this.errorDeny = errorDeny;
+	}
+
 	public Date getSinceDate() {
 		return sinceDate;
 	}

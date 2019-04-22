@@ -14,6 +14,11 @@
 	</f:metadata>
 	<ui:define name="content">
 		<h:form>
+			<h:outputFormat rendered="#{reservationBean.errorCancel}">
+				<div class="alert alert-danger">
+					Chyba: Nelze zrušit rezervaci v minulosti.
+				</div>
+			</h:outputFormat>
 			<h:commandButton action="#{reservationBean.actionNew}" value="Nová rezervace" styleClass="btn btn-primary mb-3"></h:commandButton>
 
 			<h:dataTable binding="#{table}" value="#{reservationBean.reservations}" var="reservation" styleClass="table table-striped table-hover">

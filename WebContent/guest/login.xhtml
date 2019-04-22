@@ -10,6 +10,11 @@
 	<ui:param name="title" value="Přihlášení" />
 	<ui:define name="content">
         <h:form rendered="#{userBean.role == 'VISITOR'}">
+        	<h:outputFormat rendered="#{userBean.errorLogin}">
+				<div class="alert alert-danger">
+					Chyba: Nepodařilo se přihlásit.
+				</div>
+			</h:outputFormat>
 			<h:messages layout="table" globalOnly="true" styleClass="text-danger mb-3" />
 			<div class="form-group">
 				<h:outputLabel value="E-mail *" />

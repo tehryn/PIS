@@ -24,6 +24,7 @@ public class RoomBean implements Serializable {
 	private String newSysid;
 	private String newDescription;
 	private float newPrice;	// NIGHT, CZK
+	private Boolean errorInsert = false;
 	
 	// Editing room
 	private String editedSysid;
@@ -49,9 +50,7 @@ public class RoomBean implements Serializable {
 	}
 
 	public String actionInsertNew() {
-		ArrayList<CommodityPrice> prices = new ArrayList<CommodityPrice>(){/**
-			 * 
-			 */
+		ArrayList<CommodityPrice> prices = new ArrayList<CommodityPrice>(){
 			private static final long serialVersionUID = 1L;
 
 		{
@@ -61,9 +60,11 @@ public class RoomBean implements Serializable {
 		try {
 			hotelMgr.newCommodity(newSysid, newDescription, CommodityType.ROOM, prices);
 		} catch (Exception e) {
-			// TODO
-			e.printStackTrace();
+			errorInsert = true;
+			return "null";
 		}
+		
+		errorInsert = false;
 		return "insert";
 	}
 
@@ -100,11 +101,21 @@ public class RoomBean implements Serializable {
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	// Getters and Setters
 	
+	
+	
 	public String getEditedSysid() {
 		return editedSysid;
 	}
 
 
+
+	public Boolean getErrorInsert() {
+		return errorInsert;
+	}
+
+	public void setErrorInsert(Boolean errorInsert) {
+		this.errorInsert = errorInsert;
+	}
 
 	public void setEditedSysid(String editedSysid) {
 		this.editedSysid = editedSysid;

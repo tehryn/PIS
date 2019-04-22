@@ -173,9 +173,12 @@ public class ReservationQueries extends Queries<Reservation> {
 	 * @param commodity object representing commodity
 	 * @param from first date
 	 * @param to second date
-	 * @return true if commodity is reserved, otherwise false
+	 * @return true if commodity is reserved or blocked, otherwise false
 	 */
 	public boolean isCommodityReserved( Commodity commodity, Date from, Date to ) {
+		if ( commodity.getAvailability() == datatypes.CommodityState.BLOCKED ) {
+			return true;
+		}
 		List<Object> params = new ArrayList<Object>();
 		params.add(commodity);
 		params.add(from);

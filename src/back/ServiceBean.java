@@ -25,6 +25,7 @@ public class ServiceBean implements Serializable {
 	private String newDescription;
 	private CommodityPriceCounter newUnit;
 	private float newPrice;	// CZK
+	private Boolean errorInsert = false;
 	
 	// Editing service
 	private String editedSysid;
@@ -51,9 +52,7 @@ public class ServiceBean implements Serializable {
 	}
 
 	public String actionInsertNew() {
-		ArrayList<CommodityPrice> prices = new ArrayList<CommodityPrice>(){/**
-			 * 
-			 */
+		ArrayList<CommodityPrice> prices = new ArrayList<CommodityPrice>(){
 			private static final long serialVersionUID = 1L;
 
 		{
@@ -63,9 +62,11 @@ public class ServiceBean implements Serializable {
 		try {
 			hotelMgr.newCommodity(newSysid, newDescription, CommodityType.SERVICE, prices);
 		} catch (Exception e) {
-			// TODO
-			e.printStackTrace();
+			errorInsert = true;
+			return "null";
 		}
+		
+		errorInsert = false;
 		return "insert";
 	}
 
@@ -105,8 +106,18 @@ public class ServiceBean implements Serializable {
 	// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	// Getters and Setters
 	
+	
+	
 	public String getNewSysid() {
 		return newSysid;
+	}
+
+	public Boolean getErrorInsert() {
+		return errorInsert;
+	}
+
+	public void setErrorInsert(Boolean errorInsert) {
+		this.errorInsert = errorInsert;
 	}
 
 	public void setNewSysid(String newSysid) {

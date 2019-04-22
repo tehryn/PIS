@@ -11,6 +11,11 @@
 	<ui:param name="role" value="REGISTRATED" />
 	<ui:define name="content">
 		<h:form>
+			<h:outputFormat rendered="#{reservationBean.errorRequest}">
+				<div class="alert alert-danger">
+					Chyba: Nepodařilo se rezervovat položky v minulosti.
+				</div>
+			</h:outputFormat>
 			<div class="form-group">
 				<h:commandButton action="#{reservationBean.actionAddRoom}" value="Přidat pokoj" styleClass="btn btn-primary"></h:commandButton>&nbsp;
 				<h:commandButton action="#{reservationBean.actionAddService}" value="Přidat službu" styleClass="btn btn-primary"></h:commandButton>
@@ -46,7 +51,7 @@
 					</h:commandButton>
 				</h:column>
 			</h:dataTable>
-			<div class="form-group text-right">			
+			<div class="form-group text-right">
 				<h:commandButton action="#{reservationBean.actionReserve}" value="Rezervovat" styleClass="btn btn-primary" />
 				&nbsp;
 				<h:button outcome="/user/reservation_list.xhtml" value="Storno" styleClass="btn btn-outline-secondary" />

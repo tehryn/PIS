@@ -14,6 +14,16 @@
 	</f:metadata>
 	<ui:define name="content">
 		<h:form>
+			<h:outputFormat rendered="#{reservationBean.errorAccept}">
+				<div class="alert alert-danger">
+					Chyba: Nelze schválit rezervaci v minulosti.
+				</div>
+			</h:outputFormat>
+			<h:outputFormat rendered="#{reservationBean.errorDeny}">
+				<div class="alert alert-danger">
+					Chyba: Nelze zamítnout rezervaci v minulosti.
+				</div>
+			</h:outputFormat>
 			<h:dataTable binding="#{table}" value="#{reservationBean.allReservations}" var="reservation" styleClass="table table-striped table-hover">
 				<h:column>
 					<f:facet name="header">
