@@ -103,11 +103,11 @@ public class Commodity {
 			resHandle.setAvailability(state);
 		}
 		catch (Exception e) {
-			UserQueries.rollback();
+			CommodityQueries.rollback();
 			throw e;
 		}
 		
-		UserQueries.update();
+		CommodityQueries.update();
 	}
 	
 	public void setPrice(CommodityPrice price) {
@@ -115,11 +115,11 @@ public class Commodity {
 			query.setPrice(resHandle, price.getValue(), price.getValuePer(), price.getCurrency());
 		}
 		catch (Exception e) {
-			UserQueries.rollback();
+			CommodityQueries.rollback();
 			throw e;
 		}
 		
-		UserQueries.update();
+		CommodityQueries.update();
 	}
 	
 	public void setDescription(String description) {
