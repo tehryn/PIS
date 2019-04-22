@@ -7,7 +7,6 @@ import java.util.List;
 import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
 
-import core.Commodity;
 import core.Hotel;
 import core.Room;
 import datatypes.CommodityPrice;
@@ -15,7 +14,6 @@ import datatypes.CommodityPriceCounter;
 import datatypes.CommodityState;
 import datatypes.CommodityType;
 import datatypes.Currency;
-import queries.Queries;
 
 @Named
 @SessionScoped
@@ -52,9 +50,7 @@ public class RoomBean implements Serializable {
 	}
 
 	public String actionInsertNew() {
-		ArrayList<CommodityPrice> prices = new ArrayList<CommodityPrice>(){/**
-			 * 
-			 */
+		ArrayList<CommodityPrice> prices = new ArrayList<CommodityPrice>(){
 			private static final long serialVersionUID = 1L;
 
 		{
@@ -64,7 +60,6 @@ public class RoomBean implements Serializable {
 		try {
 			hotelMgr.newCommodity(newSysid, newDescription, CommodityType.ROOM, prices);
 		} catch (Exception e) {
-			Queries.rollback();
 			errorInsert = true;
 			return "null";
 		}

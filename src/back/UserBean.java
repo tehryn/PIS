@@ -90,7 +90,6 @@ public class UserBean implements Serializable {
 			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Login successful"));
 			this.role = loggedUser.getRole();
 		} catch (Exception e) {
-			//FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(e.getMessage()));
 			errorLogin = true;
 			return "null";
 		}

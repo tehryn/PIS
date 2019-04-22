@@ -58,7 +58,6 @@ public class ReservationBean implements Serializable {
         // Put original constructor code here.
     	reservedItems = new ArrayList<ReservedCommodity>();
 		reservations = Reservation.findReservationsOfUser(userBean.getLoggedUser());
-		//reservations = new ArrayList<Reservation>();
     	sinceTime = new Date();
     	untilTime = new Date();
     	sinceDate = new Date();
